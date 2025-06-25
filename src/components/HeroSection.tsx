@@ -35,18 +35,13 @@ export function HeroSection() {
 
   return (
     <div className="text-center max-w-6xl mx-auto px-4 md:px-6">
-      {/* Main headline - Smaller on mobile */}
+      {/* Main headline - Shorter and punchier */}
       <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-brand-text-dark mb-2 md:mb-6 text-shadow leading-tight">
-        Websites and WebApps from R500
+        websites from R500
       </h2>
 
-      {/* Subheading - Reduced spacing on mobile */}
-      <p className="text-base md:text-lg lg:text-xl text-brand-text-muted mb-6 md:mb-16 max-w-3xl mx-auto leading-relaxed">
-        I build and host your idea for free and you'll only pay if you're happy with the result. I aim to respond within 24hrs with slight delays over weekends.
-      </p>
-
-      {/* Hero input - Much more prominent on mobile */}
-      <form onSubmit={handleSubmit} className="mb-12 md:mb-16">
+      {/* Hero input - Most prominent CTA */}
+      <form onSubmit={handleSubmit} className="mb-6 md:mb-12">
         <div className="relative max-w-5xl mx-auto">
           <AnimatedInput
             value={projectDescription}
@@ -63,6 +58,11 @@ export function HeroSection() {
           </Button>
         </div>
       </form>
+
+      {/* Subheading/Description - Now below the input */}
+      <p className="text-base md:text-lg lg:text-xl text-brand-text-muted mb-6 md:mb-16 max-w-3xl mx-auto leading-relaxed">
+        I build and host your idea for free and you'll only pay if you're happy with the result. I aim to respond within 24hrs with slight delays over weekends.
+      </p>
 
       {/* Combined How it works & Ideal brief Section */}
       <div className="mb-12 md:mb-16 max-w-4xl mx-auto">
