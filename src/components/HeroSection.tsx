@@ -68,19 +68,29 @@ export function HeroSection() {
           </CollapsibleTrigger>
           <CollapsibleContent>
             <div className="glass-effect rounded-xl md:rounded-2xl p-4 md:p-6 mt-3 md:mt-4">
-              <div className="space-y-4 md:space-y-6">
+              <div className="space-y-6 md:space-y-8">
                 <div>
-                  <h4 className="text-brand-text-dark font-semibold mb-2">How w5z works:</h4>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">1. How does w5z work?</h4>
                   <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
-                    Describe what you need in as much detail as you like. I'll email you a quote, 
-                    build and host your site for free, and you can request up to 3 rounds of tweaks on your initial idea. 
-                    <span className="text-brand-green font-semibold"> Only pay if you love it.</span>
+                    Describe what you need in as much detail as you like. I'll email you a quote, build and host your site for free, and you only pay if you're happy with the result. I aim to respond within 24hrs, with slight delays over weekends.
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-brand-text-dark font-semibold mb-2">What makes an ideal brief:</h4>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">2. What makes an ideal brief?</h4>
                   <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
                     The ideal brief tells me a little about your business, who your website is for, and what you want it to do. The more details, the better—but if you only have a rough idea or just the start of your concept, I'll do my best to fill in the rest. <span className="text-brand-green font-semibold">You don't need to have it all figured out!</span>
+                  </p>
+                </div>
+                <div>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">3. What happens if I want changes to my site?</h4>
+                  <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
+                    I include all reasonable tweaks and adjustments during the build—my goal is that you love the final result! After you sign off and your site is live, any major changes or new features are quoted separately, so you're always in control.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">4. Can I get my site's code or move it later?</h4>
+                  <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
+                    Yes! If you want to host your site yourself or move it to your own domain in the future, I can provide the code or assist with the transfer for a small, once-off fee.
                   </p>
                 </div>
               </div>
