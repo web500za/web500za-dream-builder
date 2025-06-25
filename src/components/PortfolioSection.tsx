@@ -1,4 +1,3 @@
-
 import { Card } from "@/components/ui/card";
 import { Play } from "lucide-react";
 
@@ -33,10 +32,10 @@ export function PortfolioSection() {
   return (
     <div className="max-w-6xl mx-auto px-6">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-white mb-4 text-shadow">
+        <h2 className="text-4xl font-bold text-brand-text-dark mb-4 text-shadow">
           Recent Projects
         </h2>
-        <p className="text-xl text-white/90 max-w-2xl mx-auto">
+        <p className="text-xl text-brand-text-muted max-w-2xl mx-auto">
           See what I've built for other clients. Each project is custom-designed 
           and built to meet specific needs.
         </p>
@@ -44,7 +43,7 @@ export function PortfolioSection() {
 
       <div className="grid md:grid-cols-2 gap-8">
         {projects.map((project, index) => (
-          <Card key={index} className="glass-effect border-white/20 overflow-hidden group hover:scale-105 transition-all duration-300">
+          <Card key={index} className="glass-effect border-brand-green/20 overflow-hidden group hover:scale-105 transition-all duration-300">
             <div className="relative">
               <img 
                 src={project.image} 
@@ -52,7 +51,7 @@ export function PortfolioSection() {
                 className="w-full h-48 object-cover"
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <button className="bg-brand-green text-white p-4 rounded-full hover:bg-brand-green/90 transition-colors">
+                <button className="bg-brand-green text-white p-4 rounded-full hover:bg-brand-green-light transition-colors">
                   <Play className="h-8 w-8" />
                 </button>
               </div>
@@ -63,8 +62,8 @@ export function PortfolioSection() {
               </div>
             </div>
             <div className="p-6">
-              <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
-              <p className="text-white/80">{project.description}</p>
+              <h3 className="text-xl font-semibold text-brand-text-dark mb-2">{project.title}</h3>
+              <p className="text-brand-text-muted">{project.description}</p>
             </div>
           </Card>
         ))}

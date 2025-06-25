@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -53,12 +52,14 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Custom brand colors
 				brand: {
-					purple: '#7c3aed', // Deep purplish-blue
-					green: '#41976b',  // Brand green from logo
-					'purple-dark': '#5b21b6', // Darker purple for accents
-					'purple-light': '#a855f7', // Lighter purple for backgrounds
+					green: '#2d5a3d', // Deep forest green
+					'green-light': '#4a7c59', // Lighter green for accents
+					eggshell: '#f8f6f1', // Light eggshell/cream
+					'eggshell-dark': '#e8e4d8', // Slightly darker eggshell
+					'eggshell-light': '#fdfcf8', // Very light eggshell
+					'text-dark': '#2c2a26', // Dark text for contrast
+					'text-muted': '#6b675f', // Muted text color
 				}
 			},
 			borderRadius: {
@@ -67,7 +68,9 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			fontFamily: {
+				serif: ["Playfair Display", "Georgia", "serif"],
 				sans: ['Inter', 'system-ui', 'sans-serif'],
+				mono: ["JetBrains Mono", "monospace"],
 			},
 			keyframes: {
 				'accordion-down': {

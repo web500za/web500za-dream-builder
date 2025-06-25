@@ -1,10 +1,10 @@
-
 import { useState } from "react";
 import { BrandHeader } from "@/components/BrandHeader";
 import { NavigationToggle } from "@/components/NavigationToggle";
 import { HeroSection } from "@/components/HeroSection";
 import { PortfolioSection } from "@/components/PortfolioSection";
 import { AboutSection } from "@/components/AboutSection";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
 
 const Index = () => {
   const [currentSection, setCurrentSection] = useState("quote");
@@ -21,6 +21,8 @@ const Index = () => {
         return <PortfolioSection />;
       case "about":
         return <AboutSection onNavigateToQuote={handleNavigateToQuote} />;
+      case "testimonials":
+        return <TestimonialsSection />;
       default:
         return <HeroSection />;
     }
@@ -29,10 +31,10 @@ const Index = () => {
   return (
     <div className="min-h-screen w-full relative overflow-hidden">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-purple via-brand-purple-dark to-brand-purple" />
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-eggshell via-brand-eggshell-light to-brand-eggshell-dark" />
       
       {/* Content */}
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center py-12">
+      <div className="relative z-20 min-h-screen flex flex-col items-center justify-center py-12">
         <div className="w-full max-w-7xl mx-auto">
           <BrandHeader />
           
@@ -46,11 +48,6 @@ const Index = () => {
           </div>
         </div>
       </div>
-
-      {/* Decorative elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-brand-green/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-48 h-48 bg-white/5 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-brand-green/20 rounded-full blur-2xl" />
     </div>
   );
 };

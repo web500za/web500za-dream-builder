@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 
 interface NavigationToggleProps {
@@ -10,7 +9,8 @@ export function NavigationToggle({ onSectionChange, currentSection }: Navigation
   const sections = [
     { id: "quote", label: "Quote" },
     { id: "portfolio", label: "Portfolio" },
-    { id: "about", label: "About Me" }
+    { id: "about", label: "About Me" },
+    { id: "testimonials", label: "Testimonials" }
   ];
 
   return (
@@ -22,10 +22,10 @@ export function NavigationToggle({ onSectionChange, currentSection }: Navigation
               key={section.id}
               onClick={() => onSectionChange(section.id)}
               className={cn(
-                "px-5 py-2.5 md:px-6 md:py-3 rounded-xl text-base font-medium transition-all duration-300 relative overflow-hidden min-w-[90px] md:min-w-[110px]",
+                "px-4 py-2.5 md:px-5 md:py-3 rounded-xl text-sm md:text-base font-medium transition-all duration-300 relative overflow-hidden min-w-[80px] md:min-w-[100px]",
                 currentSection === section.id
                   ? "bg-brand-green text-white shadow-md transform scale-102"
-                  : "text-white/80 hover:text-white hover:bg-white/10 hover:scale-101"
+                  : "text-brand-text-muted hover:text-brand-text-dark hover:bg-brand-green/5 hover:scale-101"
               )}
             >
               <span className="relative z-10">{section.label}</span>
