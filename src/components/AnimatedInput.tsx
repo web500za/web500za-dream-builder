@@ -11,13 +11,13 @@ interface AnimatedInputProps {
 }
 
 export function AnimatedInput({ value, onChange, className, onSubmit }: AnimatedInputProps) {
-  const [placeholderText, setPlaceholderText] = useState("Tell me what you want me to build you");
-  const [showDots, setShowDots] = useState(false);
+  const [placeholderText, setPlaceholderText] = useState("Tell me what you want me to build for you");
+  const [dotCount, setDotCount] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setShowDots(prev => !prev);
-    }, 1200);
+      setDotCount(prev => (prev + 1) % 4); // Cycles from 0 to 3, then back to 0
+    }, 500);
 
     return () => clearInterval(interval);
   }, []);
@@ -28,10 +28,12 @@ export function AnimatedInput({ value, onChange, className, onSubmit }: Animated
     }
   };
 
+  const dots = '.'.repeat(dotCount);
+
   return (
     <Input
       type="text"
-      placeholder={`${placeholderText}${showDots ? '...' : ''}`}
+      placeholder={`${placeholderText}${dots}`}
       value={value}
       onChange={onChange}
       onKeyPress={handleKeyPress}
