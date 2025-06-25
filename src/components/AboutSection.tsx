@@ -34,9 +34,6 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
   return (
     <div className="max-w-4xl mx-auto px-6">
       <div className="text-center mb-10">
-        <h2 className="text-3xl font-bold text-brand-text-dark mb-3 text-shadow">
-          About Me
-        </h2>
         <div className="flex justify-center space-x-4 mb-6">
           {socialLinks.map((social, index) => (
             <a
@@ -51,51 +48,42 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-10 items-center mb-10">
-        {/* Profile Section */}
-        <div className="text-center md:text-left">
-          <div className="w-40 h-40 mx-auto md:mx-0 mb-6 rounded-full overflow-hidden">
-            <img 
-              src="/lovable-uploads/8b733c1a-7b6c-4da3-95c5-58519bb624c6.png" 
-              alt="Jared" 
-              className="w-full h-full object-cover object-center"
-            />
-          </div>
-          <p className="text-brand-text-muted leading-relaxed mb-4">
-            Since I jailbroke my first iPhone in 2009, I've been hooked on the intersection between technology and creativity. That early curiosity about how things work—and how to make them work better—has driven everything I do.
-          </p>
-          <p className="text-brand-text-muted leading-relaxed mb-4">
-            Today, I work in Cybersecurity, which has taught me the value of secure, well-functioning websites (and what can go wrong when things aren't built right). I started web500za to combine that technical background with a creative approach—helping local entrepreneurs get reliable, great-looking sites, minus the big agency price tags.
-          </p>
-          <p className="text-brand-text-muted leading-relaxed">
-            If you want a website or webapp that just works—and is a little more "you"—I'd love to help bring your idea online.
-          </p>
+      {/* Photo Section */}
+      <div className="text-center mb-8">
+        <div className="w-48 h-48 md:w-80 md:h-80 mx-auto mb-6 rounded-lg overflow-hidden border-2 border-brand-green">
+          <img 
+            src="/lovable-uploads/about-childhood-pc.jpg" 
+            alt="Me at my first PC, circa 2002" 
+            className="w-full h-full object-cover object-center"
+          />
         </div>
+        <p className="text-brand-text-muted text-sm italic">
+          <span className="font-semibold">Me at my first PC, circa 2002</span>
+        </p>
+      </div>
 
-        {/* Contact Card */}
-        <Card className="glass-effect border-brand-green/20 p-6">
-          <h4 className="text-lg font-semibold text-brand-text-dark mb-5">Get In Touch</h4>
-          <div className="space-y-3">
-            <div className="flex items-center text-brand-text-muted">
-              <Mail className="h-4 w-4 text-brand-green mr-3" />
-              <span className="text-sm">web500za@gmail.com</span>
-            </div>
-            <div className="flex items-center text-brand-text-muted">
-              <Phone className="h-4 w-4 text-brand-green mr-3" />
-              <span className="text-sm">083 254 0891</span>
-            </div>
-            <div className="flex items-center text-brand-text-muted">
-              <MapPin className="h-4 w-4 text-brand-green mr-3" />
-              <span className="text-sm">South Africa</span>
-            </div>
-          </div>
-          <Button 
-            onClick={onNavigateToQuote}
-            className="w-full mt-5 bg-brand-green hover:bg-brand-green-light text-white"
-          >
-            Start Your Project
-          </Button>
-        </Card>
+      {/* About Text Content */}
+      <div className="max-w-3xl mx-auto text-center mb-10">
+        <p className="text-brand-text-muted leading-relaxed mb-4">
+          Since I jailbroke my first iPhone in 2009, I've been hooked on the intersection between technology and creativity. That early curiosity about how things work—and how to make them work better—has driven everything I do.
+        </p>
+        <p className="text-brand-text-muted leading-relaxed mb-4">
+          Today, I work in Cybersecurity, which has taught me the value of secure, well-functioning websites (and what can go wrong when things aren't built right). I started web500za to combine that technical background with a creative approach—helping local entrepreneurs get reliable, great-looking sites, minus the big agency price tags.
+        </p>
+        <p className="text-brand-text-muted leading-relaxed">
+          If you want a website or webapp that just works—and is a little more "you"—I'd love to help bring your idea online.
+        </p>
+      </div>
+
+      {/* Work With Me CTA */}
+      <div className="text-center mb-10">
+        <h4 className="text-xl font-semibold text-brand-text-dark mb-4">Ready to bring your idea online?</h4>
+        <Button 
+          onClick={onNavigateToQuote}
+          className="bg-brand-green hover:bg-brand-green-light text-white px-8 py-3 text-lg"
+        >
+          Work With Me
+        </Button>
       </div>
 
       {/* Values */}

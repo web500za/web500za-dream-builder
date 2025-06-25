@@ -52,7 +52,7 @@ export function HeroSection() {
             value={projectDescription}
             onChange={(e) => setProjectDescription(e.target.value)}
             onSubmit={handleSubmit}
-            className="w-full h-20 md:h-24 lg:h-28 text-lg md:text-xl px-8 md:px-10 lg:px-12 pr-24 md:pr-28 lg:pr-32 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:ring-4 focus:ring-brand-green/30 focus:shadow-[0_12px_48px_rgba(45,90,61,0.25)] focus:border-brand-green/40 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
+            className="w-full h-20 md:h-24 lg:h-28 text-lg md:text-xl px-8 md:px-10 lg:px-12 pr-24 md:pr-28 lg:pr-32 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-4 focus:ring-brand-green/40 focus:shadow-[0_16px_64px_rgba(45,90,61,0.35)] focus:border-brand-green/60 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
           />
           <Button
             type="submit"
