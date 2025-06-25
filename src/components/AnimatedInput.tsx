@@ -17,7 +17,7 @@ export function AnimatedInput({ value, onChange, className, onSubmit }: Animated
   useEffect(() => {
     const interval = setInterval(() => {
       setShowDots(prev => !prev);
-    }, 1000);
+    }, 1200);
 
     return () => clearInterval(interval);
   }, []);
@@ -35,7 +35,10 @@ export function AnimatedInput({ value, onChange, className, onSubmit }: Animated
       value={value}
       onChange={onChange}
       onKeyPress={handleKeyPress}
-      className={cn(className)}
+      className={cn(
+        "placeholder:opacity-70 placeholder:transition-opacity placeholder:duration-300",
+        className
+      )}
     />
   );
 }

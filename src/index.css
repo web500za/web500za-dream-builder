@@ -103,15 +103,23 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Animated dots for placeholder */
-  @keyframes dot-blink {
-    0%, 20% { opacity: 0; }
+  /* Enhanced placeholder animation */
+  @keyframes placeholder-pulse {
+    0%, 100% { opacity: 0.7; }
     50% { opacity: 1; }
-    80%, 100% { opacity: 0; }
   }
 
-  .animate-dots::after {
-    content: '...';
-    animation: dot-blink 2s infinite;
+  .animate-placeholder {
+    animation: placeholder-pulse 2s ease-in-out infinite;
+  }
+
+  /* Hover scale utilities */
+  .hover\:scale-102:hover {
+    transform: scale(1.02);
+  }
+
+  /* Input glow effect */
+  .input-glow:focus-within {
+    box-shadow: 0 0 30px rgba(65, 151, 107, 0.3);
   }
 }

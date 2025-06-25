@@ -36,10 +36,10 @@ export function AboutSection() {
       <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
         {/* Profile Section */}
         <div className="text-center md:text-left">
-          <div className="w-32 h-32 mx-auto md:mx-0 mb-6">
+          <div className="w-40 h-20 mx-auto md:mx-0 mb-6">
             <img 
-              src="/lovable-uploads/35083073-dd64-4fb1-b2c6-607a1c149bdb.png" 
-              alt="Jared - web500za" 
+              src="/lovable-uploads/d7073b2e-ab29-446c-8a1f-9dbfdb899a9e.png" 
+              alt="web500za" 
               className="w-full h-full object-contain"
             />
           </div>
