@@ -29,26 +29,27 @@ export function AboutSection() {
           About Me
         </h2>
         <p className="text-xl text-white/90">
-          Hi, I'm the developer behind web500za
+          Hi, I'm Jared
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
         {/* Profile Section */}
         <div className="text-center md:text-left">
-          <div className="w-32 h-32 bg-brand-green rounded-full mx-auto md:mx-0 mb-6 flex items-center justify-center">
-            <span className="text-4xl font-bold text-white">JD</span>
+          <div className="w-32 h-32 mx-auto md:mx-0 mb-6">
+            <img 
+              src="/lovable-uploads/35083073-dd64-4fb1-b2c6-607a1c149bdb.png" 
+              alt="Jared - web500za" 
+              className="w-full h-full object-contain"
+            />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-4">John Developer</h3>
-          <p className="text-white/90 leading-relaxed mb-6">
-            I'm a full-stack developer with over 5 years of experience building 
-            web applications for businesses across South Africa. I believe in 
-            creating beautiful, functional websites that help businesses grow.
+          <h3 className="text-2xl font-bold text-white mb-4">Jared</h3>
+          <p className="text-white/90 leading-relaxed mb-4">
+            I'm a 90s baby that grew up around gaming and technology, but I've always been a creative at heart. 
+            Blending the two is where I feel like I'm most in my zone.
           </p>
           <p className="text-white/90 leading-relaxed">
-            My unique "pay-if-happy" model means you get to see your complete 
-            website before making any payment. It's my way of ensuring you get 
-            exactly what you need.
+            I work in Cybersecurity but I love building things, and this is where the idea for web500za comes from.
           </p>
         </div>
 
@@ -58,15 +59,15 @@ export function AboutSection() {
           <div className="space-y-4">
             <div className="flex items-center text-white/90">
               <Mail className="h-5 w-5 text-brand-green mr-3" />
-              <span>hello@web500za.com</span>
+              <span>web500za@gmail.com</span>
             </div>
             <div className="flex items-center text-white/90">
               <Phone className="h-5 w-5 text-brand-green mr-3" />
-              <span>+27 82 123 4567</span>
+              <span>083 254 0891</span>
             </div>
             <div className="flex items-center text-white/90">
               <MapPin className="h-5 w-5 text-brand-green mr-3" />
-              <span>Cape Town, South Africa</span>
+              <span>South Africa</span>
             </div>
           </div>
           <Button className="w-full mt-6 bg-brand-green hover:bg-brand-green/90">

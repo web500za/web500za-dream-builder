@@ -1,6 +1,5 @@
 
 import { useState } from "react";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { NavigationToggle } from "@/components/NavigationToggle";
 import { HeroSection } from "@/components/HeroSection";
 import { PortfolioSection } from "@/components/PortfolioSection";
@@ -29,8 +28,6 @@ const Index = () => {
       
       {/* Content */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center py-12">
-        <ThemeToggle />
-        
         <div className="w-full max-w-7xl mx-auto">
           <NavigationToggle 
             currentSection={currentSection}

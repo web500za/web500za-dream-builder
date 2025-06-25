@@ -1,15 +1,17 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Send } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { AnimatedInput } from "@/components/AnimatedInput";
+import { Send, ChevronDown } from "lucide-react";
 
 export function HeroSection() {
   const [projectDescription, setProjectDescription] = useState("");
+  const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     console.log("Project description:", projectDescription);
     // Handle form submission
   };
@@ -36,8 +38,12 @@ export function HeroSection() {
     <div className="text-center max-w-4xl mx-auto px-6">
       {/* Logo */}
       <div className="mb-8">
-        <div className="w-20 h-20 mx-auto bg-brand-green rounded-2xl flex items-center justify-center mb-4">
-          <span className="text-2xl font-bold text-white">W5</span>
+        <div className="w-24 h-24 mx-auto mb-4">
+          <img 
+            src="/lovable-uploads/35083073-dd64-4fb1-b2c6-607a1c149bdb.png" 
+            alt="web500za logo" 
+            className="w-full h-full object-contain"
+          />
         </div>
         <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 text-shadow">
           web500za
@@ -54,33 +60,47 @@ export function HeroSection() {
         I build and host your idea for free—and you'll only pay if you're happy with the result.
       </p>
 
-      {/* Hero input */}
-      <form onSubmit={handleSubmit} className="mb-12">
-        <div className="relative max-w-2xl mx-auto">
-          <Input
-            type="text"
-            placeholder="Tell me what you want me to build you"
+      {/* Hero input - made bigger */}
+      <form onSubmit={handleSubmit} className="mb-8">
+        <div className="relative max-w-3xl mx-auto">
+          <AnimatedInput
             value={projectDescription}
             onChange={(e) => setProjectDescription(e.target.value)}
-            className="w-full h-16 text-lg px-6 pr-16 bg-white/95 backdrop-blur-md border-0 rounded-2xl shadow-2xl placeholder:text-gray-500 text-gray-900 focus:ring-2 focus:ring-brand-green"
+            onSubmit={handleSubmit}
+            className="w-full h-20 text-xl px-8 pr-20 bg-white/95 backdrop-blur-md border-0 rounded-2xl shadow-2xl placeholder:text-gray-500 text-gray-900 focus:ring-2 focus:ring-brand-green"
           />
           <Button
             type="submit"
             size="icon"
-            className="absolute right-2 top-2 h-12 w-12 bg-brand-green hover:bg-brand-green/90 rounded-xl"
+            className="absolute right-3 top-3 h-14 w-14 bg-brand-green hover:bg-brand-green/90 rounded-xl"
           >
-            <Send className="h-5 w-5" />
+            <Send className="h-6 w-6" />
           </Button>
         </div>
       </form>
 
-      {/* Quote workflow explanation */}
-      <div className="glass-effect rounded-2xl p-8 mb-12 max-w-3xl mx-auto">
-        <p className="text-white/90 text-lg leading-relaxed">
-          Describe what you need in as much detail as you like. I'll email you a quote, 
-          build and host your site for free, and you can request up to 3 rounds of tweaks. 
-          <span className="text-brand-green font-semibold"> Only pay if you love it.</span>
-        </p>
+      {/* Quote response time */}
+      <p className="text-white/80 text-sm mb-8">
+        I aim to respond within 24hrs with slight delays over weekends
+      </p>
+
+      {/* How w5z works - expandable */}
+      <div className="mb-12 max-w-3xl mx-auto">
+        <Collapsible open={isWorkflowOpen} onOpenChange={setIsWorkflowOpen}>
+          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-2xl p-4 text-white hover:bg-white/10 transition-colors">
+            <span className="text-lg font-medium mr-2">How w5z works</span>
+            <ChevronDown className={`h-5 w-5 transition-transform ${isWorkflowOpen ? 'rotate-180' : ''}`} />
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <div className="glass-effect rounded-2xl p-8 mt-4">
+              <p className="text-white/90 text-lg leading-relaxed">
+                Describe what you need in as much detail as you like. I'll email you a quote, 
+                build and host your site for free, and you can request up to 3 rounds of tweaks on your initial idea. 
+                <span className="text-brand-green font-semibold"> Only pay if you love it.</span>
+              </p>
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
       </div>
 
       {/* Price cards */}
