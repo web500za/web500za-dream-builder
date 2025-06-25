@@ -14,7 +14,7 @@ export function NavigationToggle({ onSectionChange, currentSection }: Navigation
   ];
 
   return (
-    <div className="flex items-center justify-center mb-8 md:mb-12">
+    <div className="flex items-center justify-center mb-4 md:mb-12">
       <div className="glass-effect rounded-xl md:rounded-2xl p-1.5 md:p-2 backdrop-blur-md shadow-lg">
         <div className="flex space-x-0.5 md:space-x-1">
           {sections.map((section) => (

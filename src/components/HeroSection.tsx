@@ -36,30 +36,30 @@ export function HeroSection() {
   return (
     <div className="text-center max-w-6xl mx-auto px-4 md:px-6">
       {/* Main headline - Smaller on mobile */}
-      <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-brand-text-dark mb-4 md:mb-6 text-shadow leading-tight">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-brand-text-dark mb-2 md:mb-6 text-shadow leading-tight">
         Websites and WebApps from R500
       </h2>
 
       {/* Subheading - Reduced spacing on mobile */}
-      <p className="text-base md:text-lg lg:text-xl text-brand-text-muted mb-8 md:mb-16 max-w-3xl mx-auto leading-relaxed">
+      <p className="text-base md:text-lg lg:text-xl text-brand-text-muted mb-6 md:mb-16 max-w-3xl mx-auto leading-relaxed">
         I build and host your idea for free and you'll only pay if you're happy with the result. I aim to respond within 24hrs with slight delays over weekends.
       </p>
 
-      {/* Hero input - More compact on mobile */}
+      {/* Hero input - Much more prominent on mobile */}
       <form onSubmit={handleSubmit} className="mb-12 md:mb-16">
         <div className="relative max-w-5xl mx-auto">
           <AnimatedInput
             value={projectDescription}
             onChange={(e) => setProjectDescription(e.target.value)}
             onSubmit={handleSubmit}
-            className="w-full h-16 md:h-20 lg:h-24 xl:h-28 text-base md:text-lg lg:text-xl xl:text-2xl px-6 md:px-8 lg:px-10 xl:px-12 pr-20 md:pr-24 lg:pr-28 xl:pr-32 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl md:rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-4 focus:ring-brand-green/40 focus:shadow-[0_16px_64px_rgba(45,90,61,0.35)] focus:border-brand-green/60 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
+            className="w-full h-20 md:h-20 lg:h-24 xl:h-28 text-lg md:text-lg lg:text-xl xl:text-2xl px-6 md:px-8 lg:px-10 xl:px-12 pr-20 md:pr-24 lg:pr-28 xl:pr-32 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl md:rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-4 focus:ring-brand-green/40 focus:shadow-[0_16px_64px_rgba(45,90,61,0.35)] focus:border-brand-green/60 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
           />
           <Button
             type="submit"
             size="icon"
-            className="absolute right-3 md:right-4 lg:right-6 xl:right-8 top-1/2 -translate-y-1/2 h-12 md:h-14 lg:h-16 xl:h-18 w-12 md:w-14 lg:w-16 xl:w-18 bg-brand-green hover:bg-brand-green-light text-white rounded-xl md:rounded-2xl shadow-xl transition-all duration-300 hover:scale-110"
+            className="absolute right-3 md:right-4 lg:right-6 xl:right-8 top-1/2 -translate-y-1/2 h-16 md:h-14 lg:h-16 xl:h-18 w-16 md:w-14 lg:w-16 xl:w-18 bg-brand-green hover:bg-brand-green-light text-white rounded-xl md:rounded-2xl shadow-xl transition-all duration-300 hover:scale-110"
           >
-            <Send className="h-6 md:h-8 lg:h-10 xl:h-12 w-6 md:w-8 lg:w-10 xl:w-12 text-white" />
+            <Send className="h-8 md:h-8 lg:h-10 xl:h-12 w-8 md:w-8 lg:w-10 xl:w-12 text-white" />
           </Button>
         </div>
       </form>

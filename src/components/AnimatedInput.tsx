@@ -31,7 +31,7 @@ export function AnimatedInput({ value, onChange, className, onSubmit }: Animated
   return (
     <Input
       type="text"
-      placeholder={`Tell me what you want me to build for you${dots}`}
+      placeholder={`What should I build for you${dots}`}
       value={value}
       onChange={onChange}
       onKeyPress={handleKeyPress}

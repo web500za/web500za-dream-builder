@@ -2,8 +2,8 @@ import React from 'react';
 
 export function BrandHeader() {
   return (
-    <div className="text-center mb-8 md:mb-16">
-      <div className="flex flex-col md:flex-row items-center justify-center mb-4 md:mb-8">
+    <div className="text-center mb-4 md:mb-16">
+      <div className="flex flex-col md:flex-row items-center justify-center mb-2 md:mb-8">
         {/* SVG Logo - Larger on mobile, smaller on desktop */}
         <svg 
           width="200" 
