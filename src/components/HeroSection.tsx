@@ -35,8 +35,8 @@ export function HeroSection() {
 
   return (
     <div className="text-center max-w-6xl mx-auto px-4 md:px-6">
-      {/* Main headline - Shorter and punchier */}
-      <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-brand-text-dark mb-2 md:mb-6 text-shadow leading-tight">
+      {/* Main headline - Hidden on mobile, shown on desktop */}
+      <h2 className="hidden md:block text-4xl lg:text-5xl xl:text-6xl font-bold text-brand-text-dark mb-6 text-shadow leading-tight">
         websites from R500
       </h2>
 
@@ -59,9 +59,9 @@ export function HeroSection() {
         </div>
       </form>
 
-      {/* Subheading/Description - Now below the input */}
+      {/* CTA-driven description */}
       <p className="text-base md:text-lg lg:text-xl text-brand-text-muted mb-6 md:mb-16 max-w-3xl mx-auto leading-relaxed">
-        I build and host your idea for free and you'll only pay if you're happy with the result. I aim to respond within 24hrs with slight delays over weekends.
+        Get your website built and hosted for free. <span className="font-bold text-brand-green">From R500</span> when you love it. Describe your idea above and I'll respond within 24hrs.
       </p>
 
       {/* Combined How it works & Ideal brief Section */}
