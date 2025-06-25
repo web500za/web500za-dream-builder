@@ -35,11 +35,6 @@ export function HeroSection() {
 
   return (
     <div className="text-center max-w-6xl mx-auto px-4 md:px-6">
-      {/* Main headline - Hidden on mobile, shown on desktop */}
-      <h2 className="hidden md:block text-4xl lg:text-5xl xl:text-6xl font-bold text-brand-text-dark mb-6 text-shadow leading-tight">
-        websites from R500
-      </h2>
-
       {/* Hero input - Most prominent CTA */}
       <form onSubmit={handleSubmit} className="mb-6 md:mb-12">
         <div className="relative max-w-5xl mx-auto">
@@ -47,7 +42,7 @@ export function HeroSection() {
             value={projectDescription}
             onChange={(e) => setProjectDescription(e.target.value)}
             onSubmit={handleSubmit}
-            className="w-full h-20 md:h-20 lg:h-24 xl:h-28 text-lg md:text-lg lg:text-xl xl:text-2xl px-6 md:px-8 lg:px-10 xl:px-12 pr-20 md:pr-24 lg:pr-28 xl:pr-32 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl md:rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-4 focus:ring-brand-green/40 focus:shadow-[0_16px_64px_rgba(45,90,61,0.35)] focus:border-brand-green/60 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
+            className="w-full h-20 md:h-20 lg:h-24 xl:h-28 text-lg md:text-lg lg:text-xl xl:text-2xl px-6 md:px-8 lg:px-10 xl:px-12 pr-20 md:pr-24 lg:pr-28 xl:pr-32 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl md:rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-0 focus:shadow-[0_20px_80px_rgba(45,90,61,0.4)] focus:border-brand-green/80 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
           />
           <Button
             type="submit"
@@ -59,9 +54,9 @@ export function HeroSection() {
         </div>
       </form>
 
-      {/* CTA-driven description */}
+      {/* Compelling CTA-driven description */}
       <p className="text-base md:text-lg lg:text-xl text-brand-text-muted mb-6 md:mb-16 max-w-3xl mx-auto leading-relaxed">
-        Get your website built and hosted for free. <span className="font-bold text-brand-green">From R500</span> when you love it. Describe your idea above and I'll respond within 24hrs.
+        Describe what you need above, and I'll craft and host your website or web app for free. Only pay if you love the result—starting from just <span className="font-bold text-brand-green">R500</span>. Let's turn your vision into something real, fast, and hassle-free.
       </p>
 
       {/* Combined How it works & Ideal brief Section */}

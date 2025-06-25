@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Shield, Zap, Heart } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Twitter, Shield, Zap, Heart } from "lucide-react";
 
 interface AboutSectionProps {
   onNavigateToQuote: () => void;
@@ -26,9 +26,10 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
   ];
 
   const socialLinks = [
-    { href: "https://twitter.com/web500za", label: "Twitter", icon: Mail },
-    { href: "https://github.com/web500za", label: "GitHub", icon: Phone },
-    { href: "mailto:web500za@gmail.com", label: "Email", icon: MapPin }
+    { href: "https://facebook.com/web500za", label: "Facebook", icon: Facebook },
+    { href: "https://instagram.com/web500za", label: "Instagram", icon: Instagram },
+    { href: "https://linkedin.com/in/web500za", label: "LinkedIn", icon: Linkedin },
+    { href: "https://x.com/web500za", label: "X (Twitter)", icon: Twitter }
   ];
 
   return (
