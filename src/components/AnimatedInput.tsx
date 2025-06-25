@@ -11,7 +11,7 @@ interface AnimatedInputProps {
 }
 
 export function AnimatedInput({ value, onChange, className, onSubmit }: AnimatedInputProps) {
-  const [placeholderText, setPlaceholderText] = useState("Tell me what you want me to build for you");
+  const [placeholderText] = useState("Tell me what you want me to build for you");
   const [dotCount, setDotCount] = useState(0);
 
   useEffect(() => {

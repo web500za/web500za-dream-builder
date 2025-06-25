@@ -3,7 +3,11 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin, Code, Heart, Zap } from "lucide-react";
 
-export function AboutSection() {
+interface AboutSectionProps {
+  onNavigateToQuote?: () => void;
+}
+
+export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
   const values = [
     {
       icon: Code,
@@ -28,15 +32,12 @@ export function AboutSection() {
         <h2 className="text-3xl font-bold text-white mb-3 text-shadow">
           About Me
         </h2>
-        <p className="text-lg text-white/90">
-          Hi, I'm Jared
-        </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-10 items-center mb-10">
         {/* Profile Section */}
         <div className="text-center md:text-left">
-          <div className="w-32 h-32 mx-auto md:mx-0 mb-4 rounded-full overflow-hidden">
+          <div className="w-40 h-40 mx-auto md:mx-0 mb-6 rounded-full overflow-hidden">
             <img 
               src="/lovable-uploads/8b733c1a-7b6c-4da3-95c5-58519bb624c6.png" 
               alt="Jared" 
@@ -44,13 +45,13 @@ export function AboutSection() {
             />
           </div>
           <p className="text-white/90 leading-relaxed mb-4">
-            I'm a 90s kid who grew up in the early days of the internet, surrounded by games, gadgets, and curiosity about how things work. I've always enjoyed creating—whether it's tinkering with tech, designing something new, or finding smart solutions to everyday problems.
+            My earliest memories involve a PlayStation 1 and beating my cousins at Tekken 3. I've always loved the intersection of technology and creativity—whether it was jailbreaking my iPhone back in 2009 or building my own custom projects for fun.
           </p>
           <p className="text-white/90 leading-relaxed mb-4">
-            By day, I work in Cybersecurity, so I know how important it is to build websites that are safe, reliable, and well thought out. But my real passion is helping local businesses and entrepreneurs bring their ideas online—combining the technical know-how with a creative touch.
+            Today, I work in Cybersecurity, which has taught me the value of secure, well-functioning websites (and what can go wrong when things aren't built right). I started web500za to combine that technical background with a creative approach—helping local entrepreneurs get reliable, great-looking sites, minus the big agency price tags.
           </p>
           <p className="text-white/90 leading-relaxed">
-            That's what inspired web500za: making it easy and affordable for anyone to get a professional site, no matter where they are on their journey.
+            If you want a website or webapp that just works—and is a little more "you"—I'd love to help bring your idea online.
           </p>
         </div>
 
@@ -71,7 +72,10 @@ export function AboutSection() {
               <span className="text-sm">South Africa</span>
             </div>
           </div>
-          <Button className="w-full mt-5 bg-brand-green hover:bg-brand-green/90 text-white">
+          <Button 
+            onClick={onNavigateToQuote}
+            className="w-full mt-5 bg-brand-green hover:bg-brand-green/90 text-white"
+          >
             Start Your Project
           </Button>
         </Card>
