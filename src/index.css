@@ -177,4 +177,31 @@
   .input-glow:focus-within {
     box-shadow: 0 0 30px rgba(45, 90, 61, 0.2);
   }
+
+  /* Remove all browser default focus outlines */
+  input:focus,
+  input:focus-visible,
+  input:focus-within,
+  textarea:focus,
+  textarea:focus-visible,
+  textarea:focus-within,
+  select:focus,
+  select:focus-visible,
+  select:focus-within {
+    outline: none !important;
+    outline-offset: 0 !important;
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-focus-ring-color: transparent !important;
+    -moz-outline: none !important;
+    -moz-outline-offset: 0 !important;
+  }
+
+  /* Samsung Internet specific */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: inherit !important;
+  }
 }

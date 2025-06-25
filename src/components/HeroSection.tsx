@@ -109,6 +109,24 @@ export function HeroSection() {
           </Card>
         ))}
       </div>
+
+      {/* Mobile CTA Button */}
+      <div className="mt-8 md:hidden">
+        <Button 
+          onClick={() => {
+            // Scroll to top and focus the input
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Focus the input after a short delay to allow scroll to complete
+            setTimeout(() => {
+              const input = document.querySelector('input[type="text"]') as HTMLInputElement;
+              if (input) input.focus();
+            }, 500);
+          }}
+          className="w-full bg-brand-green hover:bg-brand-green-light text-white py-4 text-lg font-semibold rounded-2xl shadow-lg transition-all duration-300 hover:scale-105"
+        >
+          Let's get building
+        </Button>
+      </div>
     </div>
   );
 }
