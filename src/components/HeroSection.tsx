@@ -120,13 +120,16 @@ export function HeroSection() {
     if (!e.target.files || e.target.files.length === 0) return;
     const file = e.target.files[0];
     const newAttachments = [...attachments];
-    newAttachments[slotIdx] = file;
-    const totalSize = newAttachments.filter(Boolean).reduce((acc, f) => acc + (f ? f.size : 0), 0);
-    if (totalSize > MAX_TOTAL_SIZE) {
+    // Calculate the total size if this file is added
+    const currentTotal = newAttachments.filter(Boolean).reduce((acc, f) => acc + (f ? f.size : 0), 0);
+    const prevFile = newAttachments[slotIdx];
+    const newTotal = currentTotal - (prevFile ? prevFile.size : 0) + file.size;
+    if (newTotal > MAX_TOTAL_SIZE) {
       setAttachmentError('Unable to attach files, your selection is greater than 5MB.');
       return;
     }
     setAttachmentError('');
+    newAttachments[slotIdx] = file;
     setAttachments(newAttachments);
     setImages(newAttachments.filter(Boolean));
   };
@@ -137,6 +140,7 @@ export function HeroSection() {
     setAttachments(newAttachments);
     setImages(newAttachments.filter(Boolean));
     setImagePreviews(newAttachments.filter(Boolean).map(img => URL.createObjectURL(img)));
+    setAttachmentError(''); // Clear error on remove
   };
 
   const priceCards = [
@@ -274,7 +278,7 @@ export function HeroSection() {
             </div>
           </div>
           {formError && <div className="text-red-600 text-sm">{formError}</div>}
-          <Button type="submit" disabled={!isFormValid} className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0 disabled:opacity-60 disabled:cursor-not-allowed">Let's get building!</Button>
+          <Button type="submit" disabled={!isFormValid || !!attachmentError} className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0 disabled:opacity-60 disabled:cursor-not-allowed">Let's get building!</Button>
         </form>
       )}
 
