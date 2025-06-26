@@ -118,18 +118,16 @@ export function HeroSection() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    const files = Array.from(e.target.files).slice(0, 3); // Limit to 3
-    const totalSize = files.reduce((acc, file) => acc + file.size, 0);
-    if (files.length > 3 || totalSize > 5 * 1024 * 1024) {
-      setAttachmentError("You can attach up to 3 files, max 5MB total.");
-      setAttachments([]);
-      setImages([]);
-      setImagePreviews([]);
+    const files = Array.from(e.target.files);
+    const newFiles = [...attachments, ...files].slice(0, 3);
+    const totalSize = newFiles.reduce((acc, file) => acc + file.size, 0);
+    if (newFiles.length > 3 || totalSize > 5 * 1024 * 1024) {
+      setAttachmentError("Unable to attach files, your selection is greater than 5MB.");
       return;
     }
     setAttachmentError("");
-    setAttachments(files);
-    setImages(files);
+    setAttachments(newFiles);
+    setImages(newFiles);
   };
 
   const handleRemoveAttachment = (idx: number) => {
@@ -222,14 +220,17 @@ export function HeroSection() {
           />
           <div>
             <label className="block text-sm font-medium text-brand-text-dark mb-1">Attach images (optional, up to 3, max 5MB total)</label>
-            <input
-              type="file"
-              accept="image/jpeg,image/png,image/webp,image/jpg"
-              multiple
-              onChange={handleFileChange}
-              className="block w-full text-sm text-brand-text-dark file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-green/10 file:text-brand-green hover:file:bg-brand-green/20"
-              style={{ padding: 0 }}
-            />
+            {/* Show file input only if less than 3 files and under 5MB */}
+            {(attachments.length < 3 && attachments.reduce((acc, file) => acc + file.size, 0) < 5 * 1024 * 1024) && (
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/jpg"
+                onChange={handleFileChange}
+                className="block w-full text-sm text-brand-text-dark file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-green/10 file:text-brand-green hover:file:bg-brand-green/20"
+                style={{ padding: 0 }}
+                aria-label={attachments.length === 0 ? 'Choose Picture' : 'Add another picture'}
+              />
+            )}
             <div className="flex items-center gap-2 mt-2 flex-wrap justify-center">
               {attachments.map((file, idx) => (
                 <div key={idx} className="relative flex items-center bg-brand-green/10 border border-brand-green/20 rounded-lg px-2 py-1 mr-2 mb-2 shadow-sm">
