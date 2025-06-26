@@ -165,9 +165,13 @@ export function HeroSection() {
     try {
       if (formRef.current) {
         const formData = new FormData(formRef.current);
-        formData.append("image_url_1", imageUrls[0] || "");
-        formData.append("image_url_2", imageUrls[1] || "");
-        formData.append("image_url_3", imageUrls[2] || "");
+        // Always append all required EmailJS variables, using empty string if missing
+        formData.set("from_name", form.firstName || "");
+        formData.set("from_email", form.email || "");
+        formData.set("project_description", projectDescription || "");
+        formData.set("image_url_1", imageUrls[0] || "");
+        formData.set("image_url_2", imageUrls[1] || "");
+        formData.set("image_url_3", imageUrls[2] || "");
         await sendEmail(formData);
       }
       
