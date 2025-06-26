@@ -4,7 +4,7 @@ import { ExternalLink } from "lucide-react";
 export function PortfolioSection() {
   const projects = [
     {
-      title: "Barber Booking System (Demo)",
+      title: "Barber Booking System",
       description: "This booking system was designed with a local barber in mind, featuring business-specific customizations tailored to real-world needs. The platform supports instant online bookings, same-day slots, and even accounts for unique requirements, such as the 12:15pm to 1:15pm Maghrib break observed by Muslim barbers. It's a great example of how w5z can deliver solutions that fit your business, your schedule, and your clients.",
       image: "/lovable-uploads/barebr-thumbnail.png",
       category: "Business",
@@ -14,7 +14,12 @@ export function PortfolioSection() {
     },
     {
       title: "Wedding Website",
-      isLive: false
+      description: "A beautiful, personalized wedding website that tells your love story and helps guests stay informed. Features include RSVP management, event details, photo galleries, and travel information. Perfect for couples who want to share their special day with family and friends in a modern, elegant way.",
+      image: "/lovable-uploads/wedding-thumbnail.png",
+      category: "Wedding",
+      url: "https://coral-kiss-digital.vercel.app/",
+      features: ["RSVP management", "Event details", "Photo galleries", "Travel info", "Mobile responsive"],
+      isLive: true
     },
     {
       title: "Meal Placement Form",
