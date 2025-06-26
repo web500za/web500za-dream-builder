@@ -47,6 +47,8 @@ export function HeroSection() {
   const [attachmentError, setAttachmentError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const MAX_TOTAL_SIZE = 10 * 1024 * 1024;
+  const [rejectedFileError, setRejectedFileError] = useState("");
 
   // Launch offer state (for future dynamic spots left)
   const launchSpotsLeft = 5; // Placeholder, can be made dynamic later
@@ -144,31 +146,27 @@ export function HeroSection() {
     }
   };
 
-  const MAX_FILES = 3;
-  const MAX_TOTAL_SIZE = 5 * 1024 * 1024;
-
   const handleSlotFileChange = async (e: React.ChangeEvent<HTMLInputElement>, slotIdx: number) => {
     if (!e.target.files || e.target.files.length === 0) return;
     const file = e.target.files[0];
-    if (file.size > 5 * 1024 * 1024) {
-      setAttachmentError("Image too large (max 5MB total)");
+    if (file.size > MAX_TOTAL_SIZE) {
+      setRejectedFileError("Image too large (max 10MB total)");
       return;
     }
+    setRejectedFileError("");
     const newAttachments = [...attachments];
     const currentTotal = newAttachments.filter(Boolean).reduce((acc, f) => acc + (f ? f.size : 0), 0);
     const prevFile = newAttachments[slotIdx];
     const newTotal = currentTotal - (prevFile ? prevFile.size : 0) + file.size;
     if (newTotal > MAX_TOTAL_SIZE) {
-      setAttachmentError("Image too large (max 5MB total)");
+      setRejectedFileError("Image too large (max 10MB total)");
       return;
     }
-    setAttachmentError("");
+    setAttachmentError("Uploading...");
     newAttachments[slotIdx] = file;
     setAttachments(newAttachments);
     setImages(newAttachments.filter(Boolean));
-    // Upload to Cloudinary
     try {
-      setAttachmentError("Uploading...");
       const url = await uploadToCloudinary(file);
       const newImageUrls = [...imageUrls];
       newImageUrls[slotIdx] = url;
@@ -189,6 +187,7 @@ export function HeroSection() {
     newImageUrls[idx] = undefined as any;
     setImageUrls(newImageUrls);
     setAttachmentError("");
+    setRejectedFileError("");
   };
 
   const priceCards = [
@@ -276,7 +275,7 @@ export function HeroSection() {
             autoComplete="off"
           />
           <div>
-            <div className="mb-2 text-sm font-medium text-brand-text-dark text-left">Upload up to 3 image attachments of 5mb total to strengthen your brief.</div>
+            <div className="mb-2 text-sm font-medium text-brand-text-dark text-left">Upload up to 3 image attachments of 10mb total to strengthen your brief.</div>
             <div className="flex gap-4 justify-center mb-2">
               {[0, 1, 2].map((slotIdx) => {
                 const file = attachments[slotIdx];
@@ -322,11 +321,11 @@ export function HeroSection() {
             <div className="flex items-center justify-between mt-1">
               <span className="text-xs text-brand-text-muted">{attachments.filter(Boolean).length} of 3 attached</span>
               <span className="text-xs text-brand-text-muted">{((MAX_TOTAL_SIZE - attachments.filter(Boolean).reduce((acc, f) => acc + (f ? f.size : 0), 0)) / 1024 / 1024).toFixed(2)} MB left</span>
-              {attachmentError && <span className="text-xs text-red-600 font-medium">{attachmentError}</span>}
+              {rejectedFileError && <span className="text-xs text-red-600 font-medium">{rejectedFileError}</span>}
             </div>
           </div>
           {formError && <div className="text-red-600 text-sm">{formError}</div>}
-          <Button type="submit" disabled={!isFormValid || !!attachmentError} className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0 disabled:opacity-60 disabled:cursor-not-allowed">Let's get building!</Button>
+          <Button type="submit" disabled={!isFormValid || !!attachmentError || isSubmitting} className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0 disabled:opacity-60 disabled:cursor-not-allowed">Let's get building!</Button>
         </form>
       )}
 
