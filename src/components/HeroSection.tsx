@@ -114,9 +114,10 @@ export function HeroSection() {
 
     try {
       if (formRef.current) {
-        // Instead of sending files, send imageUrls as a comma-separated string
         const formData = new FormData(formRef.current);
-        formData.append("image_urls", imageUrls.filter(Boolean).join(", "));
+        formData.append("image_url_1", imageUrls[0] || "");
+        formData.append("image_url_2", imageUrls[1] || "");
+        formData.append("image_url_3", imageUrls[2] || "");
         await sendEmail(formData);
       }
       
@@ -328,7 +329,14 @@ export function HeroSection() {
           <Button type="submit" disabled={!isFormValid || !!attachmentError || isSubmitting} className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0 disabled:opacity-60 disabled:cursor-not-allowed">Let's get building!</Button>
           {/* After the submit button, show a footnote if the button is disabled */}
           {(isSubmitting || !isFormValid || !!attachmentError) && (
-            <div className="text-xs text-brand-text-muted mt-2 text-left">
+            <div className="mt-2 text-left rounded-lg px-3 py-2"
+              style={{
+                background: 'rgba(34,197,94,0.08)', // subtle green background
+                border: '1px solid #a7f3d0', // light green border
+                color: '#166534', // deep green text
+                fontSize: '0.92em',
+              }}
+            >
               {isSubmitting && "Uploading or sending in progress..."}
               {!isSubmitting && !!attachmentError && "Please wait for all images to finish uploading or fix attachment errors."}
               {!isSubmitting && !attachmentError && !isFormValid && (
@@ -432,6 +440,19 @@ export function HeroSection() {
           Let's get building
         </Button>
       </div>
+
+      {step === "success" && (
+        <div className="flex flex-col items-center justify-center py-12 animate-fade-in">
+          <div className="mb-6">
+            <svg className="animate-bounce-in" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="40" r="40" fill="#22c55e"/>
+              <path d="M24 42l12 12 20-24" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-brand-green mb-2">Thank you!</h2>
+          <p className="text-lg text-brand-text-dark text-center max-w-md">I've received your brief and will aim to respond within <span className="font-semibold">1-2 business days</span>.</p>
+        </div>
+      )}
     </div>
   );
 }
