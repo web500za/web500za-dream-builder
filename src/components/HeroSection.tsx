@@ -27,6 +27,39 @@ async function uploadToCloudinary(file: File): Promise<string> {
   return data.secure_url;
 }
 
+const [uploadProgress, setUploadProgress] = useState<number[]>([0, 0, 0]);
+
+async function uploadToCloudinaryWithProgress(file: File, slotIdx: number, onProgress: (percent: number) => void, onTimeout: () => void): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    xhr.open("POST", CLOUDINARY_URL);
+    xhr.timeout = 30000; // 30 seconds
+    xhr.upload.onprogress = (event) => {
+      if (event.lengthComputable) {
+        const percent = Math.round((event.loaded / event.total) * 100);
+        onProgress(percent);
+      }
+    };
+    xhr.ontimeout = () => {
+      onTimeout();
+      reject(new Error("Upload timed out"));
+    };
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        const data = JSON.parse(xhr.responseText);
+        resolve(data.secure_url);
+      } else {
+        reject(new Error("Upload failed, try again"));
+      }
+    };
+    xhr.onerror = () => reject(new Error("Upload failed, try again"));
+    xhr.send(formData);
+  });
+}
+
 export function HeroSection() {
   const [projectDescription, setProjectDescription] = useState("");
   const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
@@ -188,11 +221,31 @@ export function HeroSection() {
     const newUploadError = [...uploadError];
     newUploadError[slotIdx] = "";
     setUploadError(newUploadError);
+    const newProgress = [...uploadProgress];
+    newProgress[slotIdx] = 0;
+    setUploadProgress(newProgress);
     newAttachments[slotIdx] = file;
     setAttachments(newAttachments);
     setImages(newAttachments.filter(Boolean));
     try {
-      const url = await uploadToCloudinary(file);
+      const url = await uploadToCloudinaryWithProgress(
+        file,
+        slotIdx,
+        (percent) => {
+          const progressArr = [...uploadProgress];
+          progressArr[slotIdx] = percent;
+          setUploadProgress(progressArr);
+        },
+        () => {
+          // Timeout handler
+          const failStatus = [...uploadStatus];
+          failStatus[slotIdx] = "failed";
+          setUploadStatus(failStatus);
+          const failError = [...uploadError];
+          failError[slotIdx] = "Upload timed out, try again";
+          setUploadError(failError);
+        }
+      );
       const newImageUrls = [...imageUrls];
       newImageUrls[slotIdx] = url;
       setImageUrls(newImageUrls);
@@ -200,6 +253,8 @@ export function HeroSection() {
       setUploadStatus([...newUploadStatus]);
       newUploadError[slotIdx] = "";
       setUploadError([...newUploadError]);
+      newProgress[slotIdx] = 100;
+      setUploadProgress([...newProgress]);
       setAttachmentError("");
     } catch (err) {
       // Remove the file from the slot and show error
@@ -213,8 +268,10 @@ export function HeroSection() {
       setImageUrls(newImageUrls);
       newUploadStatus[slotIdx] = "failed";
       setUploadStatus([...newUploadStatus]);
-      newUploadError[slotIdx] = "Upload failed, try again";
+      newUploadError[slotIdx] = err instanceof Error ? err.message : "Upload failed, try again";
       setUploadError([...newUploadError]);
+      newProgress[slotIdx] = 0;
+      setUploadProgress([...newProgress]);
       setAttachmentError("");
     }
   };
@@ -331,9 +388,14 @@ export function HeroSection() {
                 return file ? (
                   <div key={slotIdx} className="relative w-20 h-20 flex items-center justify-center bg-brand-green/10 border-2 border-brand-green/30 rounded-lg shadow-sm overflow-hidden">
                     {uploadStatus[slotIdx] === "uploading" && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-white/70 z-10">
-                        <svg className="animate-spin" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="4" fill="none" /></svg>
-                      </div>
+                      <>
+                        <div className="absolute inset-0 flex items-center justify-center bg-white/70 z-10">
+                          <svg className="animate-spin" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="4" fill="none" /></svg>
+                        </div>
+                        <div className="absolute bottom-0 left-0 w-full h-2 bg-brand-green/20 z-20">
+                          <div className="h-2 bg-brand-green rounded-b-lg transition-all duration-200" style={{ width: `${uploadProgress[slotIdx]}%` }} />
+                        </div>
+                      </>
                     )}
                     {uploadStatus[slotIdx] === "failed" && (
                       <div className="absolute inset-0 flex items-center justify-center bg-white/80 z-10 text-red-600 text-xs font-semibold px-2 text-center">{uploadError[slotIdx]}</div>
