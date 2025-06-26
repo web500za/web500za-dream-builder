@@ -284,15 +284,27 @@ export function HeroSection() {
     const newImageUrls = [...imageUrls];
     newImageUrls[idx] = undefined as any;
     setImageUrls(newImageUrls);
-    setAttachmentError(""); // Clear error on remove
-    setRejectedFileError("");
-    // Clear upload status and error for this slot
-    const newUploadStatus = [...uploadStatus];
-    newUploadStatus[idx] = "idle";
-    setUploadStatus(newUploadStatus);
-    const newUploadError = [...uploadError];
-    newUploadError[idx] = "";
-    setUploadError(newUploadError);
+    // If all slots are empty, clear all errors and statuses
+    if (newAttachments.filter(Boolean).length === 0) {
+      setAttachmentError("");
+      setRejectedFileError("");
+      setUploadStatus(["idle", "idle", "idle"]);
+      setUploadError(["", "", ""]);
+      setUploadProgress([0, 0, 0]);
+    } else {
+      setAttachmentError(""); // Clear error on remove
+      setRejectedFileError("");
+      // Clear upload status and error for this slot
+      const newUploadStatus = [...uploadStatus];
+      newUploadStatus[idx] = "idle";
+      setUploadStatus(newUploadStatus);
+      const newUploadError = [...uploadError];
+      newUploadError[idx] = "";
+      setUploadError(newUploadError);
+      const newUploadProgress = [...uploadProgress];
+      newUploadProgress[idx] = 0;
+      setUploadProgress(newUploadProgress);
+    }
   };
 
   const priceCards = [
@@ -443,9 +455,15 @@ export function HeroSection() {
             </div>
           </div>
           {formError && <div className="text-red-600 text-sm">{formError}</div>}
-          <Button type="submit" disabled={!isFormValid || !!attachmentError || isSubmitting} className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0 disabled:opacity-60 disabled:cursor-not-allowed">Let's get building!</Button>
+          <Button
+            type="submit"
+            disabled={!isFormValid || uploadStatus.some(s => s === 'uploading') || isSubmitting}
+            className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0 disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            Let's get building!
+          </Button>
           {/* After the submit button, show a footnote if the button is disabled */}
-          {(isSubmitting || !isFormValid || !!attachmentError) && (
+          {(isSubmitting || !isFormValid || uploadStatus.some(s => s === "uploading")) && (
             <div className="mt-2 text-left rounded-lg px-3 py-2"
               style={{
                 background: 'rgba(34,197,94,0.08)', // subtle green background
@@ -456,7 +474,7 @@ export function HeroSection() {
             >
               {isSubmitting && "Uploading or sending in progress..."}
               {!isSubmitting && uploadStatus.some(s => s === "uploading") && "Please wait for all images to finish uploading or fix attachment errors."}
-              {!isSubmitting && !attachmentError && !isFormValid && (
+              {!isSubmitting && !isFormValid && (
                 <>
                   {form.firstName.trim().length < 2 && <div>First name must be at least 2 characters.</div>}
                   {!validateEmail(form.email) && <div>Enter a valid email address.</div>}
