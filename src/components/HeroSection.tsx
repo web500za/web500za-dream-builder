@@ -326,6 +326,20 @@ export function HeroSection() {
           </div>
           {formError && <div className="text-red-600 text-sm">{formError}</div>}
           <Button type="submit" disabled={!isFormValid || !!attachmentError || isSubmitting} className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0 disabled:opacity-60 disabled:cursor-not-allowed">Let's get building!</Button>
+          {/* After the submit button, show a footnote if the button is disabled */}
+          {(isSubmitting || !isFormValid || !!attachmentError) && (
+            <div className="text-xs text-brand-text-muted mt-2 text-left">
+              {isSubmitting && "Uploading or sending in progress..."}
+              {!isSubmitting && !!attachmentError && "Please wait for all images to finish uploading or fix attachment errors."}
+              {!isSubmitting && !attachmentError && !isFormValid && (
+                <>
+                  {form.firstName.trim().length < 2 && <div>First name must be at least 2 characters.</div>}
+                  {!validateEmail(form.email) && <div>Enter a valid email address.</div>}
+                  {projectDescription.trim().length < 10 && <div>Description must be at least 10 characters.</div>}
+                </>
+              )}
+            </div>
+          )}
         </form>
       )}
 
