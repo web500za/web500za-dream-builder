@@ -116,25 +116,30 @@ export function HeroSection() {
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    const files = Array.from(e.target.files);
-    const newFiles = [...attachments, ...files].slice(0, 3);
-    const totalSize = newFiles.reduce((acc, file) => acc + file.size, 0);
-    if (newFiles.length > 3 || totalSize > 5 * 1024 * 1024) {
-      setAttachmentError("Unable to attach files, your selection is greater than 5MB.");
+  const MAX_FILES = 3;
+  const MAX_TOTAL_SIZE = 5 * 1024 * 1024;
+
+  const handleSlotFileChange = (e: React.ChangeEvent<HTMLInputElement>, slotIdx: number) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    const newAttachments = [...attachments];
+    newAttachments[slotIdx] = file;
+    const totalSize = newAttachments.filter(Boolean).reduce((acc, f) => acc + (f ? f.size : 0), 0);
+    if (totalSize > MAX_TOTAL_SIZE) {
+      setAttachmentError('Unable to attach files, your selection is greater than 5MB.');
       return;
     }
-    setAttachmentError("");
-    setAttachments(newFiles);
-    setImages(newFiles);
+    setAttachmentError('');
+    setAttachments(newAttachments);
+    setImages(newAttachments.filter(Boolean));
   };
 
   const handleRemoveAttachment = (idx: number) => {
-    const newAttachments = attachments.filter((_, i) => i !== idx);
+    const newAttachments = [...attachments];
+    newAttachments[idx] = undefined;
     setAttachments(newAttachments);
-    setImages(newAttachments);
-    setImagePreviews(newAttachments.map(img => URL.createObjectURL(img)));
+    setImages(newAttachments.filter(Boolean));
+    setImagePreviews(newAttachments.filter(Boolean).map(img => URL.createObjectURL(img)));
   };
 
   const priceCards = [
@@ -219,43 +224,43 @@ export function HeroSection() {
             autoComplete="off"
           />
           <div>
-            <label className="block text-sm font-medium text-brand-text-dark mb-1">Attach images (optional, up to 3, max 5MB total)</label>
-            {/* Show file input only if less than 3 files and under 5MB */}
-            {(attachments.length < 3 && attachments.reduce((acc, file) => acc + file.size, 0) < 5 * 1024 * 1024) && (
-              <input
-                type="file"
-                accept="image/jpeg,image/png,image/webp,image/jpg"
-                onChange={handleFileChange}
-                className="block w-full text-sm text-brand-text-dark file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-green/10 file:text-brand-green hover:file:bg-brand-green/20"
-                style={{ padding: 0 }}
-                aria-label={attachments.length === 0 ? 'Choose Picture' : 'Add another picture'}
-              />
-            )}
-            <div className="flex items-center gap-2 mt-2 flex-wrap justify-center">
-              {attachments.map((file, idx) => (
-                <div key={idx} className="relative flex items-center bg-brand-green/10 border border-brand-green/20 rounded-lg px-2 py-1 mr-2 mb-2 shadow-sm">
-                  {file.type.startsWith('image') ? (
-                    <img src={imagePreviews[idx]} alt={file.name} className="w-8 h-8 object-cover rounded mr-2" />
-                  ) : (
-                    <span className="w-8 h-8 flex items-center justify-center bg-gray-200 rounded mr-2 text-xs">📄</span>
-                  )}
-                  <div className="flex flex-col text-left">
-                    <span className="text-xs font-medium text-brand-text-dark truncate max-w-[80px]">{file.name}</span>
-                    <span className="text-xs text-brand-text-muted">{(file.size / 1024).toFixed(1)} KB</span>
+            <div className="mb-2 text-sm font-medium text-brand-text-dark text-left">Upload up to 3 attachments of 5MB to strengthen your brief</div>
+            <div className="flex gap-4 justify-center mb-2">
+              {[0, 1, 2].map((slotIdx) => {
+                const file = attachments[slotIdx];
+                return file ? (
+                  <div key={slotIdx} className="relative w-20 h-20 flex items-center justify-center bg-brand-green/10 border-2 border-brand-green/30 rounded-lg shadow-sm overflow-hidden">
+                    {file.type.startsWith('image') ? (
+                      <img src={URL.createObjectURL(file)} alt={file.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-3xl">📄</span>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveAttachment(slotIdx)}
+                      className="absolute top-1 right-1 bg-white/80 rounded-full w-6 h-6 flex items-center justify-center text-red-500 hover:text-red-700 text-lg font-bold shadow"
+                      aria-label="Remove file"
+                    >
+                      ×
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveAttachment(idx)}
-                    className="ml-2 text-red-500 hover:text-red-700 text-lg font-bold px-1 focus:outline-none"
-                    aria-label="Remove file"
-                  >
-                    ×
-                  </button>
-                </div>
-              ))}
+                ) : (
+                  <label key={slotIdx} className="w-20 h-20 flex flex-col items-center justify-center border-2 border-dashed border-brand-green/30 rounded-lg cursor-pointer hover:bg-brand-green/5 transition-all">
+                    <span className="text-3xl text-brand-green">+</span>
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp,image/jpg"
+                      className="hidden"
+                      onChange={e => handleSlotFileChange(e, slotIdx)}
+                      aria-label="Upload picture"
+                    />
+                  </label>
+                );
+              })}
             </div>
             <div className="flex items-center justify-between mt-1">
-              <span className="text-xs text-brand-text-muted">{attachments.length} file{attachments.length !== 1 ? 's' : ''}</span>
+              <span className="text-xs text-brand-text-muted">{attachments.filter(Boolean).length} of 3 attached</span>
+              <span className="text-xs text-brand-text-muted">{((MAX_TOTAL_SIZE - attachments.filter(Boolean).reduce((acc, f) => acc + (f ? f.size : 0), 0)) / 1024 / 1024).toFixed(2)} MB left</span>
               {attachmentError && <span className="text-xs text-red-600 font-medium">{attachmentError}</span>}
             </div>
           </div>
