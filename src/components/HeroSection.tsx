@@ -9,6 +9,9 @@ export function HeroSection() {
   const [projectDescription, setProjectDescription] = useState("");
   const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
 
+  // Launch offer state (for future dynamic spots left)
+  const launchSpotsLeft = 5; // Placeholder, can be made dynamic later
+
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     console.log("Project description:", projectDescription);
