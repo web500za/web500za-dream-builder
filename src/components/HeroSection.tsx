@@ -27,6 +27,7 @@ export function HeroSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [attachments, setAttachments] = useState<File[]>([]);
   const [attachmentError, setAttachmentError] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
 
   // Launch offer state (for future dynamic spots left)
   const launchSpotsLeft = 5; // Placeholder, can be made dynamic later
@@ -86,13 +87,9 @@ export function HeroSection() {
     setIsSubmitting(true);
 
     try {
-      // Send email using EmailJS
-      await sendEmail({
-        firstName: form.firstName,
-        email: form.email,
-        projectDescription: projectDescription,
-        attachments: attachments,
-      });
+      if (formRef.current) {
+        await sendEmail(formRef.current);
+      }
       
       toast({
         title: "Request submitted!",
@@ -182,9 +179,10 @@ export function HeroSection() {
         </form>
       )}
       {step === "details" && (
-        <form onSubmit={handleDetailsSubmit} className="mb-6 md:mb-12 max-w-lg mx-auto bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-4 animate-fade-in">
+        <form ref={formRef} onSubmit={handleDetailsSubmit} className="mb-6 md:mb-12 max-w-lg mx-auto bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-4 animate-fade-in">
           <label className="block text-sm font-medium text-brand-text-dark mb-1 text-left">Your idea/brief</label>
           <textarea
+            name="project_description"
             value={projectDescription}
             onChange={e => setProjectDescription(e.target.value)}
             required
@@ -193,6 +191,7 @@ export function HeroSection() {
             placeholder="Describe what you want built..."
           />
           <Input
+            name="from_name"
             placeholder="First name*"
             value={form.firstName}
             onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
@@ -200,6 +199,7 @@ export function HeroSection() {
             autoFocus
           />
           <Input
+            name="from_email"
             placeholder="Email address*"
             type="email"
             value={form.email}
@@ -224,7 +224,7 @@ export function HeroSection() {
             autoComplete="off"
           />
           <div>
-            <div className="mb-2 text-sm font-medium text-brand-text-dark text-left">Upload up to 3 attachments of 5MB to strengthen your brief</div>
+            <div className="mb-2 text-sm font-medium text-brand-text-dark text-left">Upload up to 3 image attachments of 5mb total to strengthen your brief.</div>
             <div className="flex gap-4 justify-center mb-2">
               {[0, 1, 2].map((slotIdx) => {
                 const file = attachments[slotIdx];
@@ -235,6 +235,14 @@ export function HeroSection() {
                     ) : (
                       <span className="text-3xl">📄</span>
                     )}
+                    <input
+                      type="file"
+                      name={`attachment${slotIdx + 1}`}
+                      style={{ display: 'none' }}
+                      tabIndex={-1}
+                      aria-hidden="true"
+                      // not used for upload, just for EmailJS form mapping
+                    />
                     <button
                       type="button"
                       onClick={() => handleRemoveAttachment(slotIdx)}
@@ -249,6 +257,7 @@ export function HeroSection() {
                     <span className="text-3xl text-brand-green">+</span>
                     <input
                       type="file"
+                      name={`attachment${slotIdx + 1}`}
                       accept="image/jpeg,image/png,image/webp,image/jpg"
                       className="hidden"
                       onChange={e => handleSlotFileChange(e, slotIdx)}

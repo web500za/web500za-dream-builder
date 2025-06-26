@@ -93,46 +93,12 @@ export const formatRemainingTime = (milliseconds: number): string => {
   return `${minutes} minute${minutes > 1 ? 's' : ''}`;
 };
 
-export const sendEmail = async (data: EmailData): Promise<void> => {
-  // Validate email first
-  if (!validateEmail(data.email)) {
-    throw new Error('Please enter a valid email address.');
-  }
-  
-  // Check rate limiting
-  const rateLimitCheck = checkRateLimit(data.email);
-  if (!rateLimitCheck.allowed) {
-    const remainingTime = formatRemainingTime(rateLimitCheck.remainingTime!);
-    throw new Error(`Too many submissions. Please try again in ${remainingTime}.`);
-  }
-  
-  // Validate other fields
-  if (!data.firstName.trim() || data.firstName.trim().length < 2) {
-    throw new Error('Please enter a valid first name.');
-  }
-  
-  if (!data.projectDescription.trim() || data.projectDescription.trim().length < 10) {
-    throw new Error('Please provide a more detailed project description (at least 10 characters).');
-  }
-  
+export const sendEmail = async (form: HTMLFormElement): Promise<void> => {
   try {
-    const templateParams: any = {
-      to_email: 'web500za@gmail.com',
-      from_name: data.firstName.trim(),
-      from_email: data.email.toLowerCase().trim(),
-      project_description: data.projectDescription.trim(),
-      reply_to: data.email.toLowerCase().trim(),
-    };
-    const sendParams: any = {
-      ...templateParams,
-    };
-    if (data.attachments && data.attachments.length > 0) {
-      sendParams.attachments = data.attachments;
-    }
-    const response = await emailjs.send(
+    const response = await emailjs.sendForm(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
-      sendParams,
+      form,
       EMAILJS_PUBLIC_KEY
     );
     if (response.status !== 200) {
