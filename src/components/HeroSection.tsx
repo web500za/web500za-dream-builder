@@ -9,6 +9,24 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { sendEmail, validateEmail } from "@/lib/emailService";
 
+// Add Cloudinary upload helper
+const CLOUDINARY_UPLOAD_PRESET = "web500za customers";
+const CLOUDINARY_CLOUD_NAME = "drma7031k";
+const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
+
+async function uploadToCloudinary(file: File): Promise<string> {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+  const res = await fetch(CLOUDINARY_URL, {
+    method: "POST",
+    body: formData,
+  });
+  if (!res.ok) throw new Error("Upload failed, try again");
+  const data = await res.json();
+  return data.secure_url;
+}
+
 export function HeroSection() {
   const [projectDescription, setProjectDescription] = useState("");
   const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
@@ -28,6 +46,7 @@ export function HeroSection() {
   const [attachments, setAttachments] = useState<File[]>([]);
   const [attachmentError, setAttachmentError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   // Launch offer state (for future dynamic spots left)
   const launchSpotsLeft = 5; // Placeholder, can be made dynamic later
@@ -83,12 +102,20 @@ export function HeroSection() {
       return;
     }
 
+    if (imageUrls.filter(Boolean).length !== attachments.filter(Boolean).length) {
+      setFormError("Please wait for all images to finish uploading.");
+      return;
+    }
+
     setFormError("");
     setIsSubmitting(true);
 
     try {
       if (formRef.current) {
-        await sendEmail(formRef.current);
+        // Instead of sending files, send imageUrls as a comma-separated string
+        const formData = new FormData(formRef.current);
+        formData.append("image_urls", imageUrls.filter(Boolean).join(", "));
+        await sendEmail(formData);
       }
       
       toast({
@@ -101,9 +128,13 @@ export function HeroSection() {
       setForm({ firstName: "", email: "" });
       setProjectDescription("");
       setImagePreviews([]);
-      setHoneypot(""); // Reset honeypot
+      setHoneypot("");
+      setImageUrls([]);
+      setAttachments([]);
     } catch (error) {
-      if (error instanceof Error) {
+      if (error instanceof Error && error.message.includes("EmailJS")) {
+        setFormError("Failed to send email. Try again, or use a different email provider like Resend, Mailgun, or SendGrid.");
+      } else if (error instanceof Error) {
         setFormError(error.message);
       } else {
         setFormError("Something went wrong. Please try again.");
@@ -116,22 +147,36 @@ export function HeroSection() {
   const MAX_FILES = 3;
   const MAX_TOTAL_SIZE = 5 * 1024 * 1024;
 
-  const handleSlotFileChange = (e: React.ChangeEvent<HTMLInputElement>, slotIdx: number) => {
+  const handleSlotFileChange = async (e: React.ChangeEvent<HTMLInputElement>, slotIdx: number) => {
     if (!e.target.files || e.target.files.length === 0) return;
     const file = e.target.files[0];
+    if (file.size > 5 * 1024 * 1024) {
+      setAttachmentError("Image too large (max 5MB total)");
+      return;
+    }
     const newAttachments = [...attachments];
-    // Calculate the total size if this file is added
     const currentTotal = newAttachments.filter(Boolean).reduce((acc, f) => acc + (f ? f.size : 0), 0);
     const prevFile = newAttachments[slotIdx];
     const newTotal = currentTotal - (prevFile ? prevFile.size : 0) + file.size;
     if (newTotal > MAX_TOTAL_SIZE) {
-      setAttachmentError('Unable to attach files, your selection is greater than 5MB.');
+      setAttachmentError("Image too large (max 5MB total)");
       return;
     }
-    setAttachmentError('');
+    setAttachmentError("");
     newAttachments[slotIdx] = file;
     setAttachments(newAttachments);
     setImages(newAttachments.filter(Boolean));
+    // Upload to Cloudinary
+    try {
+      setAttachmentError("Uploading...");
+      const url = await uploadToCloudinary(file);
+      const newImageUrls = [...imageUrls];
+      newImageUrls[slotIdx] = url;
+      setImageUrls(newImageUrls);
+      setAttachmentError("");
+    } catch (err) {
+      setAttachmentError("Upload failed, try again");
+    }
   };
 
   const handleRemoveAttachment = (idx: number) => {
@@ -140,7 +185,10 @@ export function HeroSection() {
     setAttachments(newAttachments);
     setImages(newAttachments.filter(Boolean));
     setImagePreviews(newAttachments.filter(Boolean).map(img => URL.createObjectURL(img)));
-    setAttachmentError(''); // Clear error on remove
+    const newImageUrls = [...imageUrls];
+    newImageUrls[idx] = undefined as any;
+    setImageUrls(newImageUrls);
+    setAttachmentError("");
   };
 
   const priceCards = [

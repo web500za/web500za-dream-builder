@@ -93,12 +93,12 @@ export const formatRemainingTime = (milliseconds: number): string => {
   return `${minutes} minute${minutes > 1 ? 's' : ''}`;
 };
 
-export const sendEmail = async (form: HTMLFormElement): Promise<void> => {
+export const sendEmail = async (formData: FormData): Promise<void> => {
   try {
-    const response = await emailjs.sendForm(
+    const response = await emailjs.send(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
-      form,
+      Object.fromEntries(formData.entries()),
       EMAILJS_PUBLIC_KEY
     );
     if (response.status !== 200) {
