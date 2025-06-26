@@ -7,6 +7,7 @@ import { Send, ChevronDown } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { sendEmail, validateEmail } from "@/lib/emailService";
 
 export function HeroSection() {
   const [projectDescription, setProjectDescription] = useState("");
@@ -16,6 +17,7 @@ export function HeroSection() {
     firstName: "",
     email: ""
   });
+  const [honeypot, setHoneypot] = useState(""); // Hidden field to catch bots
   const [formError, setFormError] = useState("");
   const { toast } = useToast();
   const modalContentRef = useRef<HTMLDivElement>(null);
@@ -55,19 +57,40 @@ export function HeroSection() {
     setStep("details");
   };
 
-  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
-  const isFormValid = form.firstName.trim() && isEmailValid;
+  const isEmailValid = validateEmail(form.email);
+  const isFormValid = form.firstName.trim().length >= 2 && isEmailValid && projectDescription.trim().length >= 10 && !honeypot;
 
   const handleDetailsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isFormValid) return;
+    
+    // Check honeypot - if filled, it's likely a bot
+    if (honeypot) {
+      setFormError("Invalid submission detected.");
+      return;
+    }
+    
+    if (!isFormValid) {
+      if (!form.firstName.trim() || form.firstName.trim().length < 2) {
+        setFormError("Please enter a valid first name (at least 2 characters).");
+      } else if (!isEmailValid) {
+        setFormError("Please enter a valid email address.");
+      } else if (!projectDescription.trim() || projectDescription.trim().length < 10) {
+        setFormError("Please provide a more detailed project description (at least 10 characters).");
+      }
+      return;
+    }
 
     setFormError("");
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Send email using EmailJS
+      await sendEmail({
+        firstName: form.firstName,
+        email: form.email,
+        projectDescription: projectDescription,
+        imageUrls: imagePreviews,
+      });
       
       toast({
         title: "Request submitted!",
@@ -79,8 +102,13 @@ export function HeroSection() {
       setForm({ firstName: "", email: "" });
       setProjectDescription("");
       setImagePreviews([]);
+      setHoneypot(""); // Reset honeypot
     } catch (error) {
-      setFormError("Something went wrong. Please try again.");
+      if (error instanceof Error) {
+        setFormError(error.message);
+      } else {
+        setFormError("Something went wrong. Please try again.");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -155,6 +183,23 @@ export function HeroSection() {
             value={form.email}
             onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
             required
+          />
+          {/* Honeypot field - hidden from users but visible to bots */}
+          <input
+            type="text"
+            name="website"
+            value={honeypot}
+            onChange={e => setHoneypot(e.target.value)}
+            style={{
+              position: 'absolute',
+              left: '-9999px',
+              width: '1px',
+              height: '1px',
+              opacity: 0,
+              pointerEvents: 'none'
+            }}
+            tabIndex={-1}
+            autoComplete="off"
           />
           <div>
             <label className="block text-sm font-medium text-brand-text-dark mb-1">Attach images (optional, up to 3)</label>
