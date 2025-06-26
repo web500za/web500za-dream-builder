@@ -49,6 +49,8 @@ export function HeroSection() {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const MAX_TOTAL_SIZE = 50 * 1024 * 1024;
   const [rejectedFileError, setRejectedFileError] = useState("");
+  const [uploadStatus, setUploadStatus] = useState<("idle" | "uploading" | "failed" | "done")[]>(["idle", "idle", "idle"]);
+  const [uploadError, setUploadError] = useState<string[]>(["", "", ""]);
 
   // Launch offer state (for future dynamic spots left)
   const launchSpotsLeft = 5; // Placeholder, can be made dynamic later
@@ -75,15 +77,19 @@ export function HeroSection() {
     return () => urls.forEach(url => URL.revokeObjectURL(url));
   }, [images]);
 
-  // Persist modal step in localStorage
+  // Persist modal step in localStorage only if on quote page
   useEffect(() => {
-    localStorage.setItem('quoteModalStep', step);
+    if (window.location.hash === "" || window.location.hash === "#quote") {
+      localStorage.setItem('quoteModalStep', step);
+    }
   }, [step]);
 
   useEffect(() => {
-    const savedStep = localStorage.getItem('quoteModalStep');
-    if (savedStep === 'idea' || savedStep === 'details' || savedStep === 'success') {
-      setStep(savedStep);
+    if (window.location.hash === "" || window.location.hash === "#quote") {
+      const savedStep = localStorage.getItem('quoteModalStep');
+      if (savedStep === 'idea' || savedStep === 'details' || savedStep === 'success') {
+        setStep(savedStep);
+      }
     }
   }, []);
 
@@ -175,7 +181,13 @@ export function HeroSection() {
       setRejectedFileError("Image too large (max 50MB total)");
       return;
     }
-    setAttachmentError("Uploading...");
+    // Set upload status to uploading
+    const newUploadStatus = [...uploadStatus];
+    newUploadStatus[slotIdx] = "uploading";
+    setUploadStatus(newUploadStatus);
+    const newUploadError = [...uploadError];
+    newUploadError[slotIdx] = "";
+    setUploadError(newUploadError);
     newAttachments[slotIdx] = file;
     setAttachments(newAttachments);
     setImages(newAttachments.filter(Boolean));
@@ -184,9 +196,26 @@ export function HeroSection() {
       const newImageUrls = [...imageUrls];
       newImageUrls[slotIdx] = url;
       setImageUrls(newImageUrls);
+      newUploadStatus[slotIdx] = "done";
+      setUploadStatus([...newUploadStatus]);
+      newUploadError[slotIdx] = "";
+      setUploadError([...newUploadError]);
       setAttachmentError("");
     } catch (err) {
-      setAttachmentError("Upload failed, try again");
+      // Remove the file from the slot and show error
+      const newAttachmentsFail = [...attachments];
+      newAttachmentsFail[slotIdx] = undefined;
+      setAttachments(newAttachmentsFail);
+      setImages(newAttachmentsFail.filter(Boolean));
+      setImagePreviews(newAttachmentsFail.filter(Boolean).map(img => URL.createObjectURL(img)));
+      const newImageUrls = [...imageUrls];
+      newImageUrls[slotIdx] = undefined as any;
+      setImageUrls(newImageUrls);
+      newUploadStatus[slotIdx] = "failed";
+      setUploadStatus([...newUploadStatus]);
+      newUploadError[slotIdx] = "Upload failed, try again";
+      setUploadError([...newUploadError]);
+      setAttachmentError("");
     }
   };
 
@@ -199,8 +228,15 @@ export function HeroSection() {
     const newImageUrls = [...imageUrls];
     newImageUrls[idx] = undefined as any;
     setImageUrls(newImageUrls);
-    setAttachmentError("");
+    setAttachmentError(""); // Clear error on remove
     setRejectedFileError("");
+    // Clear upload status and error for this slot
+    const newUploadStatus = [...uploadStatus];
+    newUploadStatus[idx] = "idle";
+    setUploadStatus(newUploadStatus);
+    const newUploadError = [...uploadError];
+    newUploadError[idx] = "";
+    setUploadError(newUploadError);
   };
 
   const priceCards = [
@@ -294,8 +330,16 @@ export function HeroSection() {
                 const file = attachments[slotIdx];
                 return file ? (
                   <div key={slotIdx} className="relative w-20 h-20 flex items-center justify-center bg-brand-green/10 border-2 border-brand-green/30 rounded-lg shadow-sm overflow-hidden">
+                    {uploadStatus[slotIdx] === "uploading" && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-white/70 z-10">
+                        <svg className="animate-spin" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="4" fill="none" /></svg>
+                      </div>
+                    )}
+                    {uploadStatus[slotIdx] === "failed" && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-white/80 z-10 text-red-600 text-xs font-semibold px-2 text-center">{uploadError[slotIdx]}</div>
+                    )}
                     {file.type.startsWith('image') ? (
-                      <img src={URL.createObjectURL(file)} alt={file.name} className="w-full h-full object-cover" />
+                      <img src={imagePreviews[slotIdx]} alt={file.name} className="w-full h-full object-cover" />
                     ) : (
                       <span className="text-3xl">📄</span>
                     )}
@@ -350,7 +394,7 @@ export function HeroSection() {
               }}
             >
               {isSubmitting && "Uploading or sending in progress..."}
-              {!isSubmitting && !!attachmentError && attachments.some((_, idx) => attachments[idx] && !imageUrls[idx]) && "Please wait for all images to finish uploading or fix attachment errors."}
+              {!isSubmitting && uploadStatus.some(s => s === "uploading") && "Please wait for all images to finish uploading or fix attachment errors."}
               {!isSubmitting && !attachmentError && !isFormValid && (
                 <>
                   {form.firstName.trim().length < 2 && <div>First name must be at least 2 characters.</div>}
