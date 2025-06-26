@@ -174,13 +174,6 @@ export function HeroSection() {
         formData.set("image_url_3", imageUrls[2] || "");
         await sendEmail(formData);
       }
-      
-      toast({
-        title: "Request submitted!",
-        description: "I aim to respond within 24-48hrs with the first iteration, but expect delays on the weekend.",
-        duration: 5000,
-      });
-      
       setStep("success");
       setForm({ firstName: "", email: "" });
       setProjectDescription("");
@@ -581,7 +574,7 @@ export function HeroSection() {
       </div>
 
       {step === "success" && (
-        <div className="flex flex-col items-center justify-center py-12 animate-fade-in">
+        <div className="flex flex-col items-center justify-center pt-8 pb-4 animate-fade-in">
           <div className="mb-6">
             <svg className="animate-bounce-in" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="40" cy="40" r="40" fill="#22c55e"/>
