@@ -132,6 +132,13 @@ export function HeroSection() {
     setImages(files);
   };
 
+  const handleRemoveAttachment = (idx: number) => {
+    const newAttachments = attachments.filter((_, i) => i !== idx);
+    setAttachments(newAttachments);
+    setImages(newAttachments);
+    setImagePreviews(newAttachments.map(img => URL.createObjectURL(img)));
+  };
+
   const priceCards = [
     {
       title: "Simple one-pager",
@@ -223,19 +230,33 @@ export function HeroSection() {
               className="block w-full text-sm text-brand-text-dark file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-green/10 file:text-brand-green hover:file:bg-brand-green/20"
               style={{ padding: 0 }}
             />
-            {attachmentError && <div className="text-red-600 text-sm">{attachmentError}</div>}
-            {imagePreviews.length > 0 && (
-              <div className="flex gap-2 mt-2 flex-wrap justify-center">
-                {imagePreviews.map((src, idx) => (
-                  <img
-                    key={idx}
-                    src={src}
-                    alt={`Preview ${idx + 1}`}
-                    className="w-16 h-16 object-cover rounded-lg border border-brand-green/20"
-                  />
-                ))}
-              </div>
-            )}
+            <div className="flex items-center gap-2 mt-2 flex-wrap justify-center">
+              {attachments.map((file, idx) => (
+                <div key={idx} className="relative flex items-center bg-brand-green/10 border border-brand-green/20 rounded-lg px-2 py-1 mr-2 mb-2 shadow-sm">
+                  {file.type.startsWith('image') ? (
+                    <img src={imagePreviews[idx]} alt={file.name} className="w-8 h-8 object-cover rounded mr-2" />
+                  ) : (
+                    <span className="w-8 h-8 flex items-center justify-center bg-gray-200 rounded mr-2 text-xs">📄</span>
+                  )}
+                  <div className="flex flex-col text-left">
+                    <span className="text-xs font-medium text-brand-text-dark truncate max-w-[80px]">{file.name}</span>
+                    <span className="text-xs text-brand-text-muted">{(file.size / 1024).toFixed(1)} KB</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveAttachment(idx)}
+                    className="ml-2 text-red-500 hover:text-red-700 text-lg font-bold px-1 focus:outline-none"
+                    aria-label="Remove file"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div className="flex items-center justify-between mt-1">
+              <span className="text-xs text-brand-text-muted">{attachments.length} file{attachments.length !== 1 ? 's' : ''}</span>
+              {attachmentError && <span className="text-xs text-red-600 font-medium">{attachmentError}</span>}
+            </div>
           </div>
           {formError && <div className="text-red-600 text-sm">{formError}</div>}
           <Button type="submit" disabled={!isFormValid} className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0 disabled:opacity-60 disabled:cursor-not-allowed">Let's get building!</Button>
