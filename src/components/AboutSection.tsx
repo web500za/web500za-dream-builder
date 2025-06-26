@@ -70,7 +70,7 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
           I've been hooked on blending technology and creativity for as far back as I can remember.
         </p>
         <p className="text-brand-text-muted leading-relaxed mb-4">
-          Fast forward 20 years from when the photo above was taken, and I'm now working for an industry-leading Cybersecurity company, pursuing a way to make my technical background meaningful.
+          Fast forward 20 years from when this photo was taken, and I'm now working for an industry-leading Cybersecurity company, pursuing a way to make my technical background meaningful.
         </p>
         <p className="text-brand-text-muted leading-relaxed mb-4">
           This career path has shown me the importance of things being well-built and air-tight. What's more meaningful than bringing that value to small businesses? A fortune 500 pedigree to the barber down the road.
@@ -87,17 +87,12 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
       </div>
 
       {/* Work With Me CTA */}
-      <div className="text-center mb-10">
+      <div className="flex justify-center mb-10">
         <Button 
           onClick={onNavigateToQuote}
-          className="bg-gradient-to-r from-brand-green via-emerald-400 to-brand-green-light hover:from-brand-green-light hover:to-brand-green text-white px-14 py-5 text-2xl font-bold rounded-2xl shadow-xl transition-all duration-300 hover:scale-105 animate-bounce-slow mt-8 flex items-center justify-center gap-3 relative overflow-hidden"
-          style={{ position: 'relative' }}
+          className="bg-brand-green hover:bg-brand-green-light text-white px-12 py-5 text-2xl font-bold rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-brand-green focus:ring-offset-2"
         >
-          <span className="inline-flex items-center gap-2">
-            <Sparkles className="w-7 h-7 text-white/90 animate-pulse" />
-            Work With Me
-          </span>
-          <span className="absolute left-0 top-0 w-full h-full pointer-events-none animate-shine" style={{ background: 'linear-gradient(120deg,rgba(255,255,255,0.15) 0%,rgba(255,255,255,0.35) 60%,rgba(255,255,255,0.05) 100%)', opacity: 0.7 }}></span>
+          Work With Me
         </Button>
       </div>
     </div>

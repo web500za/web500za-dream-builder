@@ -47,7 +47,7 @@ export function HeroSection() {
   const [attachmentError, setAttachmentError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-  const MAX_TOTAL_SIZE = 10 * 1024 * 1024;
+  const MAX_TOTAL_SIZE = 50 * 1024 * 1024;
   const [rejectedFileError, setRejectedFileError] = useState("");
 
   // Launch offer state (for future dynamic spots left)
@@ -74,6 +74,18 @@ export function HeroSection() {
     setImagePreviews(urls);
     return () => urls.forEach(url => URL.revokeObjectURL(url));
   }, [images]);
+
+  // Persist modal step in localStorage
+  useEffect(() => {
+    localStorage.setItem('quoteModalStep', step);
+  }, [step]);
+
+  useEffect(() => {
+    const savedStep = localStorage.getItem('quoteModalStep');
+    if (savedStep === 'idea' || savedStep === 'details' || savedStep === 'success') {
+      setStep(savedStep);
+    }
+  }, []);
 
   const handleIdeaSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -151,7 +163,7 @@ export function HeroSection() {
     if (!e.target.files || e.target.files.length === 0) return;
     const file = e.target.files[0];
     if (file.size > MAX_TOTAL_SIZE) {
-      setRejectedFileError("Image too large (max 10MB total)");
+      setRejectedFileError("Image too large (max 50MB total)");
       return;
     }
     setRejectedFileError("");
@@ -160,7 +172,7 @@ export function HeroSection() {
     const prevFile = newAttachments[slotIdx];
     const newTotal = currentTotal - (prevFile ? prevFile.size : 0) + file.size;
     if (newTotal > MAX_TOTAL_SIZE) {
-      setRejectedFileError("Image too large (max 10MB total)");
+      setRejectedFileError("Image too large (max 50MB total)");
       return;
     }
     setAttachmentError("Uploading...");
@@ -276,7 +288,7 @@ export function HeroSection() {
             autoComplete="off"
           />
           <div>
-            <div className="mb-2 text-sm font-medium text-brand-text-dark text-left">Upload up to 3 image attachments of 10mb total to strengthen your brief.</div>
+            <div className="mb-2 text-sm font-medium text-brand-text-dark text-left">Upload up to 3 image attachments of 50mb total to strengthen your brief.</div>
             <div className="flex gap-4 justify-center mb-2">
               {[0, 1, 2].map((slotIdx) => {
                 const file = attachments[slotIdx];
@@ -338,7 +350,7 @@ export function HeroSection() {
               }}
             >
               {isSubmitting && "Uploading or sending in progress..."}
-              {!isSubmitting && !!attachmentError && "Please wait for all images to finish uploading or fix attachment errors."}
+              {!isSubmitting && !!attachmentError && attachments.some((_, idx) => attachments[idx] && !imageUrls[idx]) && "Please wait for all images to finish uploading or fix attachment errors."}
               {!isSubmitting && !attachmentError && !isFormValid && (
                 <>
                   {form.firstName.trim().length < 2 && <div>First name must be at least 2 characters.</div>}
