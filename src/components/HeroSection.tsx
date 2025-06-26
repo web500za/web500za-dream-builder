@@ -6,6 +6,7 @@ import { AnimatedInput } from "@/components/AnimatedInput";
 import { Send, ChevronDown } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 
 export function HeroSection() {
   const [projectDescription, setProjectDescription] = useState("");
@@ -18,6 +19,7 @@ export function HeroSection() {
     whatsapp: ""
   });
   const [formError, setFormError] = useState("");
+  const { toast } = useToast();
 
   // Launch offer state (for future dynamic spots left)
   const launchSpotsLeft = 5; // Placeholder, can be made dynamic later
@@ -35,11 +37,13 @@ export function HeroSection() {
       return;
     }
     setFormError("");
-    // TODO: Handle final submission (send to backend, show success, etc)
     setShowModal(false);
     setProjectDescription("");
     setForm({ firstName: "", lastName: "", email: "", whatsapp: "" });
-    // Optionally show a toast or success message
+    toast({
+      title: "Thank you!",
+      description: "I'll give this a read and get back to you ASAP.",
+    });
   };
 
   const priceCards = [
