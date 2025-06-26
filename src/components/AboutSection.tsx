@@ -51,11 +51,12 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
 
       {/* Photo Section */}
       <div className="text-center mb-8">
-        <div className="w-48 h-48 md:w-80 md:h-80 mx-auto mb-6 rounded-lg overflow-hidden border-2 border-brand-green">
+        <div className="w-full md:w-4/5 mx-auto mb-6 rounded-lg overflow-hidden border-2 border-brand-green">
           <img 
             src="/lovable-uploads/about-childhood-pc.jpg" 
             alt="Me and my PC, circa 2002" 
-            className="w-full h-full object-cover object-center"
+            className="w-full h-auto object-cover object-center"
+            style={{ maxHeight: '500px' }}
           />
         </div>
         <p className="text-brand-text-muted text-sm italic">
@@ -66,36 +67,33 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
       {/* About Text Content */}
       <div className="max-w-3xl mx-auto text-center mb-10">
         <p className="text-brand-text-muted leading-relaxed mb-4">
-          I've been hooked on the intersection between technology and creativity as far back as I can remember. That early curiosity about how things work—and how to make them work better—has driven everything I do.
+          I've been hooked on blending technology and creativity for as far back as I can remember.
         </p>
         <p className="text-brand-text-muted leading-relaxed mb-4">
-          Today, I work in Cybersecurity, which has taught me the value of secure, well-functioning websites (and what can go wrong when things aren't built right). I started web500za to combine that technical background with a creative approach—helping local entrepreneurs get reliable, great-looking sites, minus the big agency price tags.
+          Fast forward 20 years from when the photo above was taken, and I'm now working in Cybersecurity, putting my technical background to use in a meaningful way.
+        </p>
+        <p className="text-brand-text-muted leading-relaxed mb-4">
+          This career path has shown me the importance of things being well-built and airtight. What's more meaningful than bringing that value to small businesses?
+        </p>
+        <p className="text-brand-text-muted leading-relaxed mb-4">
+          To be blunt, I believe small businesses are what will stop money from leaving our country and start keeping our money circulating locally to feed back into our communities.
+        </p>
+        <p className="text-brand-text-muted leading-relaxed mb-4">
+          My goal is to strengthen local businesses, in hopes of rekindling the sense of community from the 70s, 80s, and 90s and early 2000's—a spirit that the modern marketplace and neighborhood is sorely missing.
         </p>
         <p className="text-brand-text-muted leading-relaxed">
-          If you want a website or webapp that just works—and is a little more "you"—I'd love to help bring your idea online.
+          If you believe community is the most important thing and want to pursue this together, then the button below is your next step.
         </p>
       </div>
 
       {/* Work With Me CTA */}
       <div className="text-center mb-10">
-        <h4 className="text-xl font-semibold text-brand-text-dark mb-4">Ready to bring your idea online?</h4>
         <Button 
           onClick={onNavigateToQuote}
-          className="bg-brand-green hover:bg-brand-green-light text-white px-8 py-3 text-lg"
+          className="bg-brand-green hover:bg-brand-green-light text-white px-12 py-5 text-2xl font-bold rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 animate-bounce-slow mt-8"
         >
           Work With Me
         </Button>
-      </div>
-
-      {/* Values */}
-      <div className="grid md:grid-cols-3 gap-5">
-        {values.map((value, index) => (
-          <Card key={index} className="glass-effect border-brand-green/20 p-5 text-center hover:scale-105 transition-transform duration-300">
-            <value.icon className="h-10 w-10 text-brand-green mx-auto mb-3" />
-            <h4 className="text-base font-semibold text-brand-text-dark mb-2">{value.title}</h4>
-            <p className="text-brand-text-muted text-sm">{value.description}</p>
-          </Card>
-        ))}
       </div>
     </div>
   );

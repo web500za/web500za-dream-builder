@@ -11,18 +11,18 @@ import { useToast } from "@/hooks/use-toast";
 export function HeroSection() {
   const [projectDescription, setProjectDescription] = useState("");
   const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
-  const [step, setStep] = useState<"idea" | "details">("idea");
+  const [step, setStep] = useState<"idea" | "details" | "success">("idea");
   const [form, setForm] = useState({
     firstName: "",
-    lastName: "",
-    email: "",
-    whatsapp: ""
+    email: ""
   });
   const [formError, setFormError] = useState("");
   const { toast } = useToast();
   const modalContentRef = useRef<HTMLDivElement>(null);
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [isPricingOpen, setIsPricingOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Launch offer state (for future dynamic spots left)
   const launchSpotsLeft = 5; // Placeholder, can be made dynamic later
@@ -55,22 +55,35 @@ export function HeroSection() {
     setStep("details");
   };
 
-  const handleDetailsSubmit = (e: React.FormEvent) => {
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
+  const isFormValid = form.firstName.trim() && isEmailValid;
+
+  const handleDetailsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.firstName.trim() || !form.email.trim()) {
-      setFormError("First name and email are required.");
-      return;
-    }
+    if (!isFormValid) return;
+
     setFormError("");
-    setStep("idea");
-    setProjectDescription("");
-    setForm({ firstName: "", lastName: "", email: "", whatsapp: "" });
-    setImages([]);
-    setImagePreviews([]);
-    toast({
-      title: "Thank you!",
-      description: "I'll give this a read and get back to you ASAP.",
-    });
+    setIsSubmitting(true);
+
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "Request submitted!",
+        description: "I aim to respond within 24-48hrs with the first iteration, but expect delays on the weekend.",
+        duration: 5000,
+      });
+      
+      setStep("success");
+      setForm({ firstName: "", email: "" });
+      setProjectDescription("");
+      setImagePreviews([]);
+    } catch (error) {
+      setFormError("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,32 +133,28 @@ export function HeroSection() {
       )}
       {step === "details" && (
         <form onSubmit={handleDetailsSubmit} className="mb-6 md:mb-12 max-w-lg mx-auto bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-4 animate-fade-in">
-          <div className="flex flex-col md:flex-row gap-3">
-            <Input
-              placeholder="First name*"
-              value={form.firstName}
-              onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
-              required
-              autoFocus
-            />
-            <Input
-              placeholder="Last name (optional)"
-              value={form.lastName}
-              onChange={e => setForm(f => ({ ...f, lastName: e.target.value }))}
-            />
-          </div>
+          <label className="block text-sm font-medium text-brand-text-dark mb-1 text-left">Your idea/brief</label>
+          <textarea
+            value={projectDescription}
+            onChange={e => setProjectDescription(e.target.value)}
+            required
+            rows={3}
+            className="w-full rounded-lg border border-brand-green/20 px-3 py-2 text-base text-brand-text-dark bg-white focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 transition-all"
+            placeholder="Describe what you want built..."
+          />
+          <Input
+            placeholder="First name*"
+            value={form.firstName}
+            onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
+            required
+            autoFocus
+          />
           <Input
             placeholder="Email address*"
             type="email"
             value={form.email}
             onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
             required
-          />
-          <Input
-            placeholder="WhatsApp number (optional)"
-            type="tel"
-            value={form.whatsapp}
-            onChange={e => setForm(f => ({ ...f, whatsapp: e.target.value }))}
           />
           <div>
             <label className="block text-sm font-medium text-brand-text-dark mb-1">Attach images (optional, up to 3)</label>
@@ -172,13 +181,13 @@ export function HeroSection() {
             )}
           </div>
           {formError && <div className="text-red-600 text-sm">{formError}</div>}
-          <Button type="submit" className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0">Let's get building!</Button>
+          <Button type="submit" disabled={!isFormValid} className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0 disabled:opacity-60 disabled:cursor-not-allowed">Let's get building!</Button>
         </form>
       )}
 
       {/* Compelling CTA-driven description */}
       <p className="text-base md:text-lg lg:text-xl text-brand-text-muted mb-6 md:mb-16 max-w-3xl mx-auto leading-relaxed">
-        Describe what you need above, and I'll craft and host your website or web app for free. Only pay if you love the result—starting from just <span className="font-bold text-brand-green">R500</span>. Let's turn your vision into something real, fast, and hassle-free.
+        Describe what you need above. I'll receive your idea via e-mail and start crafting and hosting your website or web app for free. Only pay if you love the result, starting from just <span className="font-bold text-brand-green">R500</span>.
       </p>
 
       {/* Combined How it works & Ideal brief Section */}
@@ -192,25 +201,31 @@ export function HeroSection() {
             <div className="glass-effect rounded-xl md:rounded-2xl p-4 md:p-6 mt-3 md:mt-4">
               <div className="space-y-6 md:space-y-8">
                 <div>
-                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">1. How does w5z work?</h4>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">1. How quickly will you respond?</h4>
                   <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
-                    Describe what you need in as much detail as you like. I'll email you a quote, build and host your site for free, and you only pay if you're happy with the result. I aim to respond within 24hrs, with slight delays over weekends.
+                    I aim to respond within 24-48hrs with the first iteration, but expect delays on the weekend. I'll email you a quote and start building your site for free—you only pay if you're happy with the result.
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">2. What makes an ideal brief?</h4>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">2. How does w5z work?</h4>
+                  <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
+                    Describe what you need in as much detail as you like. I'll email you a quote, build and host your site for free, and you only pay if you're happy with the result.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">3. What makes an ideal brief?</h4>
                   <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
                     The ideal brief tells me a little about your business, who your website is for, and what you want it to do. The more details, the better—but if you only have a rough idea or just the start of your concept, I'll do my best to fill in the rest. <span className="text-brand-green font-semibold">You don't need to have it all figured out!</span>
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">3. What happens if I want changes to my site?</h4>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">4. What happens if I want changes to my site?</h4>
                   <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
                     I include all reasonable tweaks and adjustments during the build—my goal is that you love the final result! After you sign off and your site is live, any major changes or new features are quoted separately, so you're always in control.
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">4. Can I get my site's code or move it later?</h4>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">5. Can I get my site's code or move it later?</h4>
                   <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
                     Yes! If you want to host your site yourself or move it to your own domain in the future, I can provide the code or assist with the transfer for a small, once-off fee.
                   </p>
@@ -221,15 +236,25 @@ export function HeroSection() {
         </Collapsible>
       </div>
 
-      {/* Price cards */}
-      <div className="grid md:grid-cols-3 gap-4 md:gap-6">
-        {priceCards.map((card, index) => (
-          <Card key={index} className="glass-effect border-brand-green/20 p-4 md:p-6 hover:scale-105 transition-all duration-300 hover:shadow-xl">
-            <h3 className="text-lg md:text-xl font-semibold text-brand-text-dark mb-2">{card.title}</h3>
-            <p className="text-xl md:text-2xl font-bold text-brand-green mb-3 md:mb-4">{card.price}</p>
-            <p className="text-brand-text-muted text-sm md:text-base">{card.description}</p>
-          </Card>
-        ))}
+      {/* Pricing Dropdown */}
+      <div className="mb-8 md:mb-12 max-w-4xl mx-auto">
+        <Collapsible open={isPricingOpen} onOpenChange={setIsPricingOpen}>
+          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl md:rounded-2xl p-3 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300 mb-2">
+            <span className="text-base md:text-lg font-medium mr-2 md:mr-3">Pricing</span>
+            <ChevronDown className={`h-4 w-4 md:h-5 md:w-5 transition-transform duration-300 ${isPricingOpen ? 'rotate-180' : ''}`} />
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <div className="grid md:grid-cols-3 gap-4 md:gap-6 mt-4">
+              {priceCards.map((card, index) => (
+                <Card key={index} className="glass-effect border-brand-green/20 p-4 md:p-6 hover:scale-105 transition-all duration-300 hover:shadow-xl">
+                  <h3 className="text-lg md:text-xl font-semibold text-brand-text-dark mb-2">{card.title}</h3>
+                  <p className="text-xl md:text-2xl font-bold text-brand-green mb-3 md:mb-4">{card.price}</p>
+                  <p className="text-brand-text-muted text-sm md:text-base">{card.description}</p>
+                </Card>
+              ))}
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
       </div>
 
       {/* Mobile CTA Button */}
