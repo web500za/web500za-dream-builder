@@ -11,7 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 export function HeroSection() {
   const [projectDescription, setProjectDescription] = useState("");
   const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [step, setStep] = useState<"idea" | "details">("idea");
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -21,6 +21,8 @@ export function HeroSection() {
   const [formError, setFormError] = useState("");
   const { toast } = useToast();
   const modalContentRef = useRef<HTMLDivElement>(null);
+  const [images, setImages] = useState<File[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
   // Launch offer state (for future dynamic spots left)
   const launchSpotsLeft = 5; // Placeholder, can be made dynamic later
@@ -34,28 +36,47 @@ export function HeroSection() {
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [showModal]);
+  }, [step]);
 
-  const handleSubmit = (e?: React.FormEvent) => {
+  // Generate previews when images change
+  useEffect(() => {
+    if (images.length === 0) {
+      setImagePreviews([]);
+      return;
+    }
+    const urls = images.map(img => URL.createObjectURL(img));
+    setImagePreviews(urls);
+    return () => urls.forEach(url => URL.revokeObjectURL(url));
+  }, [images]);
+
+  const handleIdeaSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!projectDescription.trim()) return;
-    setShowModal(true);
+    setStep("details");
   };
 
-  const handleModalSubmit = (e: React.FormEvent) => {
+  const handleDetailsSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.firstName.trim() || !form.email.trim()) {
       setFormError("First name and email are required.");
       return;
     }
     setFormError("");
-    setShowModal(false);
+    setStep("idea");
     setProjectDescription("");
     setForm({ firstName: "", lastName: "", email: "", whatsapp: "" });
+    setImages([]);
+    setImagePreviews([]);
     toast({
       title: "Thank you!",
       description: "I'll give this a read and get back to you ASAP.",
     });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const files = Array.from(e.target.files).slice(0, 3); // Limit to 3
+    setImages(files);
   };
 
   const priceCards = [
@@ -78,71 +99,82 @@ export function HeroSection() {
 
   return (
     <div className="text-center max-w-6xl mx-auto px-4 md:px-6">
-      {/* Hero input - Most prominent CTA */}
-      <form onSubmit={handleSubmit} className="mb-6 md:mb-12">
-        <div className="relative max-w-5xl mx-auto">
-          <AnimatedInput
-            value={projectDescription}
-            onChange={(e) => setProjectDescription(e.target.value)}
-            onSubmit={handleSubmit}
-            className="w-full h-20 md:h-20 lg:h-24 xl:h-28 text-lg md:text-lg lg:text-xl xl:text-2xl px-6 md:px-8 lg:px-10 xl:px-12 pr-20 md:pr-24 lg:pr-28 xl:pr-32 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl md:rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-0 focus:shadow-[0_20px_80px_rgba(45,90,61,0.4)] focus:border-brand-green/80 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
-          />
-          <Button
-            type="submit"
-            size="icon"
-            className="absolute right-3 md:right-4 lg:right-6 xl:right-8 top-1/2 -translate-y-1/2 h-16 md:h-14 lg:h-16 xl:h-18 w-16 md:w-14 lg:w-16 xl:w-18 bg-brand-green hover:bg-brand-green-light text-white rounded-xl md:rounded-2xl shadow-xl transition-all duration-300 hover:scale-110"
-          >
-            <Send className="h-8 md:h-8 lg:h-10 xl:h-12 w-8 md:w-8 lg:w-10 xl:w-12 text-white" />
-          </Button>
-        </div>
-      </form>
-
-      {/* Modal for user details */}
-      <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent
-          ref={modalContentRef}
-          className="max-h-[90dvh] md:max-h-[80vh] overflow-y-auto md:top-1/2 md:left-1/2 md:translate-x-[-50%] md:translate-y-[-50%] fixed bottom-0 left-0 right-0 md:relative rounded-t-2xl md:rounded-lg p-4 md:p-6 bg-white shadow-xl border md:max-w-lg w-full mx-auto"
-          style={{
-            marginTop: window.innerWidth < 768 ? '10px' : undefined,
-            marginBottom: window.innerWidth < 768 ? 'env(safe-area-inset-bottom, 10px)' : undefined,
-          }}
-        >
-          <DialogHeader>
-            <DialogTitle>Tell us a bit about you</DialogTitle>
-          </DialogHeader>
-          <form onSubmit={handleModalSubmit} className="space-y-4 mt-2">
-            <div className="flex flex-col md:flex-row gap-3">
-              <Input
-                placeholder="First name*"
-                value={form.firstName}
-                onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
-                required
-                autoFocus
-              />
-              <Input
-                placeholder="Last name (optional)"
-                value={form.lastName}
-                onChange={e => setForm(f => ({ ...f, lastName: e.target.value }))}
-              />
-            </div>
+      {step === "idea" && (
+        <form onSubmit={handleIdeaSubmit} className="mb-6 md:mb-12">
+          <div className="relative max-w-5xl mx-auto">
+            <AnimatedInput
+              value={projectDescription}
+              onChange={(e) => setProjectDescription(e.target.value)}
+              onSubmit={handleIdeaSubmit}
+              className="w-full h-20 md:h-20 lg:h-24 xl:h-28 text-lg md:text-lg lg:text-xl xl:text-2xl px-6 md:px-8 lg:px-10 xl:px-12 pr-20 md:pr-24 lg:pr-28 xl:pr-32 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl md:rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-0 focus:shadow-[0_20px_80px_rgba(45,90,61,0.4)] focus:border-brand-green/80 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
+            />
+            <Button
+              type="submit"
+              size="icon"
+              className="absolute right-3 md:right-4 lg:right-6 xl:right-8 top-1/2 -translate-y-1/2 h-16 md:h-14 lg:h-16 xl:h-18 w-16 md:w-14 lg:w-16 xl:w-18 bg-brand-green hover:bg-brand-green-light text-white rounded-xl md:rounded-2xl shadow-xl transition-all duration-300 hover:scale-110"
+            >
+              <Send className="h-8 md:h-8 lg:h-10 xl:h-12 w-8 md:w-8 lg:w-10 xl:w-12 text-white" />
+            </Button>
+          </div>
+        </form>
+      )}
+      {step === "details" && (
+        <form onSubmit={handleDetailsSubmit} className="mb-6 md:mb-12 max-w-lg mx-auto bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-4 animate-fade-in">
+          <div className="flex flex-col md:flex-row gap-3">
             <Input
-              placeholder="Email address*"
-              type="email"
-              value={form.email}
-              onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+              placeholder="First name*"
+              value={form.firstName}
+              onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
               required
+              autoFocus
             />
             <Input
-              placeholder="WhatsApp number (optional)"
-              type="tel"
-              value={form.whatsapp}
-              onChange={e => setForm(f => ({ ...f, whatsapp: e.target.value }))}
+              placeholder="Last name (optional)"
+              value={form.lastName}
+              onChange={e => setForm(f => ({ ...f, lastName: e.target.value }))}
             />
-            {formError && <div className="text-red-600 text-sm">{formError}</div>}
-            <Button type="submit" className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0">Let's get building!</Button>
-          </form>
-        </DialogContent>
-      </Dialog>
+          </div>
+          <Input
+            placeholder="Email address*"
+            type="email"
+            value={form.email}
+            onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+            required
+          />
+          <Input
+            placeholder="WhatsApp number (optional)"
+            type="tel"
+            value={form.whatsapp}
+            onChange={e => setForm(f => ({ ...f, whatsapp: e.target.value }))}
+          />
+          <div>
+            <label className="block text-sm font-medium text-brand-text-dark mb-1">Attach images (optional, up to 3)</label>
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/jpg"
+              multiple
+              onChange={handleFileChange}
+              className="block w-full text-sm text-brand-text-dark file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-green/10 file:text-brand-green hover:file:bg-brand-green/20"
+              style={{ padding: 0 }}
+              max={3}
+            />
+            {imagePreviews.length > 0 && (
+              <div className="flex gap-2 mt-2 flex-wrap justify-center">
+                {imagePreviews.map((src, idx) => (
+                  <img
+                    key={idx}
+                    src={src}
+                    alt={`Preview ${idx + 1}`}
+                    className="w-16 h-16 object-cover rounded-lg border border-brand-green/20"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+          {formError && <div className="text-red-600 text-sm">{formError}</div>}
+          <Button type="submit" className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0">Let's get building!</Button>
+        </form>
+      )}
 
       {/* Compelling CTA-driven description */}
       <p className="text-base md:text-lg lg:text-xl text-brand-text-muted mb-6 md:mb-16 max-w-3xl mx-auto leading-relaxed">
