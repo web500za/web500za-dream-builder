@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -20,9 +20,21 @@ export function HeroSection() {
   });
   const [formError, setFormError] = useState("");
   const { toast } = useToast();
+  const modalContentRef = useRef<HTMLDivElement>(null);
 
   // Launch offer state (for future dynamic spots left)
   const launchSpotsLeft = 5; // Placeholder, can be made dynamic later
+
+  // Scroll modal content into view if keyboard opens (mobile)
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768 && modalContentRef.current) {
+        modalContentRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [showModal]);
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -87,7 +99,14 @@ export function HeroSection() {
 
       {/* Modal for user details */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent>
+        <DialogContent
+          ref={modalContentRef}
+          className="max-h-[90dvh] md:max-h-[80vh] overflow-y-auto md:top-1/2 md:left-1/2 md:translate-x-[-50%] md:translate-y-[-50%] fixed bottom-0 left-0 right-0 md:relative rounded-t-2xl md:rounded-lg p-4 md:p-6 bg-white shadow-xl border md:max-w-lg w-full mx-auto"
+          style={{
+            marginTop: window.innerWidth < 768 ? '10px' : undefined,
+            marginBottom: window.innerWidth < 768 ? 'env(safe-area-inset-bottom, 10px)' : undefined,
+          }}
+        >
           <DialogHeader>
             <DialogTitle>Tell us a bit about you</DialogTitle>
           </DialogHeader>
@@ -98,6 +117,7 @@ export function HeroSection() {
                 value={form.firstName}
                 onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
                 required
+                autoFocus
               />
               <Input
                 placeholder="Last name (optional)"
@@ -119,7 +139,7 @@ export function HeroSection() {
               onChange={e => setForm(f => ({ ...f, whatsapp: e.target.value }))}
             />
             {formError && <div className="text-red-600 text-sm">{formError}</div>}
-            <Button type="submit" className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2">Let's get building!</Button>
+            <Button type="submit" className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2 sticky bottom-0">Let's get building!</Button>
           </form>
         </DialogContent>
       </Dialog>
