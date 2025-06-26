@@ -54,19 +54,19 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
         <div className="w-48 h-48 md:w-80 md:h-80 mx-auto mb-6 rounded-lg overflow-hidden border-2 border-brand-green">
           <img 
             src="/lovable-uploads/about-childhood-pc.jpg" 
-            alt="Me at my first PC, circa 2002" 
+            alt="Me and my PC, circa 2002" 
             className="w-full h-full object-cover object-center"
           />
         </div>
         <p className="text-brand-text-muted text-sm italic">
-          <span className="font-semibold">Me at my first PC, circa 2002</span>
+          <span className="font-semibold">Me and my PC, circa 2002</span>
         </p>
       </div>
 
       {/* About Text Content */}
       <div className="max-w-3xl mx-auto text-center mb-10">
         <p className="text-brand-text-muted leading-relaxed mb-4">
-          Since I jailbroke my first iPhone in 2009, I've been hooked on the intersection between technology and creativity. That early curiosity about how things work—and how to make them work better—has driven everything I do.
+          I've been hooked on the intersection between technology and creativity as far back as I can remember. That early curiosity about how things work—and how to make them work better—has driven everything I do.
         </p>
         <p className="text-brand-text-muted leading-relaxed mb-4">
           Today, I work in Cybersecurity, which has taught me the value of secure, well-functioning websites (and what can go wrong when things aren't built right). I started web500za to combine that technical background with a creative approach—helping local entrepreneurs get reliable, great-looking sites, minus the big agency price tags.

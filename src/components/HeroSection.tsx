@@ -4,18 +4,42 @@ import { Card } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { AnimatedInput } from "@/components/AnimatedInput";
 import { Send, ChevronDown } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 export function HeroSection() {
   const [projectDescription, setProjectDescription] = useState("");
   const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    whatsapp: ""
+  });
+  const [formError, setFormError] = useState("");
 
   // Launch offer state (for future dynamic spots left)
   const launchSpotsLeft = 5; // Placeholder, can be made dynamic later
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    console.log("Project description:", projectDescription);
-    // Handle form submission
+    if (!projectDescription.trim()) return;
+    setShowModal(true);
+  };
+
+  const handleModalSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.firstName.trim() || !form.email.trim()) {
+      setFormError("First name and email are required.");
+      return;
+    }
+    setFormError("");
+    // TODO: Handle final submission (send to backend, show success, etc)
+    setShowModal(false);
+    setProjectDescription("");
+    setForm({ firstName: "", lastName: "", email: "", whatsapp: "" });
+    // Optionally show a toast or success message
   };
 
   const priceCards = [
@@ -56,6 +80,45 @@ export function HeroSection() {
           </Button>
         </div>
       </form>
+
+      {/* Modal for user details */}
+      <Dialog open={showModal} onOpenChange={setShowModal}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Tell us a bit about you</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleModalSubmit} className="space-y-4 mt-2">
+            <div className="flex flex-col md:flex-row gap-3">
+              <Input
+                placeholder="First name*"
+                value={form.firstName}
+                onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
+                required
+              />
+              <Input
+                placeholder="Last name (optional)"
+                value={form.lastName}
+                onChange={e => setForm(f => ({ ...f, lastName: e.target.value }))}
+              />
+            </div>
+            <Input
+              placeholder="Email address*"
+              type="email"
+              value={form.email}
+              onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+              required
+            />
+            <Input
+              placeholder="WhatsApp number (optional)"
+              type="tel"
+              value={form.whatsapp}
+              onChange={e => setForm(f => ({ ...f, whatsapp: e.target.value }))}
+            />
+            {formError && <div className="text-red-600 text-sm">{formError}</div>}
+            <Button type="submit" className="w-full bg-brand-green hover:bg-brand-green-light text-white py-3 text-lg font-semibold rounded-xl shadow-md mt-2">Let's get building!</Button>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       {/* Compelling CTA-driven description */}
       <p className="text-base md:text-lg lg:text-xl text-brand-text-muted mb-6 md:mb-16 max-w-3xl mx-auto leading-relaxed">
