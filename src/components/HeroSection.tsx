@@ -27,8 +27,6 @@ async function uploadToCloudinary(file: File): Promise<string> {
   return data.secure_url;
 }
 
-const [uploadProgress, setUploadProgress] = useState<number[]>([0, 0, 0]);
-
 async function uploadToCloudinaryWithProgress(file: File, slotIdx: number, onProgress: (percent: number) => void, onTimeout: () => void): Promise<string> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -84,6 +82,7 @@ export function HeroSection() {
   const [rejectedFileError, setRejectedFileError] = useState("");
   const [uploadStatus, setUploadStatus] = useState<("idle" | "uploading" | "failed" | "done")[]>(["idle", "idle", "idle"]);
   const [uploadError, setUploadError] = useState<string[]>(["", "", ""]);
+  const [uploadProgress, setUploadProgress] = useState<number[]>([0, 0, 0]);
 
   // Launch offer state (for future dynamic spots left)
   const launchSpotsLeft = 5; // Placeholder, can be made dynamic later
