@@ -25,6 +25,8 @@ export function HeroSection() {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [attachments, setAttachments] = useState<File[]>([]);
+  const [attachmentError, setAttachmentError] = useState("");
 
   // Launch offer state (for future dynamic spots left)
   const launchSpotsLeft = 5; // Placeholder, can be made dynamic later
@@ -89,7 +91,7 @@ export function HeroSection() {
         firstName: form.firstName,
         email: form.email,
         projectDescription: projectDescription,
-        imageUrls: imagePreviews,
+        attachments: attachments,
       });
       
       toast({
@@ -117,6 +119,16 @@ export function HeroSection() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const files = Array.from(e.target.files).slice(0, 3); // Limit to 3
+    const totalSize = files.reduce((acc, file) => acc + file.size, 0);
+    if (files.length > 3 || totalSize > 5 * 1024 * 1024) {
+      setAttachmentError("You can attach up to 3 files, max 5MB total.");
+      setAttachments([]);
+      setImages([]);
+      setImagePreviews([]);
+      return;
+    }
+    setAttachmentError("");
+    setAttachments(files);
     setImages(files);
   };
 
@@ -202,7 +214,7 @@ export function HeroSection() {
             autoComplete="off"
           />
           <div>
-            <label className="block text-sm font-medium text-brand-text-dark mb-1">Attach images (optional, up to 3)</label>
+            <label className="block text-sm font-medium text-brand-text-dark mb-1">Attach images (optional, up to 3, max 5MB total)</label>
             <input
               type="file"
               accept="image/jpeg,image/png,image/webp,image/jpg"
@@ -210,8 +222,8 @@ export function HeroSection() {
               onChange={handleFileChange}
               className="block w-full text-sm text-brand-text-dark file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-green/10 file:text-brand-green hover:file:bg-brand-green/20"
               style={{ padding: 0 }}
-              max={3}
             />
+            {attachmentError && <div className="text-red-600 text-sm">{attachmentError}</div>}
             {imagePreviews.length > 0 && (
               <div className="flex gap-2 mt-2 flex-wrap justify-center">
                 {imagePreviews.map((src, idx) => (

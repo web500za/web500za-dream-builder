@@ -13,7 +13,7 @@ export interface EmailData {
   firstName: string;
   email: string;
   projectDescription: string;
-  imageUrls?: string[];
+  attachments?: File[];
 }
 
 // Enhanced email validation
@@ -116,22 +116,25 @@ export const sendEmail = async (data: EmailData): Promise<void> => {
   }
   
   try {
-    const templateParams = {
+    const templateParams: any = {
       to_email: 'web500za@gmail.com',
       from_name: data.firstName.trim(),
       from_email: data.email.toLowerCase().trim(),
       project_description: data.projectDescription.trim(),
-      image_urls: data.imageUrls?.join(', ') || 'No images attached',
       reply_to: data.email.toLowerCase().trim(),
     };
-
+    const sendParams: any = {
+      ...templateParams,
+    };
+    if (data.attachments && data.attachments.length > 0) {
+      sendParams.attachments = data.attachments;
+    }
     const response = await emailjs.send(
       EMAILJS_SERVICE_ID,
       EMAILJS_TEMPLATE_ID,
-      templateParams,
+      sendParams,
       EMAILJS_PUBLIC_KEY
     );
-
     if (response.status !== 200) {
       throw new Error('Failed to send email');
     }
