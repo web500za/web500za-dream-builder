@@ -4,6 +4,15 @@ import { ExternalLink } from "lucide-react";
 export function PortfolioSection() {
   const projects = [
     {
+      title: "Photography Portfolio",
+      description: "A stunning photography portfolio showcasing beautiful moments captured through the lens. This elegant website features a clean design that puts the focus on the visual storytelling, with smooth navigation and responsive galleries that work perfectly on all devices.",
+      image: "/lovable-uploads/photograph-thumbnail.png",
+      category: "Photography",
+      url: "https://zinhle-nkosi-visions.vercel.app/",
+      features: ["Portfolio galleries", "Responsive design", "Image optimization", "Contact forms"],
+      isLive: true
+    },
+    {
       title: "Barber Booking System",
       description: "This booking system was designed with a local barber in mind, featuring business-specific customizations tailored to real-world needs. The platform supports instant online bookings, same-day slots, and even accounts for unique requirements, such as the 12:15pm to 1:15pm Maghrib break observed by Muslim barbers. It's a great example of how w5z can deliver solutions that fit your business, your schedule, and your clients.",
       image: "/lovable-uploads/barebr-thumbnail.png",
