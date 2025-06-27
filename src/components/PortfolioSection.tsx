@@ -33,10 +33,6 @@ export function PortfolioSection() {
     {
       title: "Meal Placement Form",
       isLive: false
-    },
-    {
-      title: "Property Showcase",
-      isLive: false
     }
   ];
 
