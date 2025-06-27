@@ -26,10 +26,10 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
   ];
 
   const socialLinks = [
-    { href: "https://facebook.com/web500za", label: "Facebook", icon: Facebook },
-    { href: "https://instagram.com/web500za", label: "Instagram", icon: Instagram },
-    { href: "https://linkedin.com/in/web500za", label: "LinkedIn", icon: Linkedin },
-    { href: "https://x.com/web500za", label: "X (Twitter)", icon: Twitter }
+    { href: "https://facebook.com/web500za", label: "Facebook", icon: Facebook, comingSoon: true },
+    { href: "https://instagram.com/web500za", label: "Instagram", icon: Instagram, comingSoon: true },
+    { href: "https://www.linkedin.com/in/jaredjanuary?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAC3cQfkBBXExsXGqDiszmxLp8O8ubqlCHA0&lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_all%3BQP2kFIY6SWiBvgmRtZGVlw%3D%3D", label: "LinkedIn", icon: Linkedin, comingSoon: false },
+    { href: "https://x.com/web500za", label: "X (Twitter)", icon: Twitter, comingSoon: true }
   ];
 
   return (
@@ -39,14 +39,19 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
           {socialLinks.map((social, index) => (
             <a
               key={index}
-              href={social.href}
-              className="w-10 h-10 bg-brand-green/10 hover:bg-brand-green/20 text-brand-green rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+              href={social.comingSoon ? "#" : social.href}
+              className={`w-10 h-10 bg-brand-green/10 hover:bg-brand-green/20 text-brand-green rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 ${social.comingSoon ? 'opacity-50 cursor-not-allowed' : ''}`}
               aria-label={social.label}
+              onClick={social.comingSoon ? (e) => e.preventDefault() : undefined}
+              title={social.comingSoon ? 'Coming soon - Monday 30 June' : social.label}
             >
               <social.icon className="h-5 w-5" />
             </a>
           ))}
         </div>
+        <p className="text-brand-text-muted text-sm italic">
+          <span className="font-semibold">Facebook, Instagram & X (Twitter) coming soon - Monday 30 June</span>
+        </p>
       </div>
 
       {/* Photo Section */}
