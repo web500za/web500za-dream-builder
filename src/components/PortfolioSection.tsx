@@ -4,6 +4,15 @@ import { ExternalLink } from "lucide-react";
 export function PortfolioSection() {
   const projects = [
     {
+      title: "Silethokuhle Elevate Digital",
+      description: "A professional virtual assistant website showcasing services, testimonials, and contact information. This clean, modern design emphasizes professionalism and trust, with smooth animations and mobile-responsive layout. Perfect for establishing credibility and attracting new clients in the VA industry.",
+      image: "/lovable-uploads/silethokuhle-thumbnail.png",
+      category: "Virtual Assistant",
+      url: "https://silethokuhle-elevate-digital.vercel.app/",
+      features: ["Service showcase", "Testimonials", "Contact forms", "Mobile responsive", "Professional design"],
+      isLive: true
+    },
+    {
       title: "Photography Portfolio",
       description: "A stunning photography portfolio showcasing beautiful moments captured through the lens. This elegant website features a clean design that puts the focus on the visual storytelling, with smooth navigation and responsive galleries that work perfectly on all devices.",
       image: "/lovable-uploads/photograph-thumbnail.png",
