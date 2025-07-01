@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>web500za Invoice - Silethokuhle Mncube</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f6f1;
+            color: #2d2d2d;
+            line-height: 1.6;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .invoice-container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(53, 92, 65, 0.15);
+            overflow: hidden;
+            border: 1px solid rgba(53, 92, 65, 0.08);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #355C41 0%, #2d5a3d 100%);
+            color: white;
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .invoice-title {
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .invoice-details {
+            padding: 32px;
+        }
+
+        .invoice-header {
+            margin-bottom: 48px;
+        }
+
+        .invoice-info {
+            background: #f8f6f1;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(53, 92, 65, 0.1);
+        }
+
+        .invoice-number {
+            font-size: 20px;
+            font-weight: 700;
+            color: #355C41;
+            margin-bottom: 8px;
+        }
+
+        .invoice-date, .payment-due {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .from-to-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        .from-card, .to-card {
+            background: rgba(53, 92, 65, 0.03);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(53, 92, 65, 0.08);
+        }
+
+        .card-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #355C41;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+        }
+
+        .card-content {
+            font-size: 15px;
+            font-weight: 500;
+            color: #2d2d2d;
+        }
+
+        .bank-details {
+            background: rgba(53, 92, 65, 0.03);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(53, 92, 65, 0.08);
+            margin-bottom: 48px;
+        }
+
+        .bank-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #355C41;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bank-info {
+            font-size: 13px;
+            color: #2d2d2d;
+            line-height: 1.8;
+        }
+
+        .bank-info strong {
+            color: #355C41;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 48px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(53, 92, 65, 0.06);
+        }
+
+        .items-table th {
+            background: #355C41;
+            color: white;
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .items-table th:last-child {
+            text-align: right;
+        }
+
+        .items-table td {
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        .items-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .item-description {
+            font-weight: 500;
+            color: #2d2d2d;
+        }
+
+        .item-amount {
+            font-weight: 600;
+            color: #355C41;
+            text-align: right;
+        }
+
+        .total-row {
+            background: rgba(255, 204, 72, 0.1);
+            border-top: 2px solid #FFCC48;
+        }
+
+        .total-row td {
+            font-weight: 800;
+            font-size: 16px;
+            color: #FFCC48;
+        }
+
+        .notes-section {
+            background: rgba(53, 92, 65, 0.02);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(53, 92, 65, 0.06);
+            margin-bottom: 32px;
+        }
+
+        .notes-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #355C41;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .notes-content {
+            font-size: 13px;
+            color: #2d2d2d;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .thank-you {
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: #FFCC48;
+            letter-spacing: 0.5px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                display: block;
+            }
+            
+            .invoice-container {
+                box-shadow: none;
+                border-radius: 0;
+                border: none;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .invoice-container {
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .from-to-section {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .invoice-details {
+                padding: 24px;
+            }
+            
+            .header {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">&lt;/w5z/&gt;</div>
+            <div class="header-content">
+                <div class="brand-name">web500za</div>
+                <div class="invoice-title">Invoice</div>
+            </div>
+        </div>
+
+        <!-- Invoice Details -->
+        <div class="invoice-details">
+            <!-- Invoice Header -->
+            <div class="invoice-header">
+                <div class="invoice-info">
+                    <div class="invoice-number">WEB500-SILE-01</div>
+                    <div class="invoice-date">Invoice Date: 2 July 2024</div>
+                    <div class="payment-due">Payment Due: 7 July 2024</div>
+                </div>
+            </div>
+
+            <!-- From/To Section -->
+            <div class="from-to-section">
+                <div class="from-card">
+                    <div class="card-title">From</div>
+                    <div class="card-content">
+                        Jared January<br>
+                        WEB500ZA
+                    </div>
+                </div>
+                <div class="to-card">
+                    <div class="card-title">To</div>
+                    <div class="card-content">
+                        Silethokuhle Mncube
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bank Details -->
+            <div class="bank-details">
+                <div class="bank-title">Bank Details</div>
+                <div class="bank-info">
+                    <strong>Bank:</strong> Discovery<br>
+                    <strong>Account Type:</strong> Savings<br>
+                    <strong>Account Number:</strong> 19738952781<br>
+                    <strong>Reference:</strong> WEB500SILE
+                </div>
+            </div>
+
+            <!-- Items Table -->
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="item-description">Website Design, Build & Hosting</td>
+                        <td class="item-amount">R500</td>
+                    </tr>
+                    <tr>
+                        <td class="item-description">Domain Purchase</td>
+                        <td class="item-amount">R200</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td class="item-description">Total</td>
+                        <td class="item-amount">R700</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Notes -->
+            <div class="notes-section">
+                <div class="notes-title">Notes</div>
+                <div class="notes-content">
+                    • Further edits: R50 per revision<br>
+                    • Project handover: R100<br>
+                    • Thank you for choosing web500za for your website needs!
+                </div>
+            </div>
+
+            <!-- Thank You -->
+            <div class="thank-you">
+                Thank you for your business!
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

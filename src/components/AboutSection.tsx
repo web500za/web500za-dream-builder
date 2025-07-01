@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Facebook, Instagram, Twitter, Shield, Zap, Heart, Sparkles } from "lucide-react";
+import { Facebook, Instagram, Shield, Zap, Heart, Sparkles } from "lucide-react";
 
 interface AboutSectionProps {
   onNavigateToQuote: () => void;
@@ -27,8 +27,7 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
 
   const socialLinks = [
     { href: "https://www.facebook.com/share/1ELx7aXeWD/?mibextid=wwXIfr", label: "Facebook", icon: Facebook, comingSoon: false },
-    { href: "https://www.instagram.com/web500za/profilecard/?igsh=MTBtdmUyMW9wcjhkbA==", label: "Instagram", icon: Instagram, comingSoon: false },
-    { href: "https://x.com/web500za", label: "X (Twitter)", icon: Twitter, comingSoon: true }
+    { href: "https://www.instagram.com/web500za/profilecard/?igsh=MTBtdmUyMW9wcjhkbA==", label: "Instagram", icon: Instagram, comingSoon: false }
   ];
 
   return (
@@ -49,7 +48,7 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
           ))}
         </div>
         <p className="text-brand-text-muted text-sm italic">
-          <span className="font-semibold">X (Twitter) coming soon - Monday 30 June</span>
+          <span className="font-semibold">Follow me on social media</span>
         </p>
       </div>
 
