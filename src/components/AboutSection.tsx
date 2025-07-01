@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Facebook, Instagram, Linkedin, Twitter, Shield, Zap, Heart, Sparkles } from "lucide-react";
+import { Facebook, Instagram, Twitter, Shield, Zap, Heart, Sparkles } from "lucide-react";
 
 interface AboutSectionProps {
   onNavigateToQuote: () => void;
@@ -26,9 +26,8 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
   ];
 
   const socialLinks = [
-    { href: "https://facebook.com/web500za", label: "Facebook", icon: Facebook, comingSoon: true },
-    { href: "https://instagram.com/web500za", label: "Instagram", icon: Instagram, comingSoon: true },
-    { href: "https://www.linkedin.com/in/jaredjanuary?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAC3cQfkBBXExsXGqDiszmxLp8O8ubqlCHA0&lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_all%3BQP2kFIY6SWiBvgmRtZGVlw%3D%3D", label: "LinkedIn", icon: Linkedin, comingSoon: false },
+    { href: "https://www.facebook.com/share/1ELx7aXeWD/?mibextid=wwXIfr", label: "Facebook", icon: Facebook, comingSoon: false },
+    { href: "https://www.instagram.com/web500za/profilecard/?igsh=MTBtdmUyMW9wcjhkbA==", label: "Instagram", icon: Instagram, comingSoon: false },
     { href: "https://x.com/web500za", label: "X (Twitter)", icon: Twitter, comingSoon: true }
   ];
 
@@ -50,7 +49,7 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
           ))}
         </div>
         <p className="text-brand-text-muted text-sm italic">
-          <span className="font-semibold">Facebook, Instagram & X (Twitter) coming soon - Monday 30 June</span>
+          <span className="font-semibold">X (Twitter) coming soon - Monday 30 June</span>
         </p>
       </div>
 
