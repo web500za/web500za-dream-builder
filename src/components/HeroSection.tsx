@@ -528,6 +528,12 @@ export function HeroSection() {
                     Yes! If you want to host your site yourself or move it to your own domain in the future, I can provide the code or assist with the transfer for a small, once-off fee.
                   </p>
                 </div>
+                <div>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">6. What about my domain name?</h4>
+                  <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
+                    You are welcome to purchase your own domain and I'll gladly link it to the site I build for you. If you'd prefer that I handle the domain registration and setup, I can do that for you and simply add the cost to your invoice. Either way, you'll have full control over your domain.
+                  </p>
+                </div>
               </div>
             </div>
           </CollapsibleContent>

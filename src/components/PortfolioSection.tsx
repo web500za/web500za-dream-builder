@@ -6,7 +6,7 @@ export function PortfolioSection() {
     {
       title: "Silethokuhle Elevate Digital",
       description: "A professional virtual assistant website showcasing services, testimonials, and contact information. This clean, modern design emphasizes professionalism and trust, with smooth animations and mobile-responsive layout. Perfect for establishing credibility and attracting new clients in the VA industry.",
-      image: "/lovable-uploads/silethokuhle-thumbnail.png",
+      image: "/lovable-uploads/va-thumbnail.png",
       category: "Virtual Assistant",
       url: "https://silethokuhle-elevate-digital.vercel.app/",
       features: ["Service showcase", "Testimonials", "Contact forms", "Mobile responsive", "Professional design"],
@@ -52,8 +52,7 @@ export function PortfolioSection() {
           Recent Projects
         </h2>
         <p className="text-xl text-brand-text-muted max-w-2xl mx-auto">
-          See what I've built for other clients. Each project is custom-designed 
-          and built to meet specific needs.
+          Below are examples of websites and solutions I've built for real clients. Each project is tailored to unique business needs, demonstrating a range of skills and industries.
         </p>
       </div>
 
