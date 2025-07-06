@@ -38,10 +38,6 @@ export function PortfolioSection() {
       url: "https://coral-kiss-digital.vercel.app/",
       features: ["RSVP management", "Event details", "Photo galleries", "Travel info", "Mobile responsive"],
       isLive: true
-    },
-    {
-      title: "Meal Placement Form",
-      isLive: false
     }
   ];
 
@@ -90,6 +86,9 @@ export function PortfolioSection() {
             )}
           </Card>
         ))}
+      </div>
+      <div className="text-center mt-8">
+        <span className="text-brand-text-muted text-lg font-medium">More coming soon...</span>
       </div>
     </div>
   );
