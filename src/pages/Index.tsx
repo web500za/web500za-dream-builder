@@ -19,7 +19,7 @@ const Index = () => {
       case "quote":
         return <HeroSection />;
       case "portfolio":
-        return <PortfolioSection />;
+        return <PortfolioSection onNavigateToQuote={handleNavigateToQuote} />;
       case "about":
         return <AboutSection onNavigateToQuote={handleNavigateToQuote} />;
       case "testimonials":

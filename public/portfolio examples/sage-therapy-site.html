@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE - Space to Grow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sage: #7C9885;
+            --navy: #2C3E50;
+            --cream: #FAF9F6;
+            --light-sage: #E8F0E9;
+            --text-gray: #6B6B6B;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--navy);
+            background: white;
+        }
+
+        /* Typography */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: white;
+            padding: 2rem 3rem;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--navy);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0.7;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .nav-links a.active {
+            opacity: 1;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--sage);
+        }
+
+        .nav-cta {
+            background: var(--sage);
+            color: white;
+            padding: 0.75rem 2rem;
+            text-decoration: none;
+            font-weight: 450;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: #6B8774;
+            transform: translateY(-1px);
+        }
+
+        /* Header on scroll */
+        header.scrolled {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem 3rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: var(--sage);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: breathe 15s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% {
+                transform: scale(1) translateY(0);
+            }
+            50% {
+                transform: scale(1.05) translateY(-10px);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-brand {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-brand::before,
+        .hero-brand::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 3rem;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .hero-brand::before {
+            left: -4rem;
+        }
+
+        .hero-brand::after {
+            right: -4rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6rem, 8vw);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            font-weight: 400;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.85);
+            letter-spacing: 0.05em;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            padding: 6rem 3rem;
+            background: var(--cream);
+        }
+
+        .philosophy-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .philosophy h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--navy);
+        }
+
+        .philosophy-text {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .philosophy-text p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Approach Section */
+        .approach {
+            padding: 6rem 3rem;
+            background: white;
+        }
+
+        .approach h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--navy);
+        }
+
+        .approach-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .approach-card {
+            background: var(--light-sage);
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .approach-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(124, 152, 133, 0.2);
+        }
+
+        .approach-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .approach-card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Therapists Section */
+        .therapists {
+            padding: 6rem 3rem;
+            background: var(--navy);
+            color: white;
+        }
+
+        .therapists h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .therapists-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+        }
+
+        .therapist {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .therapist-image {
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .therapist-image svg {
+            width: 60%;
+            height: 60%;
+            fill: rgba(255, 255, 255, 0.3);
+        }
+
+        .therapist-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .therapist-info .credentials {
+            color: var(--sage);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .therapist-info p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 3rem;
+            background: var(--light-sage);
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--navy);
+        }
+
+        .contact-intro {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-method {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-method h3 {
+            font-size: 1.3rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .contact-method p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-method a {
+            color: var(--sage);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .contact-method a:hover {
+            text-decoration: underline;
+        }
+
+        .booking-button {
+            display: inline-block;
+            background: var(--sage);
+            color: white;
+            padding: 1.25rem 3rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 100px;
+            font-size: 1.1rem;
+        }
+
+        .booking-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(124, 152, 133, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            padding: 3rem;
+            text-align: center;
+            border-top: 1px solid #E0E0E0;
+        }
+
+        footer p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .approach-grid,
+            .therapists-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .therapist {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .therapist-image {
+                margin: 0 auto;
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll effect */
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 
+                0 8px 40px rgba(0, 0, 0, 0.12),
+                0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+    <script>
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Highlight active section in navigation
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <a href="#home" class="nav-logo">SAGE</a>
+            <div class="nav-links">
+                <a href="#approach">Approach</a>
+                <a href="#therapists">Therapists</a>
+                <a href="#contact">Contact</a>
+                <a href="#" class="nav-cta">Book Session</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="hero-brand">SAGE</p>
+            <h1>SPACE TO GROW</h1>
+            <p class="hero-subtitle">Modern Therapy Practice in Gardens</p>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy">
+        <div class="philosophy-content">
+            <h2>Therapy That Feels Different</h2>
+            <div class="philosophy-text">
+                <p>At SAGE, we believe that seeking support is a sign of strength, not weakness. Our warm, contemporary space in Gardens offers a refuge from the chaos of daily life.</p>
+                <p>We've moved beyond the traditional clinical model to create an environment where real healing happens - one that feels more like visiting a wise friend than a medical office.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Approach Section -->
+    <section class="approach" id="approach">
+        <h2>How We Help</h2>
+        <div class="approach-grid">
+            <div class="approach-card">
+                <h3>Individual Therapy</h3>
+                <p>One-on-one sessions tailored to your unique journey. We work with anxiety, depression, trauma, and life transitions.</p>
+            </div>
+            <div class="approach-card">
+                <h3>Couples Counseling</h3>
+                <p>Strengthen your connection and learn healthy communication patterns in a neutral, supportive environment.</p>
+            </div>
+            <div class="approach-card">
+                <h3>Group Sessions</h3>
+                <p>Find community and shared healing in our carefully facilitated group therapy programs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Therapists Section -->
+    <section class="therapists" id="therapists">
+        <h2>Your Support Team</h2>
+        <div class="therapists-grid">
+            <div class="therapist">
+                <div class="therapist-image">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+                <div class="therapist-info">
+                    <h3>Dr. Sarah Petersen</h3>
+                    <p class="credentials">Clinical Psychologist · PhD</p>
+                    <p>Specializing in anxiety, trauma recovery, and mindfulness-based therapy. Sarah brings 15 years of experience and a warm, collaborative approach.</p>
+                </div>
+            </div>
+            <div class="therapist">
+                <div class="therapist-image">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+                <div class="therapist-info">
+                    <h3>Michael Chen</h3>
+                    <p class="credentials">Counseling Psychologist · MA</p>
+                    <p>Focused on relationships, identity, and life transitions. Michael creates a safe space for exploring difficult emotions and finding clarity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-content">
+            <h2>Take the First Step</h2>
+            <p class="contact-intro">
+                Reaching out is often the hardest part. We've made it as simple as possible to connect with us.
+            </p>
+            
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <h3>Free Consultation</h3>
+                    <p>Not sure if therapy is right for you? Book a free 15-minute phone consultation.</p>
+                    <a href="tel:+27214241922">021 424 1922</a>
+                </div>
+                <div class="contact-method">
+                    <h3>Email Us</h3>
+                    <p>Prefer to write? Send us your questions and we'll respond within 24 hours.</p>
+                    <a href="mailto:hello@sagetherapy.co.za">hello@sagetherapy.co.za</a>
+                </div>
+            </div>
+
+            <a href="#" class="booking-button">Book Your First Session</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 SAGE Therapy Practice. Professional therapy in a comfortable space.</p>
+    </footer>
+</body>
+</html>

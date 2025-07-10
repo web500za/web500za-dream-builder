@@ -1,94 +1,132 @@
 import { Card } from "@/components/ui/card";
-import { ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ExternalLink, ArrowUpRight } from "lucide-react";
 
-export function PortfolioSection() {
+interface PortfolioSectionProps {
+  onNavigateToQuote: () => void;
+}
+
+export function PortfolioSection({ onNavigateToQuote }: PortfolioSectionProps) {
   const projects = [
     {
-      title: "Silethokuhle Elevate Digital",
-      description: "A professional virtual assistant website showcasing services, testimonials, and contact information. This clean, modern design emphasizes professionalism and trust, with smooth animations and mobile-responsive layout. Perfect for establishing credibility and attracting new clients in the VA industry.",
-      image: "/lovable-uploads/va-thumbnail.png",
-      category: "Virtual Assistant",
-      url: "https://silethokuhle-elevate-digital.vercel.app/",
-      features: ["Service showcase", "Testimonials", "Contact forms", "Mobile responsive", "Professional design"],
-      isLive: true
+      title: "Bloom & Branch",
+      tagline: "Arrangements as Art",
+      description: "Elegant floral studio showcasing artistic arrangements with sophisticated design and seamless booking experience.",
+      category: "Florist",
+      color: "#E4756B",
+      url: "/portfolio examples/bloom-branch-site.html",
+      image: "/portfolio thumbnails/{558AA998-057A-4FEF-B9BB-14BFEAE67654}.png"
     },
     {
-      title: "Photography Portfolio",
-      description: "A stunning photography portfolio showcasing beautiful moments captured through the lens. This elegant website features a clean design that puts the focus on the visual storytelling, with smooth navigation and responsive galleries that work perfectly on all devices.",
-      image: "/lovable-uploads/photograph-thumbnail.png",
-      category: "Photography",
-      url: "https://zinhle-nkosi-visions.vercel.app/",
-      features: ["Portfolio galleries", "Responsive design", "Image optimization", "Contact forms"],
-      isLive: true
+      title: "FLOW Studio",
+      tagline: "Move with Intention", 
+      description: "Modern pilates studio combining wellness philosophy with clean, intentional design and class scheduling.",
+      category: "Wellness",
+      color: "#C99A8F",
+      url: "/portfolio examples/flow-studio-pilates.html",
+      image: "/portfolio thumbnails/{C249475B-BDD2-4C9B-8A43-19A322C2B222}.png"
     },
     {
-      title: "Barber Booking System",
-      description: "This booking system was designed with a local barber in mind, featuring business-specific customizations tailored to real-world needs. The platform supports instant online bookings, same-day slots, and even accounts for unique requirements, such as the 12:15pm to 1:15pm Maghrib break observed by Muslim barbers. It's a great example of how w5z can deliver solutions that fit your business, your schedule, and your clients.",
-      image: "/lovable-uploads/barebr-thumbnail.png",
-      category: "Business",
-      url: "https://prince-cut-scheduler.vercel.app/",
-      features: ["Appointment scheduling", "Calendar integration", "Automated reminders", "Mobile responsive"],
-      isLive: true
+      title: "Meridian Legal",
+      tagline: "Justice Shouldn't Feel Intimidating",
+      description: "Approachable law firm breaking down barriers with warm design and clear communication of legal services.",
+      category: "Professional Services", 
+      color: "#1A2332",
+      url: "/portfolio examples/meridian-legal.html",
+      image: "/portfolio thumbnails/{90CDA8D2-BCBB-4101-AF1C-52D79C330D6E}.png"
     },
     {
-      title: "Wedding Website",
-      description: "A beautiful, personalized wedding website that tells your love story and helps guests stay informed. Features include RSVP management, event details, photo galleries, and travel information. Perfect for couples who want to share their special day with family and friends in a modern, elegant way.",
-      image: "/lovable-uploads/wedding-thumbnail.png",
-      category: "Wedding",
-      url: "https://coral-kiss-digital.vercel.app/",
-      features: ["RSVP management", "Event details", "Photo galleries", "Travel info", "Mobile responsive"],
-      isLive: true
+      title: "SAGE Therapy",
+      tagline: "Space to Grow",
+      description: "Compassionate therapy practice creating safe digital spaces with calming design and easy appointment booking.",
+      category: "Healthcare",
+      color: "#7C9885", 
+      url: "/portfolio examples/sage-therapy-site.html",
+      image: "/portfolio thumbnails/{16367EBD-A8E0-4D91-974A-21D9CA1CD49C}.png"
     }
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-6">
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-brand-text-dark mb-4 text-shadow">
-          Recent Projects
+    <div className="max-w-5xl mx-auto px-6">
+      {/* Header */}
+      <div className="text-center mb-20">
+        <h2 className="text-4xl md:text-5xl font-bold text-brand-text-dark mb-6 leading-tight">
+          Selected Work
         </h2>
-        <p className="text-xl text-brand-text-muted max-w-2xl mx-auto">
-          Below are examples of websites and solutions I've built for real clients. Each project is tailored to unique business needs, demonstrating a range of skills and industries.
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Each project tells a story of transformation—taking real businesses from generic to genuine, 
+          ordinary to outstanding.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8">
+      {/* Projects Grid */}
+      <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-20">
         {projects.map((project, index) => (
-          <Card key={index} className="border border-brand-green/10 rounded-2xl bg-white/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center min-h-[260px] p-6">
-            {project.isLive ? (
-              <>
-                <a href={project.url} target="_blank" rel="noopener noreferrer" className="block w-full mb-4 rounded-xl overflow-hidden">
+          <div key={index} className="group">
+            <a 
+              href={project.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <Card className="overflow-hidden border border-gray-200 rounded-3xl bg-white hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                {/* Hero Thumbnail */}
+                <div className="aspect-[4/3] overflow-hidden bg-gray-50">
                   <img 
                     src={project.image} 
                     alt={project.title}
-                    className="w-full h-48 object-cover rounded-xl border border-brand-green/10"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   />
-                </a>
-                <h3 className="text-xl font-semibold text-brand-text-dark mb-2 text-center">{project.title}</h3>
-                <p className="text-brand-text-muted mb-4 text-center text-sm">{project.description}</p>
-                <div className="flex flex-wrap gap-2 justify-center mb-2">
-                  {project.features && project.features.map((feature, featureIndex) => (
-                    <span 
-                      key={featureIndex} 
-                      className="bg-brand-green/10 text-brand-green text-xs px-2 py-1 rounded-full"
-                    >
-                      {feature}
-                    </span>
-                  ))}
                 </div>
-                <a href={project.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-brand-green font-semibold underline underline-offset-4 text-sm hover:text-brand-green-light transition-colors">Visit Site</a>
-              </>
-            ) : (
-              <div className="flex flex-col items-center justify-center w-full h-full min-h-[180px]">
-                <span className="text-brand-text-muted text-lg font-medium mb-2">{project.title}</span>
-                <span className="bg-brand-green/10 text-brand-green px-4 py-2 rounded-full text-sm">Coming soon</span>
-              </div>
-            )}
-          </Card>
+                
+                {/* Project Content */}
+                <div className="p-8">
+                  <div className="flex items-center space-x-3 mb-4">
+                    <div 
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: project.color }}
+                    />
+                    <span className="text-sm font-medium text-gray-500 tracking-wide uppercase">
+                      {project.category}
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-2xl md:text-3xl font-bold text-brand-text-dark mb-3 group-hover:text-[#2d5a3d] transition-colors">
+                    {project.title}
+                  </h3>
+                  
+                  <p className="text-lg text-gray-500 italic font-light mb-4">
+                    {project.tagline}
+                  </p>
+                  
+                  <p className="text-gray-700 leading-relaxed mb-6">
+                    {project.description}
+                  </p>
+                  
+                  {/* View Project CTA */}
+                  <div className="flex items-center space-x-3 text-[#2d5a3d] group-hover:translate-x-2 transition-transform">
+                    <span className="font-semibold">View Live Site</span>
+                    <ArrowUpRight className="w-5 h-5" />
+                  </div>
+                </div>
+              </Card>
+            </a>
+          </div>
         ))}
       </div>
-      <div className="text-center mt-8">
-        <span className="text-brand-text-muted text-lg font-medium">More coming soon...</span>
+
+      {/* Footer CTA */}
+      <div className="text-center space-y-8">
+        <p className="text-xl text-gray-600 mb-8">
+          Ready to see your business transformed?
+        </p>
+        <Button 
+          onClick={onNavigateToQuote}
+          className="h-16 bg-[#2d5a3d] hover:bg-[#1e3d28] text-white px-12 text-xl font-semibold rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#2d5a3d] focus:ring-offset-2 border-0"
+          style={{ backgroundColor: '#2d5a3d' }}
+        >
+          Get Your Quote
+        </Button>
       </div>
     </div>
   );
