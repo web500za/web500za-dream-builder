@@ -10,7 +10,8 @@ export function NavigationToggle({ onSectionChange, currentSection }: Navigation
     { id: "quote", label: "Quote" },
     { id: "portfolio", label: "Portfolio" },
     { id: "about", label: "About Me" },
-    { id: "testimonials", label: "Testimonials" }
+    { id: "testimonials", label: "Testimonials" },
+    { id: "contact", label: "Contact" }
   ];
 
   return (

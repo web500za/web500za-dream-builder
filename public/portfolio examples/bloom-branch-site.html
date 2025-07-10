@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom & Branch - Arrangements as Art</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --coral: #E4756B;
+            --charcoal: #2A2A2A;
+            --cream: #FAF7F2;
+            --light-gray: #F5F5F5;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--charcoal);
+            overflow-x: hidden;
+            background: var(--cream);
+        }
+
+        /* Typography */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Futura:wght@300;400&family=Inter:wght@300;400&display=swap');
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Didot', 'Playfair Display', serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            color: var(--charcoal);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            color: var(--charcoal);
+            text-decoration: none;
+            font-family: 'Futura', 'Arial', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--coral);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: var(--coral);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.03) 49%, rgba(255,255,255,0.03) 51%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.03) 49%, rgba(255,255,255,0.03) 51%, transparent 52%);
+            background-size: 30px 30px;
+            background-position: 0 0, 0 0;
+            animation: subtle-move 20s linear infinite;
+        }
+
+        @keyframes subtle-move {
+            0% {
+                background-position: 0 0, 0 0;
+            }
+            100% {
+                background-position: 30px 30px, -30px 30px;
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Didot', 'Playfair Display', serif;
+            font-size: clamp(4rem, 9rem, 12vw);
+            line-height: 0.9;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-family: 'Futura', 'Arial', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            margin-top: 2rem;
+            text-transform: uppercase;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 6rem 3rem;
+            background: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 2fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            background: var(--light-gray);
+            height: 500px;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:nth-child(2) {
+            height: 400px;
+            align-self: center;
+        }
+
+        .gallery-item:nth-child(4) {
+            grid-column: span 2;
+            height: 450px;
+        }
+
+        .gallery-item:nth-child(5) {
+            height: 380px;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--coral);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 0.9;
+        }
+
+        .gallery-overlay span {
+            color: white;
+            font-family: 'Didot', 'Playfair Display', serif;
+            font-size: 3rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 8rem 0;
+            background: var(--charcoal);
+            color: white;
+        }
+
+        .process-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .process h2 {
+            font-family: 'Didot', 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .process-subtitle {
+            font-family: 'Futura', 'Arial', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .process-item {
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-item:nth-child(odd) {
+            background: #333;
+        }
+
+        .process-item:nth-child(even) {
+            background: #3A3A3A;
+        }
+
+        .process-text {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .process-text h3 {
+            font-family: 'Didot', 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .process-text p {
+            font-family: 'Futura', 'Arial', sans-serif;
+            font-weight: 300;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        /* Statement Section */
+        .statement {
+            background: #000000;
+            padding: 10rem 2rem;
+            text-align: center;
+        }
+
+        .statement-quote {
+            font-family: 'Didot', 'Playfair Display', serif;
+            font-size: clamp(2rem, 4rem, 5vw);
+            color: var(--cream);
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            line-height: 1.3;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.5rem 4rem;
+            background: transparent;
+            color: var(--cream);
+            text-decoration: none;
+            font-family: 'Futura', 'Arial', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border: 1px solid var(--cream);
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--cream);
+            color: black;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 3rem;
+            background: #D17A60;
+        }
+
+        .services h2 {
+            font-family: 'Didot', 'Playfair Display', serif;
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: white;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-item {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .service-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .service-item h3 {
+            font-family: 'Didot', 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-item p {
+            font-family: 'Futura', 'Arial', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: white;
+            padding: 4rem 3rem;
+            text-align: center;
+        }
+
+        footer p {
+            font-family: 'Futura', 'Arial', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .gallery-item,
+            .gallery-item:nth-child(2),
+            .gallery-item:nth-child(4),
+            .gallery-item:nth-child(5) {
+                height: 300px;
+                grid-column: span 1;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .statement-quote {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">BLOOM & BRANCH</div>
+        <div class="nav-links">
+            <a href="#process">Process</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ARRANGEMENTS<br>AS ART</h1>
+            <p class="hero-subtitle">Floral Architecture Since 2019</p>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="process-header">
+            <h2>The Creative Process</h2>
+            <p class="process-subtitle">From Inspiration to Installation</p>
+        </div>
+        <div class="process-grid">
+            <div class="process-item">
+                <div class="process-text">
+                    <h3>Architecture</h3>
+                    <p>We begin with forms found in brutalist buildings, modern sculptures, and geometric patterns.</p>
+                </div>
+            </div>
+            <div class="process-item">
+                <div class="process-text">
+                    <h3>Interpretation</h3>
+                    <p>Each arrangement translates rigid structure into organic beauty, maintaining architectural integrity.</p>
+                </div>
+            </div>
+            <div class="process-item">
+                <div class="process-text">
+                    <h3>Material</h3>
+                    <p>Flowers selected for form over fragrance, texture over tradition, impact over expectation.</p>
+                </div>
+            </div>
+            <div class="process-item">
+                <div class="process-text">
+                    <h3>Installation</h3>
+                    <p>Delivered as art pieces, not bouquets. Each creation positioned for maximum visual impact.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statement Section -->
+    <section class="statement" id="contact">
+        <p class="statement-quote">"We don't arrange flowers.<br>We compose experiences."</p>
+        <a href="#" class="cta-button">Commission a Piece</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 BLOOM & BRANCH. CAPE TOWN.</p>
+    </footer>
+</body>
+</html>

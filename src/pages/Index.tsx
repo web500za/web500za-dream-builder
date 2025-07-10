@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { PortfolioSection } from "@/components/PortfolioSection";
 import { AboutSection } from "@/components/AboutSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
+import { ContactSection } from "@/components/ContactSection";
 
 const Index = () => {
   const [currentSection, setCurrentSection] = useState("quote");
@@ -23,6 +24,8 @@ const Index = () => {
         return <AboutSection onNavigateToQuote={handleNavigateToQuote} />;
       case "testimonials":
         return <TestimonialsSection />;
+      case "contact":
+        return <ContactSection />;
       default:
         return <HeroSection />;
     }
