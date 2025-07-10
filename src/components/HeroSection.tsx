@@ -325,23 +325,37 @@ export function HeroSection() {
   return (
     <div className="text-center max-w-6xl mx-auto px-4 md:px-6">
       {step === "idea" && (
-        <form onSubmit={handleIdeaSubmit} className="mb-6 md:mb-12">
-          <div className="relative max-w-5xl mx-auto">
-            <AnimatedInput
-              value={projectDescription}
-              onChange={(e) => setProjectDescription(e.target.value)}
-              onSubmit={handleIdeaSubmit}
-              className="w-full h-20 md:h-20 lg:h-24 xl:h-28 text-lg md:text-lg lg:text-xl xl:text-2xl px-6 md:px-8 lg:px-10 xl:px-12 pr-20 md:pr-24 lg:pr-28 xl:pr-32 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl md:rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-0 focus:shadow-[0_20px_80px_rgba(45,90,61,0.4)] focus:border-brand-green/80 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
-            />
-            <Button
-              type="submit"
-              size="icon"
-              className="absolute right-3 md:right-4 lg:right-6 xl:right-8 top-1/2 -translate-y-1/2 h-16 md:h-14 lg:h-16 xl:h-18 w-16 md:w-14 lg:w-16 xl:w-18 bg-brand-green hover:bg-brand-green-light text-white rounded-xl md:rounded-2xl shadow-xl transition-all duration-300 hover:scale-110"
+        <>
+          <form onSubmit={handleIdeaSubmit} className="mb-3 md:mb-6">
+            <div className="relative max-w-5xl mx-auto">
+              <AnimatedInput
+                value={projectDescription}
+                onChange={(e) => setProjectDescription(e.target.value)}
+                onSubmit={handleIdeaSubmit}
+                className="w-full h-20 md:h-20 lg:h-24 xl:h-28 text-lg md:text-lg lg:text-xl xl:text-2xl px-6 md:px-8 lg:px-10 xl:px-12 pr-20 md:pr-24 lg:pr-28 xl:pr-32 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl md:rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-0 focus:shadow-[0_20px_80px_rgba(45,90,61,0.4)] focus:border-brand-green/80 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
+              />
+              <Button
+                type="submit"
+                size="icon"
+                className="absolute right-3 md:right-4 lg:right-6 xl:right-8 top-1/2 -translate-y-1/2 h-16 md:h-14 lg:h-16 xl:h-18 w-16 md:w-14 lg:w-16 xl:w-18 bg-brand-green hover:bg-brand-green-light text-white rounded-xl md:rounded-2xl shadow-xl transition-all duration-300 hover:scale-110"
+              >
+                <Send className="h-8 md:h-8 lg:h-10 xl:h-12 w-8 md:w-8 lg:w-10 xl:w-12 text-white" />
+              </Button>
+            </div>
+          </form>
+          {/* WhatsApp CTA - smaller, under input bar, brand color */}
+          <div className="flex justify-center mb-6">
+            <a
+              href="https://wa.me/27832540891"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-brand-green hover:bg-brand-green-light text-white font-semibold h-16 w-16 rounded-xl shadow-xl transition-all duration-300 hover:scale-110"
+              aria-label="WhatsApp"
             >
-              <Send className="h-8 md:h-8 lg:h-10 xl:h-12 w-8 md:w-8 lg:w-10 xl:w-12 text-white" />
-            </Button>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="currentColor"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.832 4.584 2.236 6.393L4.062 29.25a1 1 0 0 0 1.312 1.312l7.857-2.174A11.94 11.94 0 0 0 16 27c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 22c-1.77 0-3.468-.463-4.93-1.27l-.35-.197-4.668 1.292 1.292-4.668-.197-.35A9.956 9.956 0 0 1 6 15c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.29-7.709c-.293-.146-1.734-.857-2.003-.955-.269-.098-.465-.146-.661.146-.195.293-.755.955-.926 1.15-.171.195-.342.22-.634.073-.293-.146-1.236-.456-2.357-1.453-.87-.776-1.457-1.732-1.63-2.025-.171-.293-.018-.45.128-.595.132-.132.293-.342.439-.513.146-.171.195-.293.293-.488.098-.195.049-.366-.024-.513-.073-.146-.661-1.598-.905-2.19-.238-.573-.48-.495-.661-.504l-.563-.01c-.195 0-.512.073-.78.366-.268.293-1.02.997-1.02 2.43 0 1.433 1.042 2.818 1.187 3.013.146.195 2.05 3.13 4.965 4.267.694.299 1.234.478 1.656.612.696.222 1.33.191 1.83.116.558-.083 1.734-.708 1.98-1.393.244-.684.244-1.27.171-1.393-.073-.122-.268-.195-.561-.342z"/></svg>
+            </a>
           </div>
-        </form>
+        </>
       )}
       {step === "details" && (
         <form ref={formRef} onSubmit={handleDetailsSubmit} className="mb-6 md:mb-12 max-w-lg mx-auto bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-4 animate-fade-in">

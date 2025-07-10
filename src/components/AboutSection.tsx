@@ -26,8 +26,15 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
   ];
 
   const socialLinks = [
-    { href: "https://www.facebook.com/share/1ELx7aXeWD/?mibextid=wwXIfr", label: "Facebook", icon: Facebook, comingSoon: false },
-    { href: "https://www.instagram.com/web500za/profilecard/?igsh=MTBtdmUyMW9wcjhkbA==", label: "Instagram", icon: Instagram, comingSoon: false }
+    { href: "https://wa.me/27832540891", label: "WhatsApp", icon: (props: any) => (
+      <svg {...props} viewBox="0 0 256 256" width="32" height="32"><rect width="256" height="256" rx="60" fill="#25D366"/><path d="M128 64a64 64 0 1 0 64 64a64.07 64.07 0 0 0-64-64Zm36.44 91.19c-1.53 4.29-7.6 8.19-10.47 8.74c-2.68.51-5.97.73-9.65-.61c-2.22-.77-5.08-1.65-8.8-3.23c-15.5-6.41-25.51-21.94-26.31-22.99c-.77-1.05-6.29-8.38-6.29-16c0-7.62 3.98-11.36 5.39-12.87c1.41-1.51 3.08-1.89 4.1-1.89c1.02 0 2.05.01 2.94.05c.95.04 2.22-.36 3.48 2.65c1.26 3.01 4.29 10.41 4.67 11.18c.38.77.64 1.68.13 2.73c-.51 1.05-.77 1.68-1.51 2.7c-.77 1.05-1.62 2.34-.23 4.6c1.39 2.26 6.18 10.18 13.27 16.5c7.09 6.32 13.09 8.3 15.35 9.25c2.26.95 3.59.8 4.89-.48c1.3-1.28 5.6-6.5 7.11-8.74c1.51-2.24 2.99-1.87 4.1-1.51c1.11.36 7.13 3.36 8.36 3.97c1.23.61 2.05.91 2.34 1.42c.29.51.29 2.94-.24 5.23Z" fill="#fff"/></svg>
+    ), comingSoon: false },
+    { href: "https://www.facebook.com/share/1ELx7aXeWD/?mibextid=wwXIfr", label: "Facebook", icon: (props: any) => (
+      <svg {...props} viewBox="0 0 256 256" width="32" height="32"><rect width="256" height="256" rx="60" fill="#1877F3"/><path d="M180 128h-36v72h-36v-72H76v-32h32V76a36 36 0 0 1 36-36h36v32h-36a4 4 0 0 0-4 4v20h40Z" fill="#fff"/></svg>
+    ), comingSoon: false },
+    { href: "https://www.instagram.com/web500za/profilecard/?igsh=MTBtdmUyMW9wcjhkbA==", label: "Instagram", icon: (props: any) => (
+      <svg {...props} viewBox="0 0 256 256" width="32" height="32"><rect width="256" height="256" rx="60" fill="url(#ig-gradient)"/><defs><linearGradient id="ig-gradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f58529"/><stop offset="50%" stop-color="#dd2a7b"/><stop offset="100%" stop-color="#515bd4"/></linearGradient></defs><circle cx="128" cy="128" r="48" fill="#fff"/><circle cx="128" cy="128" r="36" fill="url(#ig-gradient)"/><circle cx="180" cy="76" r="12" fill="#fff"/></svg>
+    ), comingSoon: false }
   ];
 
   return (
