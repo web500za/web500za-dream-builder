@@ -36,16 +36,20 @@ const Index = () => {
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-brand-eggshell via-brand-eggshell-light to-brand-eggshell-dark" />
       
-      {/* Content */}
-      <div className="relative z-20 min-h-screen flex flex-col items-center justify-center py-6 md:py-12">
-        <div className="w-full max-w-7xl mx-auto">
+      {/* Fixed Header Area */}
+      <div className="relative z-30 w-full">
+        <div className="w-full max-w-7xl mx-auto pt-4 md:pt-6 px-4">
           <BrandHeader />
-          
           <NavigationToggle 
             currentSection={currentSection}
             onSectionChange={setCurrentSection}
           />
-          
+        </div>
+      </div>
+      
+      {/* Scrollable Content Area */}
+      <div className="relative z-20 w-full">
+        <div className="w-full max-w-7xl mx-auto px-4 pb-8">
           <div className="animate-fade-in">
             {renderSection()}
           </div>

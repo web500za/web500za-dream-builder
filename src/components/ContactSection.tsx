@@ -65,16 +65,16 @@ export function ContactSection() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-6">
+    <div className="max-w-2xl mx-auto px-6 pt-4 md:pt-6">
       {/* Main Headline */}
-      <div className="text-center mb-16">
-        <h2 className="text-5xl md:text-6xl font-bold text-brand-text-dark mb-8">
+      <div className="text-center mb-12">
+        <h2 className="text-4xl md:text-5xl font-bold text-brand-text-dark mb-6">
           Let's Talk
         </h2>
       </div>
 
       {/* Direct Contact Methods */}
-      <div className="text-center mb-16 space-y-8">
+      <div className="text-center mb-12 space-y-6">
         <div className="space-y-6">
           <a
             href="https://wa.me/27832540891"

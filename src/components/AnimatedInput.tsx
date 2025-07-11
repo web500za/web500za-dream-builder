@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
 interface AnimatedInputProps {
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   className?: string;
   onSubmit?: () => void;
 }
@@ -29,14 +29,14 @@ export function AnimatedInput({ value, onChange, className, onSubmit }: Animated
   const dots = '.'.repeat(dotCount);
 
   return (
-    <Input
-      type="text"
+    <Textarea
       placeholder={`What should I build for you${dots}`}
       value={value}
       onChange={onChange}
       onKeyPress={handleKeyPress}
+      rows={6}
       className={cn(
-        "placeholder:opacity-70 placeholder:transition-opacity placeholder:duration-300",
+        "placeholder:opacity-70 placeholder:transition-opacity placeholder:duration-300 resize-none leading-relaxed",
         className
       )}
     />

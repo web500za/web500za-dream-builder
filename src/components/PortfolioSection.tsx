@@ -47,16 +47,12 @@ export function PortfolioSection({ onNavigateToQuote }: PortfolioSectionProps) {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto px-6">
+    <div className="max-w-5xl mx-auto px-6 pt-4 md:pt-6">
       {/* Header */}
-      <div className="text-center mb-20">
+      <div className="text-center mb-12">
         <h2 className="text-4xl md:text-5xl font-bold text-brand-text-dark mb-6 leading-tight">
           Selected Work
         </h2>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-          Each project tells a story of transformation—taking real businesses from generic to genuine, 
-          ordinary to outstanding.
-        </p>
       </div>
 
       {/* Projects Grid */}

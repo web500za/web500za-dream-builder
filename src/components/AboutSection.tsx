@@ -44,7 +44,7 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-6">
+    <div className="max-w-4xl mx-auto px-6 pt-4 md:pt-6">
       {/* Social Media Section */}
       <div className="text-center mb-12">
         <div className="flex justify-center space-x-6 mb-8">
@@ -64,7 +64,7 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
       </div>
 
       {/* Photo Section */}
-      <div className="mb-24">
+      <div className="mb-12">
         <div className="w-full max-w-4xl mx-auto mb-8 rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
           <img 
             src="/lovable-uploads/about-childhood-pc.jpg" 
@@ -72,16 +72,11 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
             className="w-full h-auto object-cover object-center"
           />
         </div>
-        <div className="text-center">
-          <p className="text-gray-500 text-lg italic font-light tracking-wide">
-            Me and my PC, circa 2002
-          </p>
-        </div>
       </div>
 
       {/* Opening Statement */}
-      <div className="text-center mb-20">
-        <h2 className="text-3xl md:text-4xl font-bold text-brand-text-dark mb-8 leading-tight">
+      <div className="text-center mb-12">
+        <h2 className="text-4xl md:text-5xl font-bold text-brand-text-dark mb-6 leading-tight">
           I've been building things with computers since I was 8 years old.
         </h2>
       </div>
