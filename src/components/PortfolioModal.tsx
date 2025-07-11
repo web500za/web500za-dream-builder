@@ -78,25 +78,6 @@ export function PortfolioModal({ isOpen, onClose, project }: PortfolioModalProps
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Close button - top right */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onClose}
-          className="absolute top-4 right-4 z-20 h-10 w-10 bg-white/90 hover:bg-white rounded-full shadow-lg"
-        >
-          <X className="h-5 w-5" />
-        </Button>
-
-        {/* Back button - top left */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onClose}
-          className="absolute top-4 left-4 z-20 h-10 w-10 bg-white/90 hover:bg-white rounded-full shadow-lg"
-        >
-          <ArrowLeft className="h-5 w-5" />
-        </Button>
 
         {/* iframe container */}
         <div className="h-full w-full overflow-hidden bg-gray-50">
@@ -132,7 +113,7 @@ export function PortfolioModal({ isOpen, onClose, project }: PortfolioModalProps
               className="flex-1 bg-white/90 hover:bg-white text-gray-900 rounded-mobile-xl shadow-lg border-0"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Portfolio
+              Back to W5Z Portfolio
             </Button>
             <a
               href={project.url}
