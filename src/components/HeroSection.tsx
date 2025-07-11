@@ -233,7 +233,7 @@ export function HeroSection() {
   ];
 
   return (
-    <div className="text-center max-w-6xl mx-auto mobile-padding px-6 md:px-6 hero-mobile pt-8 md:pt-6">
+    <div className="text-center max-w-5xl mx-auto mobile-padding px-6 md:px-6 hero-mobile pt-8 md:pt-6">
       {/* Success state inline */}
       {emailSent ? (
         <div className="mb-12 text-center animate-fade-in px-4">
@@ -250,19 +250,19 @@ export function HeroSection() {
         <>
           {/* Mobile: Textarea first */}
           <div className="md:hidden">
-            <form onSubmit={handleIdeaSubmit} className="section-margin-mobile mb-6">
+            <form onSubmit={handleIdeaSubmit} className="section-margin-mobile mb-10">
               <div className="relative max-w-4xl mx-auto">
                 <AnimatedInput
                   value={projectDescription}
                   onChange={(e) => setProjectDescription(e.target.value)}
                   onSubmit={handleIdeaSubmit}
-                  className="input-field-mobile w-full text-base md:text-xl px-6 md:px-8 py-5 pl-12 md:pl-16 pr-16 md:pr-28 pb-14 md:pb-16 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-mobile-xl rounded-2xl md:rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-0 focus:shadow-[0_20px_80px_rgba(45,90,61,0.4)] focus:border-brand-green/80 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
+                  className="input-field-mobile w-full text-base md:text-xl px-6 md:px-8 py-5 pl-12 md:pl-16 pr-16 md:pr-28 pb-14 md:pb-16 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-0 focus:shadow-[0_20px_80px_rgba(45,90,61,0.4)] focus:border-brand-green/80 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
                 />
                 <Button
                   type="button"
                   size="icon"
                   onClick={() => setShowAttachments(!showAttachments)}
-                  className="icon-button absolute left-3 md:left-4 bottom-3 md:bottom-4 h-11 w-11 md:h-12 md:w-12 bg-brand-green/10 hover:bg-brand-green/20 text-brand-green rounded-mobile-lg rounded-lg md:rounded-xl shadow-sm transition-all duration-300 hover:scale-105 border border-brand-green/20"
+                  className="icon-button absolute left-3 md:left-4 bottom-3 md:bottom-4 h-11 w-11 md:h-12 md:w-12 bg-brand-green/10 hover:bg-brand-green/20 text-brand-green rounded-2xl shadow-sm transition-all duration-300 hover:scale-105 border border-brand-green/20"
                   title="Add attachments"
                 >
                   <Plus className="h-4 w-4 md:h-5 md:w-5" />
@@ -271,7 +271,7 @@ export function HeroSection() {
                   type="submit"
                   size="icon"
                   disabled={isSubmitting}
-                  className="icon-button absolute right-3 md:right-4 bottom-3 md:bottom-4 h-11 w-11 md:h-12 md:w-12 bg-brand-green hover:bg-brand-green-light text-white rounded-mobile-lg rounded-lg md:rounded-xl shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50"
+                  className="icon-button absolute right-3 md:right-4 bottom-3 md:bottom-4 h-11 w-11 md:h-12 md:w-12 bg-brand-green hover:bg-brand-green-light text-white rounded-2xl shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50"
                 >
                   <ArrowUp className="h-4 w-4 md:h-5 md:w-5 text-white" />
                 </Button>
@@ -279,7 +279,7 @@ export function HeroSection() {
             
             {/* Attachment upload section */}
             {showAttachments && (
-              <div className="mt-4 max-w-4xl mx-auto bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-xl p-4 shadow-lg animate-fade-in">
+              <div className="mt-6 max-w-4xl mx-auto bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl p-4 shadow-lg animate-fade-in">
                 <div className="mb-3 text-sm font-medium text-brand-text-dark">Upload up to 3 images to strengthen your brief (50MB total)</div>
                 <div className="flex gap-4 justify-center mb-4">
                   {[0, 1, 2].map((slotIdx) => {
@@ -292,7 +292,7 @@ export function HeroSection() {
                               <svg className="animate-spin" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="4" fill="none" /></svg>
                             </div>
                             <div className="absolute bottom-0 left-0 w-full h-2 bg-brand-green/20 z-20">
-                              <div className="h-2 bg-brand-green rounded-b-lg transition-all duration-200" style={{ width: `${uploadProgress[slotIdx]}%` }} />
+                              <div className="h-2 bg-brand-green rounded-b-2xl transition-all duration-200" style={{ width: `${uploadProgress[slotIdx]}%` }} />
                             </div>
                           </>
                         )}
@@ -314,7 +314,7 @@ export function HeroSection() {
                         </button>
                       </div>
                     ) : (
-                      <label key={slotIdx} className="w-20 h-20 flex flex-col items-center justify-center border-2 border-dashed border-brand-green/30 rounded-lg cursor-pointer hover:bg-brand-green/5 transition-all">
+                      <label key={slotIdx} className="w-20 h-20 flex flex-col items-center justify-center border-2 border-dashed border-brand-green/30 rounded-2xl cursor-pointer hover:bg-brand-green/5 transition-all">
                         <span className="text-3xl text-brand-green">+</span>
                         <input
                           type="file"
@@ -337,7 +337,7 @@ export function HeroSection() {
             
             {/* Inline email form */}
             {showEmailForm && (
-              <div className="mt-4 max-w-4xl mx-auto bg-white/98 backdrop-blur-md border-2 border-brand-green/40 rounded-xl p-4 shadow-lg animate-fade-in">
+              <div className="mt-6 max-w-4xl mx-auto bg-white/98 backdrop-blur-md border-2 border-brand-green/40 rounded-2xl p-4 shadow-lg animate-fade-in">
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Input
                     type="email"
@@ -368,7 +368,7 @@ export function HeroSection() {
             </form>
             
             {/* Mobile: Description after textarea */}
-            <div className="mb-12">
+            <div className="mb-16">
               <p className="hero-subtitle-mobile text-base text-brand-text-muted max-w-3xl mx-auto leading-relaxed text-center">
                 I'll receive your idea and start crafting your website for free. 
                 Only pay if you love the result, starting from just <span className="price-highlight">R500</span>.
@@ -379,7 +379,7 @@ export function HeroSection() {
           {/* Desktop: Description first, then textarea */}
           <div className="hidden md:block">
             {/* Description */}
-            <div className="mb-12">
+            <div className="mb-16">
               <p className="text-xl text-brand-text-muted max-w-3xl mx-auto leading-relaxed text-center">
                 I'll receive your idea and start crafting your website for free. 
                 Only pay if you love the result, starting from just <span className="price-highlight">R500</span>.
@@ -387,19 +387,19 @@ export function HeroSection() {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleIdeaSubmit} className="mb-16">
+            <form onSubmit={handleIdeaSubmit} className="mb-20">
               <div className="relative max-w-4xl mx-auto">
                 <AnimatedInput
                   value={projectDescription}
                   onChange={(e) => setProjectDescription(e.target.value)}
                   onSubmit={handleIdeaSubmit}
-                  className="w-full text-xl px-8 py-5 pl-16 pr-28 pb-16 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-0 focus:shadow-[0_20px_80px_rgba(45,90,61,0.4)] focus:border-brand-green/80 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
+                  className="w-full text-xl px-8 py-5 pl-16 pr-28 pb-16 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-0 focus:shadow-[0_20px_80px_rgba(45,90,61,0.4)] focus:border-brand-green/80 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
                 />
                 <Button
                   type="button"
                   size="icon"
                   onClick={() => setShowAttachments(!showAttachments)}
-                  className="absolute left-4 bottom-4 h-12 w-12 bg-brand-green/10 hover:bg-brand-green/20 text-brand-green rounded-xl shadow-sm transition-all duration-300 hover:scale-105 border border-brand-green/20"
+                  className="absolute left-4 bottom-4 h-12 w-12 bg-brand-green/10 hover:bg-brand-green/20 text-brand-green rounded-2xl shadow-sm transition-all duration-300 hover:scale-105 border border-brand-green/20"
                   title="Add attachments"
                 >
                   <Plus className="h-5 w-5" />
@@ -408,7 +408,7 @@ export function HeroSection() {
                   type="submit"
                   size="icon"
                   disabled={isSubmitting}
-                  className="absolute right-4 bottom-4 h-12 w-12 bg-brand-green hover:bg-brand-green-light text-white rounded-xl shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50"
+                  className="absolute right-4 bottom-4 h-12 w-12 bg-brand-green hover:bg-brand-green-light text-white rounded-2xl shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50"
                 >
                   <ArrowUp className="h-5 w-5 text-white" />
                 </Button>
@@ -416,20 +416,20 @@ export function HeroSection() {
               
               {/* Attachment upload section for desktop */}
               {showAttachments && (
-                <div className="mt-4 max-w-4xl mx-auto bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-xl p-4 shadow-lg animate-fade-in">
+                <div className="mt-6 max-w-4xl mx-auto bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl p-4 shadow-lg animate-fade-in">
                   <div className="mb-3 text-sm font-medium text-brand-text-dark">Upload up to 3 images to strengthen your brief (50MB total)</div>
                   <div className="flex gap-4 justify-center mb-4">
                     {[0, 1, 2].map((slotIdx) => {
                       const file = attachments[slotIdx];
                       return file ? (
-                        <div key={slotIdx} className="relative w-20 h-20 flex items-center justify-center bg-brand-green/10 border-2 border-brand-green/30 rounded-lg shadow-sm overflow-hidden">
+                        <div key={slotIdx} className="relative w-20 h-20 flex items-center justify-center bg-brand-green/10 border-2 border-brand-green/30 rounded-2xl shadow-sm overflow-hidden">
                           {uploadStatus[slotIdx] === "uploading" && (
                             <>
                               <div className="absolute inset-0 flex items-center justify-center bg-white/70 z-10">
                                 <svg className="animate-spin" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="4" fill="none" /></svg>
                               </div>
                               <div className="absolute bottom-0 left-0 w-full h-2 bg-brand-green/20 z-20">
-                                <div className="h-2 bg-brand-green rounded-b-lg transition-all duration-200" style={{ width: `${uploadProgress[slotIdx]}%` }} />
+                                <div className="h-2 bg-brand-green rounded-b-2xl transition-all duration-200" style={{ width: `${uploadProgress[slotIdx]}%` }} />
                               </div>
                             </>
                           )}
@@ -451,7 +451,7 @@ export function HeroSection() {
                           </button>
                         </div>
                       ) : (
-                        <label key={slotIdx} className="w-20 h-20 flex flex-col items-center justify-center border-2 border-dashed border-brand-green/30 rounded-lg cursor-pointer hover:bg-brand-green/5 transition-all">
+                        <label key={slotIdx} className="w-20 h-20 flex flex-col items-center justify-center border-2 border-dashed border-brand-green/30 rounded-2xl cursor-pointer hover:bg-brand-green/5 transition-all">
                           <span className="text-3xl text-brand-green">+</span>
                           <input
                             type="file"
@@ -474,7 +474,7 @@ export function HeroSection() {
               
               {/* Inline email form for desktop */}
               {showEmailForm && (
-                <div className="mt-4 max-w-4xl mx-auto bg-white/98 backdrop-blur-md border-2 border-brand-green/40 rounded-xl p-4 shadow-lg animate-fade-in">
+                <div className="mt-6 max-w-4xl mx-auto bg-white/98 backdrop-blur-md border-2 border-brand-green/40 rounded-2xl p-4 shadow-lg animate-fade-in">
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Input
                       type="email"
@@ -508,15 +508,15 @@ export function HeroSection() {
       )}
 
       {/* Combined How it works & Ideal brief Section */}
-      <div className="faq-mobile mb-12 md:mb-16 max-w-4xl mx-auto">
+      <div className="faq-mobile mb-16 md:mb-20 max-w-4xl mx-auto">
         <Collapsible open={isWorkflowOpen} onOpenChange={setIsWorkflowOpen}>
-          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl md:rounded-2xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
+          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-2xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
             <span className="text-xl md:text-lg font-medium mr-3 md:mr-3">FAQs</span>
             <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isWorkflowOpen ? 'rotate-180' : ''}`} />
           </CollapsibleTrigger>
           <CollapsibleContent>
-            <div className="glass-effect rounded-xl md:rounded-2xl p-4 md:p-6 mt-3 md:mt-4">
-              <div className="space-y-6 md:space-y-8">
+            <div className="glass-effect rounded-2xl p-6 md:p-8 mt-4 md:mt-6">
+              <div className="space-y-8 md:space-y-10">
                 <div>
                   <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">1. How quickly will you respond?</h4>
                   <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
@@ -560,14 +560,14 @@ export function HeroSection() {
       </div>
 
       {/* Pricing Dropdown */}
-      <div className="mb-8 md:mb-12 max-w-4xl mx-auto px-4">
+      <div className="mb-12 md:mb-16 max-w-4xl mx-auto px-4">
         <Collapsible open={isPricingOpen} onOpenChange={setIsPricingOpen}>
-          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl md:rounded-2xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300 mb-2">
+          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300 mb-2">
             <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">Pricing</span>
             <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isPricingOpen ? 'rotate-180' : ''}`} />
           </CollapsibleTrigger>
           <CollapsibleContent>
-            <div className="grid md:grid-cols-3 gap-4 md:gap-6 mt-4">
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8 mt-6">
               {priceCards.map((card, index) => (
                 <Card key={index} className="glass-effect border-brand-green/20 p-4 md:p-6 hover:scale-105 transition-all duration-300 hover:shadow-xl">
                   <h3 className="text-lg md:text-xl font-semibold text-brand-text-dark mb-2">{card.title}</h3>
@@ -581,7 +581,7 @@ export function HeroSection() {
       </div>
 
       {/* Mobile CTA Button */}
-      <div className="mt-16 mb-8 md:hidden">
+      <div className="mt-20 mb-12 md:hidden">
         <Button 
           onClick={() => {
             // Scroll to top and focus the input
@@ -592,7 +592,7 @@ export function HeroSection() {
               if (input) input.focus();
             }, 500);
           }}
-          className="w-full bg-brand-green hover:bg-brand-green-light text-white py-6 text-xl font-semibold rounded-mobile-2xl rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 min-h-[60px]"
+          className="w-full bg-brand-green hover:bg-brand-green-light text-white py-6 text-xl font-semibold rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 min-h-[60px]"
         >
           Let's get building
         </Button>

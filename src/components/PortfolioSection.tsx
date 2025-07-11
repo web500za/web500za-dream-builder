@@ -62,16 +62,16 @@ export function PortfolioSection({ onNavigateToQuote }: PortfolioSectionProps) {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-6 pt-4 md:pt-6">
+    <div className="max-w-5xl mx-auto px-6 pt-8 md:pt-6">
       {/* Projects Grid */}
-      <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 mb-20">
         {projects.map((project, index) => (
           <div key={index} className="group">
             <button 
               onClick={() => handleProjectClick(project)}
               className="block w-full text-left"
             >
-              <Card className="overflow-hidden border border-gray-200 rounded-3xl bg-white hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+              <Card className="overflow-hidden border border-gray-200 rounded-2xl bg-white hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 {/* Hero Thumbnail */}
                 <div className="aspect-[4/3] overflow-hidden bg-gray-50">
                   <img 
@@ -120,7 +120,7 @@ export function PortfolioSection({ onNavigateToQuote }: PortfolioSectionProps) {
       {/* Footer CTA */}
       <div className="text-center space-y-8">
         <p className="text-xl text-gray-600 mb-8">
-          Ready to see your business transformed?
+          Ready to be seen and represented online?
         </p>
         <Button 
           onClick={onNavigateToQuote}

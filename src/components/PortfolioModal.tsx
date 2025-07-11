@@ -110,7 +110,7 @@ export function PortfolioModal({ isOpen, onClose, project }: PortfolioModalProps
           <div className="flex items-center justify-between gap-3">
             <Button
               onClick={onClose}
-              className="flex-1 bg-white/90 hover:bg-white text-gray-900 rounded-mobile-xl shadow-lg border-0"
+              className="flex-1 bg-white/90 hover:bg-white text-gray-900 rounded-2xl shadow-lg border-0"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to W5Z Portfolio
@@ -119,7 +119,7 @@ export function PortfolioModal({ isOpen, onClose, project }: PortfolioModalProps
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center px-6 py-3 bg-brand-green text-white rounded-mobile-xl text-sm font-medium hover:bg-brand-green-light transition-colors shadow-lg"
+              className="flex items-center justify-center px-6 py-3 bg-brand-green text-white rounded-2xl text-sm font-medium hover:bg-brand-green-light transition-colors shadow-lg"
             >
               <ExternalLink className="h-4 w-4 mr-2" />
               Full Site

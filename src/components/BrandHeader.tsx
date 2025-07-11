@@ -14,7 +14,7 @@ export function BrandHeader() {
           xmlns="http://www.w3.org/2000/svg" 
           className="mr-8 drop-shadow-xl"
         >
-          <rect x="16" y="16" width="224" height="224" rx="38" fill="#2d5a3d"/>
+          <rect x="16" y="16" width="224" height="224" rx="32" fill="#2d5a3d"/>
           <text x="128" y="150" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontSize="48" fontWeight="700" fill="#f8f6f1">&lt;/w5z/&gt;</text>
         </svg>
 
@@ -38,7 +38,7 @@ export function BrandHeader() {
             fill="none" 
             xmlns="http://www.w3.org/2000/svg"
           >
-            <rect x="16" y="16" width="224" height="224" rx="38" fill="#2d5a3d"/>
+            <rect x="16" y="16" width="224" height="224" rx="32" fill="#2d5a3d"/>
             <text x="128" y="150" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontSize="48" fontWeight="700" fill="#f8f6f1">&lt;/wa/&gt;</text>
           </svg>
         </a>
@@ -57,7 +57,7 @@ export function BrandHeader() {
             xmlns="http://www.w3.org/2000/svg" 
             className="drop-shadow-lg flex-shrink-0 logo-icon-mobile"
           >
-            <rect x="16" y="16" width="224" height="224" rx="38" fill="#2d5a3d"/>
+            <rect x="16" y="16" width="224" height="224" rx="32" fill="#2d5a3d"/>
             <text x="128" y="150" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontSize="48" fontWeight="700" fill="#f8f6f1">&lt;/w5z/&gt;</text>
           </svg>
 
