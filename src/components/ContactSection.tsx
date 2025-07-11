@@ -65,26 +65,26 @@ export function ContactSection() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-6 pt-4 md:pt-6">
+    <div className="max-w-2xl mx-auto px-6 pt-2 md:pt-6">
       {/* Main Headline */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold text-brand-text-dark mb-6">
+      <div className="text-center mb-10 px-4">
+        <h2 className="text-3xl md:text-5xl font-bold text-brand-text-dark mb-6 leading-tight">
           Let's Talk
         </h2>
       </div>
 
       {/* Direct Contact Methods */}
-      <div className="text-center mb-12 space-y-6">
-        <div className="space-y-6">
+      <div className="text-center mb-10 space-y-4 px-4">
+        <div className="space-y-4">
           <a
             href="https://wa.me/27832540891"
-            className="group block p-6 rounded-2xl border border-gray-200 hover:border-[#4a5d4a] transition-all duration-300 hover:shadow-lg"
+            className="group block p-5 md:p-6 rounded-2xl border border-gray-200 hover:border-[#4a5d4a] transition-all duration-300 hover:shadow-lg"
           >
             <div className="flex items-center justify-center space-x-4">
-              <MessageCircle className="w-6 h-6 text-[#4a5d4a] group-hover:scale-110 transition-transform" />
-              <div className="text-left">
+              <MessageCircle className="w-6 h-6 text-[#4a5d4a] group-hover:scale-110 transition-transform flex-shrink-0" />
+              <div className="text-center md:text-left">
                 <p className="text-sm text-gray-600 font-medium">WhatsApp</p>
-                <p className="text-xl font-semibold text-brand-text-dark group-hover:text-[#4a5d4a] transition-colors">
+                <p className="text-lg md:text-xl font-semibold text-brand-text-dark group-hover:text-[#4a5d4a] transition-colors">
                   +27 83 254 0891
                 </p>
               </div>
@@ -93,13 +93,13 @@ export function ContactSection() {
 
           <a
             href="mailto:web500za@gmail.com"
-            className="group block p-6 rounded-2xl border border-gray-200 hover:border-[#4a5d4a] transition-all duration-300 hover:shadow-lg"
+            className="group block p-5 md:p-6 rounded-2xl border border-gray-200 hover:border-[#4a5d4a] transition-all duration-300 hover:shadow-lg"
           >
             <div className="flex items-center justify-center space-x-4">
-              <Mail className="w-6 h-6 text-[#4a5d4a] group-hover:scale-110 transition-transform" />
-              <div className="text-left">
+              <Mail className="w-6 h-6 text-[#4a5d4a] group-hover:scale-110 transition-transform flex-shrink-0" />
+              <div className="text-center md:text-left">
                 <p className="text-sm text-gray-600 font-medium">Email</p>
-                <p className="text-xl font-semibold text-brand-text-dark group-hover:text-[#4a5d4a] transition-colors">
+                <p className="text-lg md:text-xl font-semibold text-brand-text-dark group-hover:text-[#4a5d4a] transition-colors break-all">
                   web500za@gmail.com
                 </p>
               </div>
@@ -109,15 +109,15 @@ export function ContactSection() {
       </div>
 
       {/* Form Section */}
-      <div className="mb-8">
-        <p className="text-center text-gray-600 text-lg mb-12">
+      <div className="mb-8 px-4">
+        <p className="text-center text-gray-600 text-base md:text-lg mb-10">
           Prefer a form? No problem:
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <div className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-5">
             <div>
-              <Label htmlFor="name" className="text-brand-text-dark font-medium text-lg mb-3 block">
+              <Label htmlFor="name" className="text-brand-text-dark font-medium text-base md:text-lg mb-2 block">
                 Name
               </Label>
               <Input
@@ -127,13 +127,13 @@ export function ContactSection() {
                 required
                 value={formData.name}
                 onChange={handleInputChange}
-                className="h-14 text-lg border-gray-300 focus:border-[#4a5d4a] focus:ring-[#4a5d4a] rounded-xl"
+                className="h-12 md:h-14 text-base md:text-lg border-gray-300 focus:border-[#4a5d4a] focus:ring-[#4a5d4a] rounded-xl"
                 placeholder="Your name"
               />
             </div>
 
             <div>
-              <Label htmlFor="email" className="text-brand-text-dark font-medium text-lg mb-3 block">
+              <Label htmlFor="email" className="text-brand-text-dark font-medium text-base md:text-lg mb-2 block">
                 Email
               </Label>
               <Input
@@ -143,13 +143,13 @@ export function ContactSection() {
                 required
                 value={formData.email}
                 onChange={handleInputChange}
-                className="h-14 text-lg border-gray-300 focus:border-[#4a5d4a] focus:ring-[#4a5d4a] rounded-xl"
+                className="h-12 md:h-14 text-base md:text-lg border-gray-300 focus:border-[#4a5d4a] focus:ring-[#4a5d4a] rounded-xl"
                 placeholder="your@email.com"
               />
             </div>
 
             <div>
-              <Label htmlFor="message" className="text-brand-text-dark font-medium text-lg mb-3 block">
+              <Label htmlFor="message" className="text-brand-text-dark font-medium text-base md:text-lg mb-2 block">
                 Project Details
               </Label>
               <Textarea
@@ -158,8 +158,8 @@ export function ContactSection() {
                 required
                 value={formData.message}
                 onChange={handleInputChange}
-                rows={6}
-                className="text-lg border-gray-300 focus:border-[#4a5d4a] focus:ring-[#4a5d4a] rounded-xl resize-none placeholder:text-gray-400"
+                rows={5}
+                className="text-base md:text-lg border-gray-300 focus:border-[#4a5d4a] focus:ring-[#4a5d4a] rounded-xl resize-none placeholder:text-gray-400"
                 placeholder="Tell me about your project..."
               />
             </div>
@@ -169,14 +169,14 @@ export function ContactSection() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-16 bg-[#2d5a3d] hover:bg-[#1e3d28] text-white text-lg font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border-0"
+              className="w-full h-14 md:h-16 bg-[#2d5a3d] hover:bg-[#1e3d28] text-white text-base md:text-lg font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border-0"
               style={{ backgroundColor: '#2d5a3d' }}
             >
               {isSubmitting ? (
                 "Sending..."
               ) : (
                 <>
-                  <Send className="w-5 h-5 mr-3" />
+                  <Send className="w-4 h-4 md:w-5 md:h-5 mr-3" />
                   Send Message
                 </>
               )}

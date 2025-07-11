@@ -233,56 +233,56 @@ export function HeroSection() {
   ];
 
   return (
-    <div className="text-center max-w-6xl mx-auto px-4 md:px-6 pt-4 md:pt-6">
+    <div className="text-center max-w-6xl mx-auto px-6 md:px-6 pt-2 md:pt-6">
       {/* Success state inline */}
       {emailSent ? (
-        <div className="mb-8 text-center animate-fade-in">
-          <div className="mb-4">
+        <div className="mb-12 text-center animate-fade-in px-4">
+          <div className="mb-6">
             <svg className="animate-bounce-in mx-auto" width="60" height="60" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="40" cy="40" r="40" fill="#22c55e"/>
               <path d="M24 42l12 12 20-24" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
-          <h3 className="text-xl font-bold text-brand-green mb-2">Thank you!</h3>
-          <p className="text-brand-text-dark">I've received your brief and will aim to respond within <span className="font-semibold">1-2 business days</span>.</p>
+          <h3 className="text-2xl font-bold text-brand-green mb-4">Thank you!</h3>
+          <p className="text-brand-text-dark text-lg leading-relaxed">I've received your brief and will aim to respond within <span className="font-semibold">1-2 business days</span>.</p>
         </div>
       ) : (
         <>
           {/* Main Heading */}
-          <div className="mb-8 md:mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-brand-text-dark mb-6">
+          <div className="mb-10 md:mb-12 px-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-brand-text-dark mb-6 leading-tight">
               Tell me what you want
             </h2>
-            <p className="text-lg md:text-xl text-brand-text-muted max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base md:text-xl text-brand-text-muted max-w-3xl mx-auto leading-relaxed">
               I'll receive your idea and start crafting your website for free. 
               Only pay if you love the result, starting from just <span className="font-bold text-brand-green">R500</span>.
             </p>
           </div>
 
-          <form onSubmit={handleIdeaSubmit} className="mb-8 md:mb-12">
+          <form onSubmit={handleIdeaSubmit} className="mb-10 md:mb-12 px-4">
             <div className="relative max-w-4xl mx-auto">
               <AnimatedInput
                 value={projectDescription}
                 onChange={(e) => setProjectDescription(e.target.value)}
                 onSubmit={handleIdeaSubmit}
-                className="w-full text-lg md:text-xl px-6 md:px-8 py-4 pl-14 md:pl-16 pr-24 md:pr-28 pb-12 md:pb-16 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl md:rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-0 focus:shadow-[0_20px_80px_rgba(45,90,61,0.4)] focus:border-brand-green/80 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
+                className="w-full text-base md:text-xl px-5 md:px-8 py-4 pl-12 md:pl-16 pr-20 md:pr-28 pb-10 md:pb-16 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl md:rounded-3xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-0 focus:shadow-[0_20px_80px_rgba(45,90,61,0.4)] focus:border-brand-green/80 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
               />
               <Button
                 type="button"
                 size="icon"
                 onClick={() => setShowAttachments(!showAttachments)}
-                className="absolute left-3 md:left-4 bottom-3 md:bottom-4 h-10 w-10 md:h-12 md:w-12 bg-brand-green/10 hover:bg-brand-green/20 text-brand-green rounded-lg md:rounded-xl shadow-sm transition-all duration-300 hover:scale-105 border border-brand-green/20"
+                className="absolute left-2 md:left-4 bottom-2 md:bottom-4 h-8 w-8 md:h-12 md:w-12 bg-brand-green/10 hover:bg-brand-green/20 text-brand-green rounded-lg md:rounded-xl shadow-sm transition-all duration-300 hover:scale-105 border border-brand-green/20"
                 title="Add attachments"
               >
-                <Plus className="h-4 w-4 md:h-5 md:w-5" />
+                <Plus className="h-3 w-3 md:h-5 md:w-5" />
               </Button>
               <Button
                 type="submit"
                 size="icon"
                 disabled={isSubmitting}
-                className="absolute right-3 md:right-4 bottom-3 md:bottom-4 h-10 w-10 md:h-12 md:w-12 bg-brand-green hover:bg-brand-green-light text-white rounded-lg md:rounded-xl shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50"
+                className="absolute right-2 md:right-4 bottom-2 md:bottom-4 h-8 w-8 md:h-12 md:w-12 bg-brand-green hover:bg-brand-green-light text-white rounded-lg md:rounded-xl shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50"
               >
-                <ArrowUp className="h-4 w-4 md:h-5 md:w-5 text-white" />
+                <ArrowUp className="h-3 w-3 md:h-5 md:w-5 text-white" />
               </Button>
             </div>
             
@@ -379,11 +379,11 @@ export function HeroSection() {
       )}
 
       {/* Combined How it works & Ideal brief Section */}
-      <div className="mb-12 md:mb-16 max-w-4xl mx-auto">
+      <div className="mb-12 md:mb-16 max-w-4xl mx-auto px-4">
         <Collapsible open={isWorkflowOpen} onOpenChange={setIsWorkflowOpen}>
-          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl md:rounded-2xl p-3 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
-            <span className="text-base md:text-lg font-medium mr-2 md:mr-3">FAQs</span>
-            <ChevronDown className={`h-4 w-4 md:h-5 md:w-5 transition-transform duration-300 ${isWorkflowOpen ? 'rotate-180' : ''}`} />
+          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl md:rounded-2xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
+            <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">FAQs</span>
+            <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isWorkflowOpen ? 'rotate-180' : ''}`} />
           </CollapsibleTrigger>
           <CollapsibleContent>
             <div className="glass-effect rounded-xl md:rounded-2xl p-4 md:p-6 mt-3 md:mt-4">
@@ -431,11 +431,11 @@ export function HeroSection() {
       </div>
 
       {/* Pricing Dropdown */}
-      <div className="mb-8 md:mb-12 max-w-4xl mx-auto">
+      <div className="mb-8 md:mb-12 max-w-4xl mx-auto px-4">
         <Collapsible open={isPricingOpen} onOpenChange={setIsPricingOpen}>
-          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl md:rounded-2xl p-3 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300 mb-2">
-            <span className="text-base md:text-lg font-medium mr-2 md:mr-3">Pricing</span>
-            <ChevronDown className={`h-4 w-4 md:h-5 md:w-5 transition-transform duration-300 ${isPricingOpen ? 'rotate-180' : ''}`} />
+          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl md:rounded-2xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300 mb-2">
+            <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">Pricing</span>
+            <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isPricingOpen ? 'rotate-180' : ''}`} />
           </CollapsibleTrigger>
           <CollapsibleContent>
             <div className="grid md:grid-cols-3 gap-4 md:gap-6 mt-4">
@@ -452,7 +452,7 @@ export function HeroSection() {
       </div>
 
       {/* Mobile CTA Button */}
-      <div className="mt-8 md:hidden">
+      <div className="mt-12 md:hidden px-4">
         <Button 
           onClick={() => {
             // Scroll to top and focus the input
@@ -463,7 +463,7 @@ export function HeroSection() {
               if (input) input.focus();
             }, 500);
           }}
-          className="w-full bg-brand-green hover:bg-brand-green-light text-white py-4 text-lg font-semibold rounded-2xl shadow-lg transition-all duration-300 hover:scale-105"
+          className="w-full bg-brand-green hover:bg-brand-green-light text-white py-5 text-lg font-semibold rounded-2xl shadow-lg transition-all duration-300 hover:scale-105"
         >
           Let's get building
         </Button>

@@ -45,13 +45,13 @@ export function BrandHeader() {
       </div>
 
       {/* Mobile Layout */}
-      <div className="md:hidden mb-6 mt-4">
+      <div className="md:hidden mb-8 mt-6 px-4">
         {/* Mobile: web500za text flanked by smaller w5z and wa */}
-        <div className="flex items-center justify-center space-x-3">
+        <div className="flex items-center justify-center space-x-4">
           {/* W5Z Logo - Small */}
           <svg 
-            width="85" 
-            height="85" 
+            width="70" 
+            height="70" 
             viewBox="0 0 256 256" 
             fill="none" 
             xmlns="http://www.w3.org/2000/svg" 
@@ -62,7 +62,7 @@ export function BrandHeader() {
           </svg>
 
           {/* Brand Name - Mobile */}
-          <h1 className="text-4xl font-bold text-brand-text-dark text-shadow flex-shrink-0">
+          <h1 className="text-3xl font-bold text-brand-text-dark text-shadow flex-shrink-0">
             web500za
           </h1>
 
@@ -71,12 +71,12 @@ export function BrandHeader() {
             href="https://wa.me/27832540891"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-21 h-21 bg-transparent transition-all duration-300 hover:scale-105 flex items-center justify-center drop-shadow-lg flex-shrink-0"
+            className="w-18 h-18 bg-transparent transition-all duration-300 hover:scale-105 flex items-center justify-center drop-shadow-lg flex-shrink-0"
             aria-label="WhatsApp"
           >
             <svg 
-              width="85" 
-              height="85" 
+              width="70" 
+              height="70" 
               viewBox="0 0 256 256" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"

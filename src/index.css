@@ -226,4 +226,51 @@
     color: #6b675f !important;
     opacity: 1 !important;
   }
+
+  /* Mobile-specific improvements */
+  @media (max-width: 768px) {
+    /* Prevent zoom on inputs */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+      font-size: 16px !important;
+      transform-origin: left top;
+    }
+
+    /* Better touch targets */
+    button,
+    .btn,
+    a[role="button"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Consistent mobile spacing */
+    .mobile-spacing {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    /* Improve readability on mobile */
+    h1, h2, h3 {
+      line-height: 1.2;
+    }
+
+    /* Better mobile navigation */
+    .nav-mobile {
+      padding: 0.5rem;
+    }
+  }
+
+  /* Prevent horizontal scroll on mobile */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
 }

@@ -38,7 +38,7 @@ const Index = () => {
       
       {/* Fixed Header Area */}
       <div className="relative z-30 w-full">
-        <div className="w-full max-w-7xl mx-auto pt-4 md:pt-6 px-4">
+        <div className="w-full max-w-7xl mx-auto pt-2 md:pt-6 px-2 md:px-4">
           <BrandHeader />
           <NavigationToggle 
             currentSection={currentSection}
@@ -49,7 +49,7 @@ const Index = () => {
       
       {/* Scrollable Content Area */}
       <div className="relative z-20 w-full">
-        <div className="w-full max-w-7xl mx-auto px-4 pb-8">
+        <div className="w-full max-w-7xl mx-auto px-2 md:px-4 pb-8 md:pb-12">
           <div className="animate-fade-in">
             {renderSection()}
           </div>
