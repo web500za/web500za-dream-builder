@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:lovable.dev)"
+      "WebFetch(domain:lovable.dev)",
+      "Bash(rm:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiveWell by Olivia - Your Sacred Wellness Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --terracotta: #D17A60;
+            --dusty-rose: #C99A8F;
+            --blush: #F5E6E0;
+            --deep-brown: #3E2723;
+            --cream: #FFF8F3;
+            --gold-accent: #E6B87D;
+            --sage-accent: #9CAF88;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            color: var(--deep-brown);
+            background-color: var(--cream);
+            overflow-x: hidden;
+        }
+        
+        /* Floating Nav */
+        .floating-nav {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--cream);
+            text-decoration: none;
+            font-family: -apple-system, sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            opacity: 0.7;
+        }
+        
+        .book-btn {
+            background-color: var(--cream);
+            color: var(--terracotta);
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: -apple-system, sans-serif;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .book-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        /* Opening Section */
+        .opening {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #87A96B 0%, #94B079 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+        }
+        
+        .opening-content {
+            text-align: center;
+            max-width: 900px;
+            animation: gentleFade 1.5s ease-out;
+        }
+        
+        .opening h1 {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            color: var(--cream);
+            font-weight: 300;
+            line-height: 0.9;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+        }
+        
+        .opening .subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--cream);
+            opacity: 0.8;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-family: -apple-system, sans-serif;
+            font-weight: 300;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--cream);
+            border-radius: 20px;
+            opacity: 0.6;
+        }
+        
+        .scroll-indicator::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 10px;
+            background-color: var(--cream);
+            border-radius: 2px;
+            animation: scroll 2s infinite;
+        }
+        
+        /* Story Section */
+        .story {
+            padding: 10rem 2rem;
+            background-color: var(--blush);
+        }
+        
+        .story-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 6rem;
+            align-items: center;
+        }
+        
+        .story-label {
+            font-size: 5rem;
+            color: var(--terracotta);
+            opacity: 0.3;
+            font-weight: 300;
+            line-height: 1;
+        }
+        
+        .story-content h2 {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            color: var(--deep-brown);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        .story-content p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: var(--deep-brown);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Journey Steps */
+        .journey {
+            padding: 8rem 2rem;
+            background-color: var(--cream);
+        }
+        
+        .journey-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 6rem;
+        }
+        
+        .journey-header h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--terracotta);
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+        
+        .steps {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 8rem;
+            align-items: center;
+            gap: 4rem;
+        }
+        
+        .step:nth-child(even) {
+            direction: rtl;
+        }
+        
+        .step:nth-child(even) > * {
+            direction: ltr;
+        }
+        
+        .step-content {
+            padding: 3rem;
+        }
+        
+        .step-number {
+            font-size: 6rem;
+            color: var(--dusty-rose);
+            opacity: 0.3;
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        
+        .step h3 {
+            font-size: 2rem;
+            color: var(--deep-brown);
+            margin-bottom: 1rem;
+        }
+        
+        .step p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--deep-brown);
+        }
+        
+        .step-visual {
+            height: 400px;
+            background-color: var(--terracotta);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .step:nth-child(2) .step-visual {
+            background-color: var(--dusty-rose);
+        }
+        
+        .step:nth-child(3) .step-visual {
+            background-color: var(--sage-accent);
+        }
+        
+        /* Testimonial Feature */
+        .testimonial-feature {
+            padding: 10rem 2rem;
+            background-color: var(--deep-brown);
+            color: var(--cream);
+            text-align: center;
+        }
+        
+        .testimonial-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .quote-mark {
+            font-size: 8rem;
+            color: var(--gold-accent);
+            opacity: 0.3;
+            line-height: 0.5;
+            margin-bottom: 2rem;
+        }
+        
+        .testimonial-text {
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            line-height: 1.5;
+            font-weight: 300;
+            margin-bottom: 3rem;
+        }
+        
+        .testimonial-author {
+            font-size: 1.1rem;
+            color: var(--gold-accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-family: -apple-system, sans-serif;
+        }
+        
+        /* Values Mosaic */
+        .values-mosaic {
+            padding: 8rem 2rem;
+            background-color: var(--blush);
+        }
+        
+        .values-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .value-block {
+            padding: 4rem 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .value-block:nth-child(1) {
+            background-color: var(--terracotta);
+            color: var(--cream);
+        }
+        
+        .value-block:nth-child(2) {
+            background-color: var(--sage-accent);
+            color: var(--cream);
+        }
+        
+        .value-block:nth-child(3) {
+            background-color: var(--dusty-rose);
+            color: var(--cream);
+        }
+        
+        .value-block:nth-child(4) {
+            background-color: var(--gold-accent);
+            color: var(--deep-brown);
+        }
+        
+        .value-block:hover {
+            transform: scale(1.05);
+        }
+        
+        .value-block h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+        
+        /* Final CTA */
+        .final-invitation {
+            padding: 10rem 2rem;
+            background: linear-gradient(180deg, var(--cream) 0%, var(--blush) 100%);
+            text-align: center;
+        }
+        
+        .invitation-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .invitation-content h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            color: var(--terracotta);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            line-height: 1.1;
+        }
+        
+        .cta-primary {
+            display: inline-block;
+            background-color: var(--terracotta);
+            color: var(--cream);
+            padding: 1.5rem 4rem;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .contact-info {
+            font-size: 1.1rem;
+            color: var(--deep-brown);
+            margin-top: 2rem;
+        }
+        
+        /* Animations */
+        @keyframes gentleFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scroll {
+            0% {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-50%) translateY(20px);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .floating-nav {
+                top: 1rem;
+                right: 1rem;
+                gap: 1rem;
+            }
+            
+            .nav-link {
+                display: none;
+            }
+            
+            .story-container,
+            .step {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .step:nth-child(even) {
+                direction: ltr;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .step-visual {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Navigation -->
+    <nav class="floating-nav">
+        <a href="#" class="nav-link">About</a>
+        <a href="#" class="nav-link">Services</a>
+        <a href="#" class="book-btn">Book Session</a>
+    </nav>
+    
+    <!-- Opening -->
+    <section class="opening">
+        <div class="opening-content">
+            <h1>LiveWell</h1>
+            <p class="subtitle">by Olivia</p>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+    
+    <!-- Story -->
+    <section class="story">
+        <div class="story-container">
+            <div class="story-label">01</div>
+            <div class="story-content">
+                <h2>Your wellness is a sacred journey</h2>
+                <p>At LiveWell, we believe transformation begins when faith meets intention. Through Christ-centered practices and holistic care, we guide you to discover the divine purpose written into every fiber of your being.</p>
+                <p>This isn't just wellness. This is awakening to who God created you to be.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Journey Steps -->
+    <section class="journey">
+        <div class="journey-header">
+            <h2>Your Transformation Path</h2>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-number">01</div>
+                    <h3>Restore Your Temple</h3>
+                    <p>Through therapeutic sports massage and personalized wellness programs, we help you honor your body as the sacred vessel it was created to be.</p>
+                </div>
+                <div class="step-visual"></div>
+            </div>
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-number">02</div>
+                    <h3>Renew Your Mind</h3>
+                    <p>Break free from limiting beliefs and embrace the mindset of abundance God intends for you through faith-based coaching and transformation.</p>
+                </div>
+                <div class="step-visual"></div>
+            </div>
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-number">03</div>
+                    <h3>Align Your Purpose</h3>
+                    <p>Discover and walk confidently in your God-given purpose, integrating spiritual wellness into every aspect of your daily life.</p>
+                </div>
+                <div class="step-visual"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonial Feature -->
+    <section class="testimonial-feature">
+        <div class="testimonial-container">
+            <div class="quote-mark">"</div>
+            <p class="testimonial-text">For the first time in my life, I understand that caring for my body is an act of worship. LiveWell didn't just change my health—it transformed my relationship with God.</p>
+            <p class="testimonial-author">Grace M. • Corporate Wellness Client</p>
+        </div>
+    </section>
+    
+    <!-- Values Mosaic -->
+    <section class="values-mosaic">
+        <div class="values-grid">
+            <div class="value-block">
+                <h3>Inclusive Service</h3>
+                <p>Every soul deserves wellness</p>
+            </div>
+            <div class="value-block">
+                <h3>Faith-Led Care</h3>
+                <p>Christ at the center of healing</p>
+            </div>
+            <div class="value-block">
+                <h3>Holistic Growth</h3>
+                <p>Body, mind, spirit in harmony</p>
+            </div>
+            <div class="value-block">
+                <h3>Purpose Driven</h3>
+                <p>Wellness with divine intention</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Final Invitation -->
+    <section class="final-invitation">
+        <div class="invitation-content">
+            <h2>Your transformation begins with a single step</h2>
+            <a href="#" class="cta-primary">Start Your Journey</a>
+            <p class="contact-info">Call Olivia: 0733 512 532</p>
+        </div>
+    </section>
+</body>
+</html>

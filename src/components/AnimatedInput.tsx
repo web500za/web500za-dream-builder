@@ -27,10 +27,11 @@ export function AnimatedInput({ value, onChange, className, onSubmit }: Animated
   };
 
   const dots = '.'.repeat(dotCount);
+  const spaces = '\u00A0'.repeat(3 - dotCount); // Non-breaking spaces to maintain width
 
   return (
     <Textarea
-      placeholder={`What should I build for you${dots}`}
+      placeholder={`What should I build for you${dots}${spaces}`}
       value={value}
       onChange={onChange}
       onKeyPress={handleKeyPress}

@@ -227,40 +227,266 @@
     opacity: 1 !important;
   }
 
-  /* Mobile-specific improvements */
+  /* Premium Mobile Experience - Spacing Scale & Typography */
   @media (max-width: 768px) {
-    /* Prevent zoom on inputs */
+    /* Define consistent spacing scale */
+    :root {
+      --space-xs: 0.5rem;   /* 8px */
+      --space-sm: 1rem;     /* 16px */
+      --space-md: 1.5rem;   /* 24px */
+      --space-lg: 2rem;     /* 32px */
+      --space-xl: 3rem;     /* 48px */
+      --space-2xl: 4rem;    /* 64px */
+      --space-3xl: 5rem;    /* 80px */
+    }
+
+    /* Premium typography scale for mobile */
+    h1 {
+      font-size: 3rem !important;  /* 48px */
+      line-height: 1.1 !important;
+      letter-spacing: -0.03em;
+    }
+
+    h2 {
+      font-size: 2.5rem !important;    /* 40px */
+      line-height: 1.2 !important;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      font-size: 1.75rem !important;  /* 28px */
+      line-height: 1.3 !important;
+    }
+
+    body {
+      font-size: 1.125rem !important; /* 18px base */
+      line-height: 1.6 !important;
+    }
+
+    /* Prevent zoom on inputs with larger default size */
     input[type="text"],
     input[type="email"],
     input[type="tel"],
     textarea,
     select {
-      font-size: 16px !important;
+      font-size: 18px !important;
       transform-origin: left top;
+      padding: 1rem 1.25rem !important;
+      min-height: 56px !important;
     }
 
-    /* Better touch targets */
+    /* Premium touch targets */
     button,
     .btn,
-    a[role="button"] {
-      min-height: 44px;
-      min-width: 44px;
+    a[role="button"],
+    .interactive-element {
+      min-height: 48px !important;
+      min-width: 48px !important;
+      padding: 0.75rem 1.5rem !important;
+      font-size: 1rem !important;
     }
 
-    /* Consistent mobile spacing */
-    .mobile-spacing {
-      padding-left: 1rem;
-      padding-right: 1rem;
+    /* Small interactive elements (icons) */
+    .icon-button,
+    .small-interactive {
+      min-height: 44px !important;
+      min-width: 44px !important;
     }
 
-    /* Improve readability on mobile */
-    h1, h2, h3 {
-      line-height: 1.2;
+    /* Generous mobile container padding */
+    .container,
+    .mobile-padding {
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
     }
 
-    /* Better mobile navigation */
-    .nav-mobile {
-      padding: 0.5rem;
+    /* Section spacing - increased by 20% */
+    .section-spacing {
+      padding-top: 5rem !important;  /* 80px - was 64px */
+      padding-bottom: 5rem !important;
+    }
+    
+    /* Major section margins */
+    .section-margin-mobile {
+      margin-bottom: 5rem !important;  /* 80px */
+    }
+
+    /* Component spacing utilities */
+    .space-y-mobile-sm > * + * {
+      margin-top: var(--space-sm) !important;
+    }
+
+    .space-y-mobile-md > * + * {
+      margin-top: var(--space-md) !important;
+    }
+
+    .space-y-mobile-lg > * + * {
+      margin-top: var(--space-lg) !important;
+    }
+
+    .space-y-mobile-xl > * + * {
+      margin-top: var(--space-xl) !important;
+    }
+
+    
+    /* Mobile background texture */
+    .mobile-texture {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.03;
+      background-image: 
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 40px,
+          rgba(45, 90, 61, 0.1) 40px,
+          rgba(45, 90, 61, 0.1) 80px
+        ),
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 40px,
+          rgba(45, 90, 61, 0.1) 40px,
+          rgba(45, 90, 61, 0.1) 80px
+        );
+    }
+
+    /* Hero section premium spacing */
+    .hero-mobile {
+      padding-top: var(--space-lg) !important;
+      padding-bottom: var(--space-xl) !important;
+    }
+
+    .hero-title-mobile {
+      font-size: 3.5rem !important;  /* 56px - commanding presence */
+      line-height: 1.05 !important;
+      margin-bottom: var(--space-lg) !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.03em !important;
+    }
+
+    .hero-subtitle-mobile {
+      font-size: 1.375rem !important;  /* 22px */
+      line-height: 1.5 !important;
+      margin-bottom: var(--space-xl) !important;
+    }
+    
+    /* R500 subtle green text styling */
+    .price-highlight {
+      color: #2d5a3d !important;
+      font-weight: 700 !important;
+      font-size: 1em !important;
+    }
+
+    /* Input area premium styling */
+    .input-container-mobile {
+      padding: var(--space-sm) !important;
+      gap: var(--space-sm) !important;
+      position: relative !important;
+    }
+
+    .input-field-mobile {
+      font-size: 1.25rem !important;
+      padding: 1.75rem 2rem !important;
+      padding-right: 5rem !important;
+      padding-bottom: 4.5rem !important;
+      min-height: 90px !important;
+      border-radius: 1.5rem !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    }
+    
+    .input-field-mobile:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(45, 90, 61, 0.3) !important;
+    }
+    
+    /* Ensure action buttons are visible */
+    .input-action-buttons {
+      position: absolute !important;
+      bottom: 0.75rem !important;
+      right: 0.75rem !important;
+      display: flex !important;
+      gap: 0.5rem !important;
+      z-index: 10 !important;
+    }
+
+    /* FAQ section spacing */
+    .faq-mobile {
+      margin-top: var(--space-lg) !important;
+      padding-top: var(--space-sm) !important;
+    }
+
+    /* Logo/header area premium spacing */
+    .header-mobile {
+      padding-top: var(--space-lg) !important;
+      padding-bottom: var(--space-lg) !important;
+      padding-left: var(--space-md) !important;
+      padding-right: var(--space-md) !important;
+      min-height: 160px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .logo-text-mobile {
+      font-size: 2.5rem !important;  /* 40px - slightly larger for better alignment */
+      font-weight: 700 !important;
+      letter-spacing: -0.02em !important;
+      color: #2d5a3d !important;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo-icon-mobile {
+      width: 110px !important;
+      height: 110px !important;
+    }
+
+    /* Premium rounded corners */
+    .rounded-mobile-lg {
+      border-radius: 1.25rem !important;
+    }
+
+    .rounded-mobile-xl {
+      border-radius: 1.75rem !important;
+    }
+
+    .rounded-mobile-2xl {
+      border-radius: 2rem !important;
+    }
+
+    /* Better readability */
+    p, .body-text {
+      font-size: 1.125rem !important;
+      line-height: 1.6 !important;
+      margin-bottom: var(--space-md) !important;
+    }
+
+    /* Card and container spacing */
+    .card-mobile {
+      padding: var(--space-lg) !important;
+      border-radius: 1.25rem !important;
+      margin-bottom: var(--space-md) !important;
+    }
+
+    /* Smooth transitions */
+    * {
+      transition: padding 0.2s ease, margin 0.2s ease;
+    }
+    
+    /* Hide scrollbar for navigation */
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
     }
   }
 
@@ -272,5 +498,15 @@
   /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
+  }
+  
+  /* Desktop refinements */
+  @media (min-width: 768px) {
+    /* Premium desktop header spacing */
+    .desktop-header {
+      padding-top: 3rem !important;
+      padding-bottom: 3rem !important;
+    }
+    
   }
 }
