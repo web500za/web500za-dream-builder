@@ -102,7 +102,13 @@ export function PortfolioModal({ isOpen, onClose, project }: PortfolioModalProps
         <div className="h-full w-full overflow-hidden bg-gray-50">
           {/* Mobile version - uses mobile-optimized files */}
           <iframe
-            src={project.url.replace('/portfolio examples/', '/portfolio examples (mobile optimized)/')}
+            src={project.url
+              .replace('/portfolio examples/', '/portfolio%20examples%20(mobile%20optimized)/')
+              .replace('bloom-branch-site.html', 'bloom-branch-mobile.html')
+              .replace('flow-studio-pilates.html', 'flow-studio-mobile.html')
+              .replace('meridian-legal.html', 'meridian-legal-mobile.html')
+              .replace('sage-therapy-site.html', 'sage-therapy-mobile.html')
+            }
             className="md:hidden w-full h-full border-0"
             title={`${project.title} - Portfolio Preview (Mobile)`}
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation"

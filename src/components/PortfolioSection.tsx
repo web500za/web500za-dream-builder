@@ -14,15 +14,6 @@ export function PortfolioSection({ onNavigateToQuote }: PortfolioSectionProps) {
 
   const projects = [
     {
-      title: "Bloom & Branch",
-      tagline: "Arrangements as Art",
-      description: "Elegant floral studio showcasing artistic arrangements with sophisticated design and seamless booking experience.",
-      category: "Florist",
-      color: "#E4756B",
-      url: "/portfolio examples/bloom-branch-site.html",
-      image: "/portfolio thumbnails/{558AA998-057A-4FEF-B9BB-14BFEAE67654}.png"
-    },
-    {
       title: "FLOW Studio",
       tagline: "Move with Intention", 
       description: "Modern pilates studio combining wellness philosophy with clean, intentional design and class scheduling.",
@@ -48,6 +39,15 @@ export function PortfolioSection({ onNavigateToQuote }: PortfolioSectionProps) {
       color: "#7C9885", 
       url: "/portfolio examples/sage-therapy-site.html",
       image: "/portfolio thumbnails/{16367EBD-A8E0-4D91-974A-21D9CA1CD49C}.png"
+    },
+    {
+      title: "Bloom & Branch",
+      tagline: "Arrangements as Art",
+      description: "Elegant floral studio showcasing artistic arrangements with sophisticated design and seamless booking experience.",
+      category: "Florist",
+      color: "#E4756B",
+      url: "/portfolio examples/bloom-branch-site.html",
+      image: "/portfolio thumbnails/{558AA998-057A-4FEF-B9BB-14BFEAE67654}.png"
     }
   ];
 
