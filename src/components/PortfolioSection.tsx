@@ -1,12 +1,17 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, ArrowUpRight } from "lucide-react";
+import { PortfolioModal } from "./PortfolioModal";
 
 interface PortfolioSectionProps {
   onNavigateToQuote: () => void;
 }
 
 export function PortfolioSection({ onNavigateToQuote }: PortfolioSectionProps) {
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const projects = [
     {
       title: "Bloom & Branch",
@@ -46,24 +51,25 @@ export function PortfolioSection({ onNavigateToQuote }: PortfolioSectionProps) {
     }
   ];
 
+  const handleProjectClick = (project: typeof projects[0]) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
+
   return (
     <div className="max-w-5xl mx-auto px-6 pt-4 md:pt-6">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold text-brand-text-dark mb-6 leading-tight">
-          Selected Work
-        </h2>
-      </div>
-
       {/* Projects Grid */}
       <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-20">
         {projects.map((project, index) => (
           <div key={index} className="group">
-            <a 
-              href={project.url} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="block"
+            <button 
+              onClick={() => handleProjectClick(project)}
+              className="block w-full text-left"
             >
               <Card className="overflow-hidden border border-gray-200 rounded-3xl bg-white hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 {/* Hero Thumbnail */}
@@ -106,7 +112,7 @@ export function PortfolioSection({ onNavigateToQuote }: PortfolioSectionProps) {
                   </div>
                 </div>
               </Card>
-            </a>
+            </button>
           </div>
         ))}
       </div>
@@ -124,6 +130,13 @@ export function PortfolioSection({ onNavigateToQuote }: PortfolioSectionProps) {
           Get Your Quote
         </Button>
       </div>
+
+      {/* Portfolio Modal */}
+      <PortfolioModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        project={selectedProject}
+      />
     </div>
   );
 }

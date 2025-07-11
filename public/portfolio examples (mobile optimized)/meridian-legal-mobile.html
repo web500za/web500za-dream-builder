@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Meridian Legal - Justice Shouldn't Feel Intimidating</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --ochre: #D4A574;
+            --navy: #1A2332;
+            --sand: #F4E8D8;
+            --light: #FAFAFA;
+            --warm-gray: #E8E2D8;
+            --safe-area-top: env(safe-area-inset-top);
+            --safe-area-bottom: env(safe-area-inset-bottom);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--navy);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Typography */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&family=Inter:wght@300;400;500&display=swap');
+
+        /* Mobile Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: calc(1rem + var(--safe-area-top)) 1.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.15em;
+            color: var(--navy);
+            font-weight: 400;
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            cursor: pointer;
+        }
+
+        .menu-button span {
+            display: block;
+            height: 2px;
+            background: var(--navy);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section Mobile */
+        .hero {
+            height: 100vh;
+            background: var(--navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.02) 49%, rgba(255, 255, 255, 0.02) 51%, transparent 51%);
+            background-size: 30px 30px;
+            animation: subtle-shift 30s linear infinite;
+        }
+
+        @keyframes subtle-shift {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+            100% {
+                transform: translateX(30px) translateY(30px);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            line-height: 1.2;
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+
+        .hero-tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            padding: 0.75rem 1.5rem;
+            background: var(--ochre);
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        /* Philosophy Section Mobile */
+        .philosophy {
+            padding: 4rem 1.5rem;
+            background: var(--sand);
+        }
+
+        .philosophy-content {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .philosophy-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 400;
+        }
+
+        .philosophy-text p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--navy);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .philosophy-visual {
+            position: relative;
+            height: 200px;
+            background: var(--ochre);
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .movement-lines {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+        }
+
+        .movement-lines::before,
+        .movement-lines::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .movement-lines::before {
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+        }
+
+        .movement-lines::after {
+            top: 10%;
+            bottom: 10%;
+            left: 50%;
+            width: 2px;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.2;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.4;
+            }
+        }
+
+        /* Approach Section Mobile */
+        .approach {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .approach-item {
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .approach-item:nth-child(1) {
+            background: var(--navy);
+            color: white;
+        }
+
+        .approach-item:nth-child(2) {
+            background: var(--warm-gray);
+            color: var(--navy);
+        }
+
+        .approach-item:nth-child(3) {
+            background: var(--ochre);
+            color: white;
+        }
+
+        .approach-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .approach-item p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            line-height: 1.8;
+            max-width: 300px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .approach-number {
+            position: absolute;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8rem;
+            font-weight: 100;
+            opacity: 0.05;
+            bottom: -2rem;
+            right: 1rem;
+            line-height: 1;
+        }
+
+        /* Team Section Mobile */
+        .team {
+            padding: 4rem 1.5rem;
+            background: white;
+        }
+
+        .team h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--navy);
+            margin-bottom: 3rem;
+        }
+
+        .team-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            background: var(--warm-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-avatar svg {
+            width: 60%;
+            height: 60%;
+            fill: var(--navy);
+            opacity: 0.3;
+        }
+
+        .team-member h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member .title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: var(--ochre);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member .qualification {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: var(--navy);
+            opacity: 0.7;
+        }
+
+        /* Contact Section Mobile */
+        .space {
+            padding: 4rem 1.5rem;
+            background: var(--navy);
+            color: white;
+            text-align: center;
+        }
+
+        .space h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            line-height: 1.1;
+        }
+
+        .space p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            max-width: 400px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--ochre);
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            border-radius: 100px;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .cta-button:active {
+            transform: scale(0.98);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer Mobile */
+        footer {
+            background: var(--sand);
+            padding: 3rem 1.5rem calc(3rem + var(--safe-area-bottom));
+            text-align: center;
+        }
+
+        footer p {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--navy);
+            opacity: 0.7;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">MERIDIAN LEGAL</div>
+        <button class="menu-button" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-brand">MERIDIAN LEGAL</p>
+            <h1>JUSTICE SHOULDN'T FEEL INTIMIDATING</h1>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy" id="philosophy">
+        <div class="philosophy-content">
+            <div class="philosophy-text">
+                <h2>LIFE HAPPENS</h2>
+                <p>Legal challenges arrive during life's most difficult moments. We believe the law should be a source of clarity and support, not additional stress.</p>
+                <p>Every client's story deserves compassion, expertise, and genuine care. We practice law with humanity at the center.</p>
+                <p>This isn't about winning at all costs. It's about finding solutions that let everyone move forward with dignity.</p>
+            </div>
+            <div class="philosophy-visual">
+                <div class="movement-lines"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="approach" id="services">
+        <div class="approach-item">
+            <h3>FAMILY LAW</h3>
+            <p>Navigating new chapters with wisdom and grace, not warfare</p>
+            <span class="approach-number">01</span>
+        </div>
+        <div class="approach-item">
+            <h3>ESTATE PLANNING</h3>
+            <p>Protecting what matters most with thoughtful preparation</p>
+            <span class="approach-number">02</span>
+        </div>
+        <div class="approach-item">
+            <h3>MEDIATION</h3>
+            <p>Finding common ground when communication feels impossible</p>
+            <span class="approach-number">03</span>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <h2>Meet Our Partners</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-avatar">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+                <h3>Thandi Nkosi</h3>
+                <p class="title">Senior Partner</p>
+                <p class="qualification">LLB, LLM (Family Law)</p>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+                <h3>Johan Marais</h3>
+                <p class="title">Managing Partner</p>
+                <p class="qualification">LLB, HDip Tax Law</p>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+                <h3>Ayanda Dlamini</h3>
+                <p class="title">Partner</p>
+                <p class="qualification">LLB, Cert. Mediation</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="space" id="contact">
+        <h2>LET'S TALK</h2>
+        <p>No intimidating consultations. Just honest conversation about your situation and how we can help you move forward.</p>
+        <a href="#" class="cta-button">Start Here</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 MERIDIAN LEGAL. CAPE TOWN.</p>
+    </footer>
+</body>
+</html>

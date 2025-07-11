@@ -250,7 +250,7 @@ export function HeroSection() {
         <>
           {/* Mobile: Textarea first */}
           <div className="md:hidden">
-            <form onSubmit={handleIdeaSubmit} className="section-margin-mobile mb-12">
+            <form onSubmit={handleIdeaSubmit} className="section-margin-mobile mb-6">
               <div className="relative max-w-4xl mx-auto">
                 <AnimatedInput
                   value={projectDescription}

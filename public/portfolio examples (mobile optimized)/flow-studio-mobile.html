@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>FLOW Studio - Move with Intention</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --rose: #C99A8F;
+            --charcoal: #2A2A2A;
+            --cream: #FAF5EE;
+            --light-gray: #F5F5F5;
+            --text-gray: #666;
+            --safe-area-top: env(safe-area-inset-top);
+            --safe-area-bottom: env(safe-area-inset-bottom);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--charcoal);
+            background: white;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Mobile Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: calc(1rem + var(--safe-area-top)) 1.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-logo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            color: var(--charcoal);
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            cursor: pointer;
+        }
+
+        .menu-button span {
+            display: block;
+            height: 2px;
+            background: var(--charcoal);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section Mobile */
+        .hero {
+            height: 100vh;
+            background: var(--rose);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(90deg, 
+                    transparent, 
+                    transparent 3px, 
+                    rgba(255,255,255,0.03) 3px, 
+                    rgba(255,255,255,0.03) 6px);
+            animation: grain 20s linear infinite;
+        }
+
+        @keyframes grain {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(6px, 6px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-brand {
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            font-weight: 400;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.85);
+            letter-spacing: 0.05em;
+            line-height: 1.4;
+        }
+
+        /* About Section Mobile */
+        .about {
+            padding: 4rem 1.5rem;
+            background: var(--cream);
+        }
+
+        .about-content {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--charcoal);
+            line-height: 1.2;
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .years-badge {
+            display: inline-block;
+            background: var(--rose);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .about-image {
+            background: var(--charcoal);
+            height: 250px;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Services Section Mobile */
+        .services {
+            padding: 4rem 1.5rem;
+            background: white;
+        }
+
+        .services h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--charcoal);
+        }
+
+        .services-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--light-gray);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .service-card:active {
+            background: var(--rose);
+            color: white;
+            transform: scale(0.98);
+        }
+
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-card p {
+            line-height: 1.6;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* Portfolio Section Mobile */
+        .portfolio {
+            padding: 4rem 1.5rem;
+            background: var(--charcoal);
+        }
+
+        .portfolio h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .portfolio-item {
+            background: #3A3A3A;
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:active {
+            transform: scale(0.95);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .portfolio-overlay h3 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .portfolio-overlay p {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        /* Contact Section Mobile */
+        .contact {
+            padding: 4rem 1.5rem;
+            background: var(--cream);
+        }
+
+        .contact-content {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--charcoal);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .contact-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--rose);
+        }
+
+        .contact-item p {
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+
+        .contact-item a {
+            color: var(--text-gray);
+            text-decoration: none;
+        }
+
+        .contact-item a:active {
+            color: var(--rose);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem;
+            border: 1px solid #E0E0E0;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            border-radius: 4px;
+            -webkit-appearance: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--rose);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            background: var(--rose);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 100px;
+            width: 100%;
+            -webkit-appearance: none;
+        }
+
+        .submit-button:active {
+            background: #B08578;
+            transform: scale(0.98);
+        }
+
+        /* Footer Mobile */
+        footer {
+            background: var(--charcoal);
+            color: white;
+            padding: 3rem 1.5rem calc(3rem + var(--safe-area-bottom));
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Loading optimization */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-logo">FLOW STUDIO</div>
+        <button class="menu-button" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="hero-brand">FLOW STUDIO</p>
+            <h1>MOVE WITH INTENTION</h1>
+            <p class="hero-subtitle">Boutique Pilates & Yoga<br>in Sea Point</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Movement as Medicine</h2>
+                <p>FLOW is more than a studio—it's a sanctuary for mindful movement. We blend the precision of Pilates with the fluidity of yoga to create a practice that transforms both body and mind.</p>
+                <p>Our intimate classes (max 12 people) ensure personalized attention in a space designed to inspire.</p>
+                <div class="years-badge">EST. 2019</div>
+            </div>
+            <div class="about-image">
+                [Studio Interior]
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2>Our Classes</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Reformer Pilates</h3>
+                <p>Precision-based strength training on state-of-the-art equipment.</p>
+            </div>
+            <div class="service-card">
+                <h3>Vinyasa Flow</h3>
+                <p>Dynamic yoga sequences that sync breath with movement.</p>
+            </div>
+            <div class="service-card">
+                <h3>Restorative Sessions</h3>
+                <p>Gentle practice focused on deep stretching and relaxation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <h2>The FLOW Experience</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Morning Light</h3>
+                    <p>6am Sunrise Sessions</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Reformer Room</h3>
+                    <p>Premium Equipment</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Yoga Sanctuary</h3>
+                    <p>Heated Flow Space</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Community</h3>
+                    <p>Monthly Workshops</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-content">
+            <h2>Begin Your Practice</h2>
+            <p style="font-size: 1rem; color: var(--text-gray); margin-bottom: 2rem;">
+                Your first class is on us. Come experience the FLOW difference.
+            </p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>Book</h3>
+                    <p><a href="tel:+27214339100">021 433 9100</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>Visit</h3>
+                    <p>78 Regent Road<br>Sea Point</p>
+                </div>
+                <div class="contact-item">
+                    <h3>Connect</h3>
+                    <p><a href="mailto:hello@flowstudio.co.za">hello@flowstudio.co.za</a></p>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Which class interests you?</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Book Free Class</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 FLOW Studio. Move with Intention.</p>
+    </footer>
+</body>
+</html>

@@ -66,13 +66,6 @@ export function ContactSection() {
 
   return (
     <div className="max-w-2xl mx-auto px-6 pt-2 md:pt-6">
-      {/* Main Headline */}
-      <div className="text-center mb-10 px-4">
-        <h2 className="text-3xl md:text-5xl font-bold text-brand-text-dark mb-6 leading-tight">
-          Let's Talk
-        </h2>
-      </div>
-
       {/* Direct Contact Methods */}
       <div className="text-center mb-10 space-y-4 px-4">
         <div className="space-y-4">
