@@ -59,7 +59,7 @@ export function BrandHeader() {
             viewBox="0 0 256 256" 
             fill="none" 
             xmlns="http://www.w3.org/2000/svg" 
-            className="drop-shadow-lg flex-shrink-0 -ml-5"
+            className="drop-shadow-lg flex-shrink-0 -ml-1"
           >
             <rect x="16" y="16" width="224" height="224" rx="32" fill="#2d5a3d"/>
             <text x="128" y="150" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontSize="48" fontWeight="700" fill="#f8f6f1">&lt;/w5z/&gt;</text>
