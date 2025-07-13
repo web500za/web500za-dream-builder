@@ -368,7 +368,7 @@ export function HeroSection() {
             </form>
             
             {/* Mobile: Description after textarea */}
-            <div className="mb-16">
+            <div className="mb-8">
               <p className="hero-subtitle-mobile text-base text-brand-text-muted max-w-3xl mx-auto leading-relaxed text-center">
                 I'll receive your idea and start crafting your website for free. 
                 Only pay if you love the result, starting from just <span className="price-highlight">R500</span>.
@@ -379,7 +379,7 @@ export function HeroSection() {
           {/* Desktop: Description first, then textarea */}
           <div className="hidden md:block">
             {/* Description */}
-            <div className="mb-16">
+            <div className="mb-8">
               <p className="text-xl text-brand-text-muted max-w-3xl mx-auto leading-relaxed text-center">
                 I'll receive your idea and start crafting your website for free. 
                 Only pay if you love the result, starting from just <span className="price-highlight">R500</span>.

@@ -5,6 +5,7 @@ import { PillNav } from "@/components/PillNav";
 import { PortfolioSection } from "@/components/PortfolioSection";
 import { AboutSection } from "@/components/AboutSection";
 import { ContactSection } from "@/components/ContactSection";
+import { cn } from "@/lib/utils";
 
 const Index = () => {
   const [currentSection, setCurrentSection] = useState("quote");
