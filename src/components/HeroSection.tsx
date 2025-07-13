@@ -244,7 +244,6 @@ export function HeroSection({
         "Professional domain setup with business email",
         "Single-page signature website",
         "Logo creation or refinement",
-        "Social media profile optimization",
         "Mobile-optimized design",
         "30-day support included"
       ],
@@ -294,7 +293,6 @@ export function HeroSection({
         "Professional domain setup with business email",
         "Single-page signature website",
         "Logo creation or refinement",
-        "Social media profile optimization",
         "Mobile-optimized design",
         "30-day support included"
       ],
@@ -350,7 +348,7 @@ export function HeroSection({
         <>
           {/* Mobile: Textarea first */}
           <div className="md:hidden">
-            <form onSubmit={handleIdeaSubmit} className="section-margin-mobile mb-10">
+            <form onSubmit={handleIdeaSubmit} className="section-margin-mobile mb-4">
               <div className="relative max-w-4xl mx-auto">
                 <AnimatedInput
                   value={projectDescription}
@@ -468,10 +466,9 @@ export function HeroSection({
             </form>
             
             {/* Mobile: Description after textarea */}
-            <div className="mb-4">
-              <p className="hero-subtitle-mobile text-base text-brand-text-muted max-w-3xl mx-auto leading-relaxed text-center">
-                I'll receive your idea and start crafting your website for free. 
-                Only pay if you love the result, starting from just <span className="price-highlight">R800</span>.
+            <div className="mb-1">
+              <p className="hero-subtitle-mobile text-sm text-brand-text-muted/60 max-w-3xl mx-auto leading-relaxed text-center">
+                Send me your idea and I'll send you 3 free mock-ups. Only pay when you want to work together.
               </p>
             </div>
           </div>
@@ -480,9 +477,8 @@ export function HeroSection({
           <div className="hidden md:block">
             {/* Description */}
             <div className="mb-4">
-              <p className="text-xl text-brand-text-muted max-w-3xl mx-auto leading-relaxed text-center">
-                I'll receive your idea and start crafting your website for free. 
-                Only pay if you love the result, starting from just <span className="price-highlight">R800</span>.
+              <p className="text-lg text-brand-text-muted/60 max-w-3xl mx-auto leading-relaxed text-center">
+                Send me your idea and I'll send you 3 free mock-ups. Only pay when you want to work together.
               </p>
             </div>
 
@@ -754,35 +750,41 @@ export function HeroSection({
                 <div>
                   <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">1. How quickly will you respond?</h4>
                   <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
-                    I aim to respond within 24-48hrs with the first iteration, but expect delays on the weekend. I'll email you a quote and start building your site for free—you only pay if you're happy with the result.
+                    I aim to respond within 24-48hrs with the first iteration, but expect delays on the weekend.
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">2. How does w5z work?</h4>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">2. Why are submissions closed?</h4>
                   <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
-                    Describe what you need in as much detail as you like. I'll email you a quote, build and host your site for free, and you only pay if you're happy with the result.
+                    I only work with up to 4 clients at any given time so that everyone gets their due attention. Check back soon or turn on notifications for submissions being opened again.
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">3. What makes an ideal brief?</h4>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">3. How do I secure my slot?</h4>
+                  <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
+                    Once you see a mock-up you like and pay the 50% deposit (non-refundable), your slot is secured and 1 less slot becomes available.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">4. What makes an ideal brief?</h4>
                   <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
                     The ideal brief tells me a little about your business, who your website is for, and what you want it to do. The more details, the better—but if you only have a rough idea or just the start of your concept, I'll do my best to fill in the rest. <span className="text-brand-green font-semibold">You don't need to have it all figured out!</span>
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">4. What happens if I want changes to my site?</h4>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">5. What happens if I want changes to my site?</h4>
                   <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
                     I include all reasonable tweaks and adjustments during the build—my goal is that you love the final result! After you sign off and your site is live, any major changes or new features are quoted separately, so you're always in control.
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">5. Can I get my site's code or move it later?</h4>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">6. Can I get my site's code or move it later?</h4>
                   <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
                     Yes! If you want to host your site yourself or move it to your own domain in the future, I can provide the code or assist with the transfer for a small, once-off fee.
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">6. What about my domain name?</h4>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">7. What about my domain name?</h4>
                   <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
                     You are welcome to purchase your own domain and I'll gladly link it to the site I build for you. If you'd prefer that I handle the domain registration and setup, I can do that for you and simply add the cost to your invoice. Either way, you'll have full control over your domain.
                   </p>
