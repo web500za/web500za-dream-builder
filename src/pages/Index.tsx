@@ -35,7 +35,7 @@ const Index = () => {
       
       {/* Header Area */}
       <div className="relative z-30 w-full">
-        <div className="w-full max-w-7xl mx-auto pt-4 md:pt-8 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-7xl mx-auto pt-4 md:pt-8 px-4 md:px-6 lg:px-8">
           <BrandHeader />
           
           {/* Navigation */}

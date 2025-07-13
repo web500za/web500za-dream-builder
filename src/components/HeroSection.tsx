@@ -233,7 +233,7 @@ export function HeroSection() {
   ];
 
   return (
-    <div className="text-center max-w-5xl mx-auto mobile-padding px-2 md:px-6 hero-mobile pt-8 md:pt-6">
+    <div className="text-center max-w-5xl mx-auto mobile-padding px-4 md:px-6 hero-mobile pt-8 md:pt-6">
       {/* Success state inline */}
       {emailSent ? (
         <div className="mb-12 text-center animate-fade-in px-4">

@@ -296,8 +296,8 @@
     /* Generous mobile container padding */
     .container,
     .mobile-padding {
-      padding-left: 0.5rem !important;
-      padding-right: 0.5rem !important;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
     }
 
     /* Section spacing - increased by 20% */

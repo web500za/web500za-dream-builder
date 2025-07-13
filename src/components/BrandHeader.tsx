@@ -49,7 +49,7 @@ export function BrandHeader() {
       </div>
 
       {/* Mobile Layout */}
-      <div className="md:hidden header-mobile px-6">
+      <div className="md:hidden header-mobile px-4">
         {/* Mobile: web500za text with w5z logo aligned to left */}
         <div className="flex items-center justify-start">
           {/* W5Z Logo - sized to match pill nav height */}

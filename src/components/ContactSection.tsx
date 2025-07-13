@@ -21,7 +21,7 @@ export function ContactSection() {
 
 
   return (
-    <div className="max-w-5xl mx-auto px-6 pt-8 md:pt-6">
+    <div className="max-w-5xl mx-auto px-4 md:px-6 pt-8 md:pt-6">
 
       {/* Main Contact Cards */}
       <div className="grid md:grid-cols-2 gap-4 mb-12">

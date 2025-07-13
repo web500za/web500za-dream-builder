@@ -62,7 +62,7 @@ export function PortfolioSection({ onNavigateToQuote }: PortfolioSectionProps) {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-6 pt-8 md:pt-6">
+    <div className="max-w-5xl mx-auto px-4 md:px-6 pt-8 md:pt-6">
       {/* Projects Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 mb-20">
         {projects.map((project, index) => (
