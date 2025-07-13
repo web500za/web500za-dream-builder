@@ -168,6 +168,18 @@
     animation: placeholder-pulse 2s ease-in-out infinite;
   }
 
+  /* Launch Special glow animation */
+  @keyframes glow {
+    0% { 
+      text-shadow: 0 0 5px rgba(239, 68, 68, 0.5), 0 0 10px rgba(239, 68, 68, 0.3);
+      opacity: 0.8;
+    }
+    100% { 
+      text-shadow: 0 0 10px rgba(239, 68, 68, 0.8), 0 0 20px rgba(239, 68, 68, 0.5);
+      opacity: 1;
+    }
+  }
+
   /* Hover scale utilities */
   .hover\:scale-102:hover {
     transform: scale(1.02);

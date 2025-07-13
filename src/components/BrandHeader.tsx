@@ -1,15 +1,26 @@
 import React from 'react';
 
-export function BrandHeader() {
+interface BrandHeaderProps {
+  onLaunchSpecialClick?: () => void;
+}
+
+export function BrandHeader({ onLaunchSpecialClick }: BrandHeaderProps) {
   return (
     <div className="mb-4 md:mb-6 desktop-header">
       {/* Desktop Layout */}
       <div className="hidden md:block mb-4 relative">
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center">
           {/* Brand Name - Centered */}
           <h1 className="text-6xl lg:text-7xl font-bold text-brand-green text-shadow">
             web500za
           </h1>
+          {/* Launch Special - Desktop */}
+          <button 
+            onClick={onLaunchSpecialClick}
+            className="text-red-500 text-lg font-semibold mt-2 hover:text-red-600 transition-colors cursor-pointer"
+          >
+            Launch Special
+          </button>
         </div>
         
         {/* W5Z Logo - Positioned to align with quote pill */}
@@ -66,9 +77,17 @@ export function BrandHeader() {
           </svg>
 
           {/* Brand Name - Mobile */}
-          <h1 className="text-3xl font-bold flex-shrink-0 ml-4 flex-1 text-center text-brand-green">
-            web500za
-          </h1>
+          <div className="flex-1 flex flex-col items-center ml-4">
+            <h1 className="text-3xl font-bold text-brand-green">
+              web500za
+            </h1>
+            <button 
+              onClick={onLaunchSpecialClick}
+              className="text-red-500 text-sm font-semibold mt-1 hover:text-red-600 transition-colors cursor-pointer"
+            >
+              Launch Special
+            </button>
+          </div>
         </div>
       </div>
     </div>

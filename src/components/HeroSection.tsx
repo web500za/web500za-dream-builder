@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { AnimatedInput } from "@/components/AnimatedInput";
-import { ChevronDown, ArrowUp, Plus } from "lucide-react";
+import { ChevronDown, ArrowUp, Plus, Check, Crown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { sendEmail, validateEmail } from "@/lib/emailService";
@@ -44,14 +44,33 @@ async function uploadToCloudinaryWithProgress(file: File, slotIdx: number, onPro
   });
 }
 
-export function HeroSection() {
+interface HeroSectionProps {
+  isPricingOpen?: boolean;
+  setIsPricingOpen?: (open: boolean) => void;
+  showPricingBadge?: boolean;
+  setShowPricingBadge?: (show: boolean) => void;
+}
+
+export function HeroSection({ 
+  isPricingOpen: externalIsPricingOpen, 
+  setIsPricingOpen: externalSetIsPricingOpen,
+  showPricingBadge: externalShowPricingBadge = true,
+  setShowPricingBadge: externalSetShowPricingBadge
+}: HeroSectionProps = {}) {
   const [projectDescription, setProjectDescription] = useState("");
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [quickEmail, setQuickEmail] = useState("");
   const [quickPhone, setQuickPhone] = useState("");
   const [showAttachments, setShowAttachments] = useState(false);
   const [isWorkflowOpen, setIsWorkflowOpen] = useState(false);
-  const [isPricingOpen, setIsPricingOpen] = useState(false);
+  const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false);
+  const [internalIsPricingOpen, setInternalIsPricingOpen] = useState(false);
+  const [internalShowPricingBadge, setInternalShowPricingBadge] = useState(true);
+  
+  const isPricingOpen = externalIsPricingOpen ?? internalIsPricingOpen;
+  const setIsPricingOpen = externalSetIsPricingOpen ?? setInternalIsPricingOpen;
+  const showPricingBadge = externalShowPricingBadge && internalShowPricingBadge;
+  const setShowPricingBadge = externalSetShowPricingBadge ?? setInternalShowPricingBadge;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [attachments, setAttachments] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -183,7 +202,7 @@ export function HeroSection() {
       newAttachmentsFail[slotIdx] = undefined;
       setAttachments(newAttachmentsFail);
       const newImageUrls = [...imageUrls];
-      newImageUrls[slotIdx] = undefined as any;
+      newImageUrls[slotIdx] = "";
       setImageUrls(newImageUrls);
       newUploadStatus[slotIdx] = "failed";
       setUploadStatus([...newUploadStatus]);
@@ -199,7 +218,7 @@ export function HeroSection() {
     newAttachments[idx] = undefined;
     setAttachments(newAttachments);
     const newImageUrls = [...imageUrls];
-    newImageUrls[idx] = undefined as any;
+    newImageUrls[idx] = "";
     setImageUrls(newImageUrls);
     // Clear upload status and error for this slot
     const newUploadStatus = [...uploadStatus];
@@ -214,21 +233,102 @@ export function HeroSection() {
     setRejectedFileError("");
   };
 
+  // Future package pricing (effective August 1st, 2025)
+  /*
+  const futurePackagePricing = [
+    {
+      title: "Digital Foundation Package",
+      price: "R2,500",
+      description: "Everything you need to establish your online presence",
+      features: [
+        "Professional domain setup with business email",
+        "Single-page signature website",
+        "Logo creation or refinement",
+        "Social media profile optimization",
+        "Mobile-optimized design",
+        "30-day support included"
+      ],
+      featured: false
+    },
+    {
+      title: "Business Presence Package",
+      price: "R4,500",
+      description: "Complete digital transformation for growing businesses",
+      features: [
+        "Everything in Digital Foundation",
+        "Multi-page website with strategic flow",
+        "AI chatbot integration",
+        "Advanced business integrations",
+        "Basic SEO Optimization",
+        "Analytics setup",
+        "60-day support included"
+      ],
+      featured: true,
+      badge: "Most Popular"
+    },
+    {
+      title: "Custom Solutions",
+      price: "Let's talk",
+      description: "For complex web applications & unique functionality",
+      features: [
+        "E-commerce platforms",
+        "Custom web applications",
+        "Enterprise integrations",
+        "Unique functionality",
+        "Dedicated project management",
+        "Extended support options"
+      ],
+      featured: false,
+      isCustom: true
+    }
+  ];
+  */
+
+  // Launch Special Pricing (until August 1st, 2025)
   const priceCards = [
     {
-      title: "Simple one-pager",
-      price: "From R500",
-      description: "Perfect for landing pages, portfolios, or basic business sites"
+      title: "Digital Foundation Package",
+      price: "R800",
+      description: "Everything you need to establish your online presence",
+      features: [
+        "Professional domain setup with business email",
+        "Single-page signature website",
+        "Logo creation or refinement",
+        "Social media profile optimization",
+        "Mobile-optimized design",
+        "30-day support included"
+      ],
+      featured: false
     },
     {
-      title: "With bookings or logins",
-      price: "From R1000",
-      description: "Interactive features, user accounts, booking systems"
+      title: "Business Presence Package",
+      price: "R1300",
+      description: "Complete digital transformation for growing businesses",
+      features: [
+        "Everything in Digital Foundation",
+        "Multi-page website with strategic flow",
+        "AI chatbot integration",
+        "Advanced business integrations",
+        "Search-ready setup",
+        "Analytics setup",
+        "60-day support included"
+      ],
+      featured: true
     },
     {
-      title: "Something bigger?",
-      price: "Custom quote",
-      description: "Complex web apps, e-commerce, custom functionality"
+      title: "Custom Solutions",
+      price: "Let's talk",
+      description: "For complex web applications & unique functionality",
+      features: [
+        "E-commerce platforms",
+        "Custom web applications",
+        "Enterprise integrations",
+        "Unique functionality",
+        "Dedicated project management",
+        "Extended support options"
+      ],
+      featured: false,
+      isCustom: true
     }
   ];
 
@@ -368,10 +468,10 @@ export function HeroSection() {
             </form>
             
             {/* Mobile: Description after textarea */}
-            <div className="mb-8">
+            <div className="mb-4">
               <p className="hero-subtitle-mobile text-base text-brand-text-muted max-w-3xl mx-auto leading-relaxed text-center">
                 I'll receive your idea and start crafting your website for free. 
-                Only pay if you love the result, starting from just <span className="price-highlight">R500</span>.
+                Only pay if you love the result, starting from just <span className="price-highlight">R800</span>.
               </p>
             </div>
           </div>
@@ -379,15 +479,15 @@ export function HeroSection() {
           {/* Desktop: Description first, then textarea */}
           <div className="hidden md:block">
             {/* Description */}
-            <div className="mb-8">
+            <div className="mb-4">
               <p className="text-xl text-brand-text-muted max-w-3xl mx-auto leading-relaxed text-center">
                 I'll receive your idea and start crafting your website for free. 
-                Only pay if you love the result, starting from just <span className="price-highlight">R500</span>.
+                Only pay if you love the result, starting from just <span className="price-highlight">R800</span>.
               </p>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleIdeaSubmit} className="mb-20">
+            <form onSubmit={handleIdeaSubmit} className="mb-12">
               <div className="relative max-w-4xl mx-auto">
                 <AnimatedInput
                   value={projectDescription}
@@ -507,7 +607,141 @@ export function HeroSection() {
         </>
       )}
 
-      {/* Combined How it works & Ideal brief Section */}
+      {/* Pricing Dropdown */}
+      <div id="pricing-section" className="mb-12 md:mb-16 max-w-4xl mx-auto px-4">
+        <div className="flex justify-center mb-2">
+          <Collapsible open={isPricingOpen} onOpenChange={(open) => {
+            setIsPricingOpen(open);
+            // Hide badge when pricing is opened
+            if (open && showPricingBadge) {
+              setShowPricingBadge(false);
+            }
+          }} className="w-full max-w-xs">
+            <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300 relative">
+              <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">Pricing</span>
+              {showPricingBadge && (
+                <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
+                  1
+                </div>
+              )}
+              <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isPricingOpen ? 'rotate-180' : ''}`} />
+            </CollapsibleTrigger>
+          </Collapsible>
+        </div>
+        <Collapsible open={isPricingOpen} onOpenChange={setIsPricingOpen}>
+          <CollapsibleContent>
+            <div className="text-center mb-6">
+              <p className="text-red-500 font-semibold text-sm md:text-base mb-2">
+                Launch Special til 10 August, 2025
+              </p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8 mt-6">
+              {priceCards.map((card, index) => (
+                <Card 
+                  key={index} 
+                  className={`relative overflow-hidden transition-all duration-300 ${
+                    card.featured 
+                      ? 'glass-effect border-2 border-brand-green shadow-xl hover:shadow-2xl md:scale-105' 
+                      : 'glass-effect border-brand-green/20 hover:shadow-xl hover:scale-102'
+                  } p-6 md:p-8`}
+                >
+                  {card.badge && (
+                    <div className="absolute -top-1 -right-1 overflow-hidden" style={{width: '120px', height: '120px'}}>
+                      <div className="absolute bg-brand-green text-white text-xs font-semibold py-1.5 transform rotate-45" style={{width: '150px', textAlign: 'center', top: '25px', right: '-35px'}}>
+                        {card.badge}
+                      </div>
+                    </div>
+                  )}
+                  <h3 className="text-xl md:text-2xl font-semibold text-brand-text-dark mb-2">{card.title}</h3>
+                  <div className="mb-4">
+                    {!card.isCustom && (
+                      <p className="text-sm text-red-500 line-through mb-1">
+                        {card.title.includes('Digital Foundation') ? 'R2,500' : 'R4,500'}
+                      </p>
+                    )}
+                    <p className="text-2xl md:text-3xl font-bold text-brand-green">{card.price}</p>
+                  </div>
+                  <p className="text-brand-text-muted text-sm md:text-base mb-6">{card.description}</p>
+                  <ul className="space-y-3 mb-8">
+                    {card.features?.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm md:text-base text-left">
+                        <Check className="h-5 w-5 text-brand-green flex-shrink-0 mt-0.5" />
+                        <span className="text-brand-text-dark text-left">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button 
+                    onClick={() => {
+                      if (card.isCustom) {
+                        window.location.href = 'mailto:web500za@gmail.com?subject=Custom%20Web%20Solution%20Inquiry';
+                      } else {
+                        window.location.href = `mailto:web500za@gmail.com?subject=${encodeURIComponent(card.title)}%20Inquiry`;
+                      }
+                    }}
+                    className={`w-full ${
+                      card.featured 
+                        ? 'bg-brand-green hover:bg-brand-green-light text-white shadow-lg' 
+                        : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
+                    } transition-all duration-300`}
+                  >
+                    {card.isCustom ? 'Tell me...' : 'Get Started'}
+                  </Button>
+                </Card>
+              ))}
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
+      </div>
+
+      {/* How w5z Works Section */}
+      <div className="mb-12 md:mb-16 max-w-4xl mx-auto px-4">
+        <Collapsible open={isHowItWorksOpen} onOpenChange={setIsHowItWorksOpen}>
+          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-2xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
+            <span className="text-xl md:text-lg font-medium mr-3 md:mr-3">
+              How <span className="text-brand-green">w5z</span> Works
+            </span>
+            <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isHowItWorksOpen ? 'rotate-180' : ''}`} />
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <div className="glass-effect rounded-2xl p-6 md:p-8 mt-4 md:mt-6">
+              <div className="space-y-8 md:space-y-10">
+                <div>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">1. Discovery & Vision</h4>
+                  <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
+                    Share your brief and vision with me via email. I'll respond with strategic questions to ensure we're aligned on your goals.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">2. Design Exploration</h4>
+                  <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
+                    I'll create your first design concept as a single-page mockup, showcasing the color palette, typography, and overall aesthetic direction for your brand.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">3. Refinement Process</h4>
+                  <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
+                    You'll receive up to 3 initial mockups included in your package. Additional design iterations are R100 each. This ensures we land on the perfect visual direction before development begins.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">4. Development Phase</h4>
+                  <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
+                    Once you approve the design direction, a 50% deposit secures your project slot. I then build your complete website according to your chosen package specifications.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">5. Multi-Page Architecture</h4>
+                  <p className="text-brand-text-muted text-base md:text-lg leading-relaxed">
+                    For Business Presence packages, the approved single-page design becomes the foundation for your full site architecture, ensuring visual consistency across all pages.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
+      </div>
+
+      {/* FAQs Section */}
       <div className="faq-mobile mb-16 md:mb-20 max-w-4xl mx-auto">
         <Collapsible open={isWorkflowOpen} onOpenChange={setIsWorkflowOpen}>
           <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-2xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
@@ -554,27 +788,6 @@ export function HeroSection() {
                   </p>
                 </div>
               </div>
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
-      </div>
-
-      {/* Pricing Dropdown */}
-      <div className="mb-12 md:mb-16 max-w-4xl mx-auto px-4">
-        <Collapsible open={isPricingOpen} onOpenChange={setIsPricingOpen}>
-          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300 mb-2">
-            <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">Pricing</span>
-            <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isPricingOpen ? 'rotate-180' : ''}`} />
-          </CollapsibleTrigger>
-          <CollapsibleContent>
-            <div className="grid md:grid-cols-3 gap-6 md:gap-8 mt-6">
-              {priceCards.map((card, index) => (
-                <Card key={index} className="glass-effect border-brand-green/20 p-4 md:p-6 hover:scale-105 transition-all duration-300 hover:shadow-xl">
-                  <h3 className="text-lg md:text-xl font-semibold text-brand-text-dark mb-2">{card.title}</h3>
-                  <p className="text-xl md:text-2xl font-bold text-brand-green mb-3 md:mb-4">{card.price}</p>
-                  <p className="text-brand-text-muted text-sm md:text-base">{card.description}</p>
-                </Card>
-              ))}
             </div>
           </CollapsibleContent>
         </Collapsible>
