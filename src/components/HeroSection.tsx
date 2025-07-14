@@ -7,6 +7,7 @@ import { ChevronDown, ArrowUp, Plus, Check, Crown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { sendEmail, validateEmail } from "@/lib/emailService";
+import './HeroSection.css';
 
 // Add Cloudinary upload helper
 const CLOUDINARY_UPLOAD_PRESET = "web500za customers";
@@ -87,46 +88,26 @@ export function HeroSection({
 
   const MAX_TOTAL_SIZE = 50 * 1024 * 1024;
 
-  // Optimized smooth scroll utility function
+  // Native smooth scroll utility function
   const smoothScrollTo = (element: Element | null) => {
     if (!element) return;
-    const y = (element as HTMLElement).getBoundingClientRect().top + window.pageYOffset - 24;
-    window.scrollTo({ top: y, behavior: 'smooth' });
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   // Handle Get Started button clicks
   const handleGetStarted = () => {
-    // Immediate smooth scroll to top
-    const startY = window.pageYOffset;
-    const duration = Math.min(startY * 0.6, 500); // Dynamic duration, max 500ms
-    let startTime: number | null = null;
+    // Native smooth scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     
-    const easeInOutQuart = (t: number): number => {
-      return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
-    };
-    
-    const scrollToTop = (currentTime: number) => {
-      if (startTime === null) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / duration, 1);
-      const ease = easeInOutQuart(progress);
-      
-      window.scrollTo(0, startY * (1 - ease));
-      
-      if (progress < 1) {
-        requestAnimationFrame(scrollToTop);
-      } else {
-        // Focus and glow after scroll completes
-        const textarea = document.querySelector('textarea') as HTMLTextAreaElement;
-        if (textarea) {
-          textarea.focus();
-          setTextareaGlow(true);
-          setTimeout(() => setTextareaGlow(false), 2000);
-        }
+    // Focus and glow after a short delay
+    setTimeout(() => {
+      const textarea = document.querySelector('textarea') as HTMLTextAreaElement;
+      if (textarea) {
+        textarea.focus();
+        setTextareaGlow(true);
+        setTimeout(() => setTextareaGlow(false), 2000);
       }
-    };
-    
-    requestAnimationFrame(scrollToTop);
+    }, 300); // Small delay to account for scroll
   };
 
   // Handle external trigger for textarea glow
@@ -532,42 +513,7 @@ export function HeroSection({
             {/* Mobile: Pricing bubble second */}
             <div className="mobile-pricing-section mb-10 md:mb-16 max-w-5xl mx-auto">
               <div className="flex justify-center mb-4">
-                <Collapsible open={isPricingOpen} onOpenChange={(open) => {
-                  setIsPricingOpen(open);
-                  // Hide badge when pricing is opened
-                  if (open && showPricingBadge) {
-                    setShowPricingBadge(false);
-                  }
-                  // Scroll to pricing section when opened, or to top when closed
-                  if (open) {
-                    setTimeout(() => {
-                      const pricingElement = document.querySelector('.mobile-pricing-section');
-                      smoothScrollTo(pricingElement);
-                    }, 100);
-                  } else {
-                    // Scroll to top when pricing is collapsed
-                    setTimeout(() => {
-                      const startY = window.pageYOffset;
-                      const duration = Math.min(startY * 0.6, 400);
-                      let startTime: number | null = null;
-                      
-                      const scrollToTop = (currentTime: number) => {
-                        if (startTime === null) startTime = currentTime;
-                        const timeElapsed = currentTime - startTime;
-                        const progress = Math.min(timeElapsed / duration, 1);
-                        const ease = (t: number) => t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
-                        
-                        window.scrollTo(0, startY * (1 - ease(progress)));
-                        
-                        if (progress < 1) {
-                          requestAnimationFrame(scrollToTop);
-                        }
-                      };
-                      
-                      requestAnimationFrame(scrollToTop);
-                    }, 50);
-                  }
-                }} className="w-full max-w-sm">
+                <Collapsible open={isPricingOpen} onOpenChange={setIsPricingOpen}>
                   <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 transition-all duration-300 relative shadow-md hover:shadow-lg">
                     <span className="text-lg md:text-xl font-semibold mr-3 md:mr-4">Pricing</span>
                     {showPricingBadge && (
@@ -577,87 +523,94 @@ export function HeroSection({
                     )}
                     <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isPricingOpen ? 'rotate-180' : ''}`} />
                   </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div
+                      className="collapsible-inner"
+                      onTransitionEnd={e => {
+                        if (isPricingOpen && e.propertyName === 'max-height') {
+                          const pricingElement = document.querySelector('.mobile-pricing-section');
+                          smoothScrollTo(pricingElement);
+                        }
+                      }}
+                    >
+                      <div className="text-center mb-6">
+                        <p className="text-red-500 font-semibold text-sm md:text-base mb-2">
+                          Launch Special til 10 August, 2025
+                        </p>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mt-6">
+                        {priceCards.map((card, index) => (
+                          <Card 
+                            key={index} 
+                            className={`relative overflow-hidden transition-all duration-300 ${
+                              card.featured 
+                                ? 'glass-effect border-2 border-brand-green shadow-xl hover:shadow-2xl md:scale-105' 
+                                : 'glass-effect border-brand-green/20 hover:shadow-xl hover:scale-102'
+                            } p-6 md:p-8`}
+                          >
+                            {card.badge && (
+                              <div className="absolute -top-1 -right-1 overflow-hidden" style={{width: '120px', height: '120px'}}>
+                                <div className="absolute bg-brand-green text-white text-xs font-semibold py-1.5 transform rotate-45" style={{width: '150px', textAlign: 'center', top: '25px', right: '-35px'}}>
+                                  {card.badge}
+                                </div>
+                              </div>
+                            )}
+                            <h3 className="text-xl md:text-2xl font-semibold text-brand-text-dark mb-2">{card.title}</h3>
+                            <div className="mb-4">
+                              {!card.isOther && (
+                                <p className="text-sm md:text-base text-red-500 line-through mb-1">
+                                  {card.title.includes('Single-Page') ? 'R1500' : 'R2500'}
+                                </p>
+                              )}
+                              <p className="text-3xl md:text-4xl font-bold text-brand-green">{card.price}</p>
+                            </div>
+                            <p className="text-brand-text-muted text-sm md:text-base mb-6">{card.description}</p>
+                            <ul className="space-y-3 mb-8">
+                              {card.features?.map((feature, idx) => (
+                                <li key={idx} className="flex items-start gap-2 text-sm md:text-base text-left">
+                                  <Check className="h-5 w-5 text-brand-green flex-shrink-0 mt-0.5" />
+                                  <span className="text-brand-text-dark text-left">{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                            {card.isOther ? (
+                              <a
+                                href="mailto:web500za@gmail.com"
+                                className={`w-full inline-block text-center px-4 py-3 rounded-2xl font-semibold transition-all duration-300 ${
+                                  card.featured
+                                    ? 'bg-brand-green hover:bg-brand-green-light text-white shadow-lg'
+                                    : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
+                                }`}
+                                style={{ textDecoration: 'none' }}
+                              >
+                                Contact me
+                              </a>
+                            ) : (
+                              <Button
+                                onClick={() => {
+                                  if (card.isOther) {
+                                    window.location.href = 'mailto:web500za@gmail.com?subject=Other%20Services%20Inquiry';
+                                  } else {
+                                    handleGetStarted();
+                                  }
+                                }}
+                                className={`w-full ${
+                                  card.featured
+                                    ? 'bg-brand-green hover:bg-brand-green-light text-white shadow-lg'
+                                    : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
+                                } transition-all duration-300`}
+                              >
+                                {card.isOther ? 'Contact me' : 'Get Started'}
+                              </Button>
+                            )}
+                          </Card>
+                        ))}
+                      </div>
+                    </div>
+                  </CollapsibleContent>
                 </Collapsible>
               </div>
-              <Collapsible open={isPricingOpen} onOpenChange={setIsPricingOpen}>
-                <CollapsibleContent>
-                  <div className="text-center mb-6">
-                    <p className="text-red-500 font-semibold text-sm md:text-base mb-2">
-                      Launch Special til 10 August, 2025
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mt-6">
-                    {priceCards.map((card, index) => (
-                      <Card 
-                        key={index} 
-                        className={`relative overflow-hidden transition-all duration-300 ${
-                          card.featured 
-                            ? 'glass-effect border-2 border-brand-green shadow-xl hover:shadow-2xl md:scale-105' 
-                            : 'glass-effect border-brand-green/20 hover:shadow-xl hover:scale-102'
-                        } p-6 md:p-8`}
-                      >
-                        {card.badge && (
-                          <div className="absolute -top-1 -right-1 overflow-hidden" style={{width: '120px', height: '120px'}}>
-                            <div className="absolute bg-brand-green text-white text-xs font-semibold py-1.5 transform rotate-45" style={{width: '150px', textAlign: 'center', top: '25px', right: '-35px'}}>
-                              {card.badge}
-                            </div>
-                          </div>
-                        )}
-                        <h3 className="text-xl md:text-2xl font-semibold text-brand-text-dark mb-2">{card.title}</h3>
-                        <div className="mb-4">
-                          {!card.isOther && (
-                            <p className="text-sm md:text-base text-red-500 line-through mb-1">
-                              {card.title.includes('Single-Page') ? 'R1500' : 'R2500'}
-                            </p>
-                          )}
-                          <p className="text-3xl md:text-4xl font-bold text-brand-green">{card.price}</p>
-                        </div>
-                        <p className="text-brand-text-muted text-sm md:text-base mb-6">{card.description}</p>
-                        <ul className="space-y-3 mb-8">
-                          {card.features?.map((feature, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-sm md:text-base text-left">
-                              <Check className="h-5 w-5 text-brand-green flex-shrink-0 mt-0.5" />
-                              <span className="text-brand-text-dark text-left">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                        {card.isOther ? (
-                          <a
-                            href="mailto:web500za@gmail.com"
-                            className={`w-full inline-block text-center px-4 py-3 rounded-2xl font-semibold transition-all duration-300 ${
-                              card.featured
-                                ? 'bg-brand-green hover:bg-brand-green-light text-white shadow-lg'
-                                : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
-                            }`}
-                            style={{ textDecoration: 'none' }}
-                          >
-                            Contact me
-                          </a>
-                        ) : (
-                          <Button
-                            onClick={() => {
-                              if (card.isOther) {
-                                window.location.href = 'mailto:web500za@gmail.com?subject=Other%20Services%20Inquiry';
-                              } else {
-                                handleGetStarted();
-                              }
-                            }}
-                            className={`w-full ${
-                              card.featured
-                                ? 'bg-brand-green hover:bg-brand-green-light text-white shadow-lg'
-                                : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
-                            } transition-all duration-300`}
-                          >
-                            {card.isOther ? 'Contact me' : 'Get Started'}
-                          </Button>
-                        )}
-                      </Card>
-                    ))}
-                  </div>
-                </CollapsibleContent>
-              </Collapsible>
             </div>
-          </div>
 
           {/* Desktop: Description first, then textarea */}
           <div className="hidden md:block">
@@ -790,8 +743,7 @@ export function HeroSection({
               )}
             </form>
           </div>
-        </>
-      )}
+        </div>
 
       {/* Pricing Dropdown - Desktop only (mobile version is above) */}
       <div id="pricing-section" className="hidden md:block mb-8 md:mb-12 max-w-4xl mx-auto px-4">
@@ -809,30 +761,13 @@ export function HeroSection({
                 smoothScrollTo(pricingElement);
               }, 100);
             } else {
-              // Scroll to top when pricing is collapsed
+              // Native scroll to top when pricing is collapsed
               setTimeout(() => {
-                const startY = window.pageYOffset;
-                const duration = Math.min(startY * 0.6, 400);
-                let startTime: number | null = null;
-                
-                const scrollToTop = (currentTime: number) => {
-                  if (startTime === null) startTime = currentTime;
-                  const timeElapsed = currentTime - startTime;
-                  const progress = Math.min(timeElapsed / duration, 1);
-                  const ease = (t: number) => t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
-                  
-                  window.scrollTo(0, startY * (1 - ease(progress)));
-                  
-                  if (progress < 1) {
-                    requestAnimationFrame(scrollToTop);
-                  }
-                };
-                
-                requestAnimationFrame(scrollToTop);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
               }, 50);
             }
           }} className="w-full max-w-xs">
-            <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300 relative">
+            <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 transition-all duration-300 relative shadow-md hover:shadow-lg">
               <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">Pricing</span>
               {showPricingBadge && (
                 <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
@@ -933,26 +868,9 @@ export function HeroSection({
               smoothScrollTo(worksElement);
             }, 100);
           } else {
-            // Scroll to top when collapsed
+            // Native scroll to top when collapsed
             setTimeout(() => {
-              const startY = window.pageYOffset;
-              const duration = Math.min(startY * 0.6, 400);
-              let startTime: number | null = null;
-              
-              const scrollToTop = (currentTime: number) => {
-                if (startTime === null) startTime = currentTime;
-                const timeElapsed = currentTime - startTime;
-                const progress = Math.min(timeElapsed / duration, 1);
-                const ease = (t: number) => t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
-                
-                window.scrollTo(0, startY * (1 - ease(progress)));
-                
-                if (progress < 1) {
-                  requestAnimationFrame(scrollToTop);
-                }
-              };
-              
-              requestAnimationFrame(scrollToTop);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
             }, 50);
           }
         }}>
@@ -1012,26 +930,9 @@ export function HeroSection({
               smoothScrollTo(faqsElement);
             }, 100);
           } else {
-            // Scroll to top when collapsed
+            // Native scroll to top when collapsed
             setTimeout(() => {
-              const startY = window.pageYOffset;
-              const duration = Math.min(startY * 0.6, 400);
-              let startTime: number | null = null;
-              
-              const scrollToTop = (currentTime: number) => {
-                if (startTime === null) startTime = currentTime;
-                const timeElapsed = currentTime - startTime;
-                const progress = Math.min(timeElapsed / duration, 1);
-                const ease = (t: number) => t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
-                
-                window.scrollTo(0, startY * (1 - ease(progress)));
-                
-                if (progress < 1) {
-                  requestAnimationFrame(scrollToTop);
-                }
-              };
-              
-              requestAnimationFrame(scrollToTop);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
             }, 50);
           }
         }}>
@@ -1099,6 +1000,8 @@ export function HeroSection({
           Let's Get Building
         </Button>
       </div>
+        </>
+      )}
     </div>
   );
 }
