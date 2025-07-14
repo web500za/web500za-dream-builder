@@ -25,32 +25,33 @@ const Index = () => {
       }, 2500);
     }, 100);
   };
-  // Custom smooth scroll with easing
-  const smoothScrollTo = (element: HTMLElement, duration = 800) => {
-    const start = window.pageYOffset;
-    const target = element.offsetTop - 20; // Small offset from top
-    const distance = target - start;
+  // Optimized smooth scroll function
+  const smoothScrollTo = (element: HTMLElement) => {
+    const targetY = element.offsetTop - 20;
+    const startY = window.pageYOffset;
+    const distance = targetY - startY;
+    const duration = Math.min(Math.abs(distance) * 0.6, 500); // Dynamic duration, max 500ms
+    
     let startTime: number | null = null;
     
-    // Easing function for smoother animation
-    const easeInOutCubic = (t: number): number => {
-      return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+    const easeInOutQuart = (t: number): number => {
+      return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
     };
     
-    const animation = (currentTime: number) => {
+    const animate = (currentTime: number) => {
       if (startTime === null) startTime = currentTime;
       const timeElapsed = currentTime - startTime;
       const progress = Math.min(timeElapsed / duration, 1);
-      const ease = easeInOutCubic(progress);
+      const ease = easeInOutQuart(progress);
       
-      window.scrollTo(0, start + distance * ease);
+      window.scrollTo(0, startY + distance * ease);
       
-      if (timeElapsed < duration) {
-        requestAnimationFrame(animation);
+      if (progress < 1) {
+        requestAnimationFrame(animate);
       }
     };
     
-    requestAnimationFrame(animation);
+    requestAnimationFrame(animate);
   };
 
   const handleLaunchSpecialClick = () => {
@@ -61,11 +62,11 @@ const Index = () => {
     // On mobile, scroll to pricing section after a short delay
     if (window.innerWidth < 768) { // md breakpoint
       setTimeout(() => {
-        const pricingSection = document.getElementById('pricing-section');
+        const pricingSection = document.querySelector('.mobile-pricing-section') as HTMLElement;
         if (pricingSection) {
-          smoothScrollTo(pricingSection, 1000); // 1 second smooth scroll
+          smoothScrollTo(pricingSection);
         }
-      }, 150); // Slightly longer delay to ensure pricing is opened first
+      }, 100);
     }
   };
 

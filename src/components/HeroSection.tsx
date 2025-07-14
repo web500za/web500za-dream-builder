@@ -87,82 +87,76 @@ export function HeroSection({
 
   const MAX_TOTAL_SIZE = 50 * 1024 * 1024;
 
-  // Enhanced smooth scroll utility function
-  const smoothScrollTo = (element: Element | null, options?: ScrollIntoViewOptions) => {
+  // Optimized smooth scroll utility function
+  const smoothScrollTo = (element: Element | null) => {
     if (!element) return;
     
-    // Add CSS smooth scroll behavior to html
-    document.documentElement.style.scrollBehavior = 'smooth';
+    const targetY = element.getBoundingClientRect().top + window.pageYOffset - 20;
+    const startY = window.pageYOffset;
+    const distance = targetY - startY;
+    const duration = Math.min(Math.abs(distance) * 0.8, 600); // Dynamic duration, max 600ms
     
-    // Use scrollIntoView with smooth behavior, adjust for mobile
-    const isMobile = window.innerWidth < 768;
-    element.scrollIntoView({ 
-      behavior: 'smooth', 
-      block: isMobile ? 'start' : 'center',
-      inline: 'nearest',
-      ...options
-    });
+    let startTime: number | null = null;
     
-    // Reset scroll behavior after a short delay
-    setTimeout(() => {
-      document.documentElement.style.scrollBehavior = 'auto';
-    }, 1000);
+    const easeInOutQuart = (t: number): number => {
+      return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+    };
+    
+    const animate = (currentTime: number) => {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      const ease = easeInOutQuart(progress);
+      
+      window.scrollTo(0, startY + distance * ease);
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    
+    requestAnimationFrame(animate);
   };
 
   // Handle Get Started button clicks
   const handleGetStarted = () => {
-    // Scroll to top with smooth behavior
-    if ('scrollBehavior' in document.documentElement.style) {
-      window.scrollTo({ 
-        top: 0, 
-        left: 0,
-        behavior: 'smooth' 
-      });
-    } else {
-      // Fallback for older browsers
-      window.scrollTo(0, 0);
-    }
+    // Immediate smooth scroll to top
+    const startY = window.pageYOffset;
+    const duration = Math.min(startY * 0.6, 500); // Dynamic duration, max 500ms
+    let startTime: number | null = null;
     
-    // Add glow effect and focus textarea after scroll completes
-    setTimeout(() => {
-      const textarea = document.querySelector('textarea') as HTMLTextAreaElement;
-      if (textarea) {
-        textarea.focus();
-        setTextareaGlow(true);
-        // Remove glow after animation
-        setTimeout(() => {
-          setTextareaGlow(false);
-        }, 2000);
+    const easeInOutQuart = (t: number): number => {
+      return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+    };
+    
+    const scrollToTop = (currentTime: number) => {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      const ease = easeInOutQuart(progress);
+      
+      window.scrollTo(0, startY * (1 - ease));
+      
+      if (progress < 1) {
+        requestAnimationFrame(scrollToTop);
+      } else {
+        // Focus and glow after scroll completes
+        const textarea = document.querySelector('textarea') as HTMLTextAreaElement;
+        if (textarea) {
+          textarea.focus();
+          setTextareaGlow(true);
+          setTimeout(() => setTextareaGlow(false), 2000);
+        }
       }
-    }, 800); // Increased delay to allow scroll to complete
+    };
+    
+    requestAnimationFrame(scrollToTop);
   };
 
   // Handle external trigger for textarea glow
   useEffect(() => {
     if (triggerTextareaGlow) {
-      // Scroll to top smoothly
-      if ('scrollBehavior' in document.documentElement.style) {
-        window.scrollTo({ 
-          top: 0, 
-          left: 0,
-          behavior: 'smooth' 
-        });
-      } else {
-        window.scrollTo(0, 0);
-      }
-      
-      // Add glow effect and focus textarea after scroll completes
-      setTimeout(() => {
-        const textarea = document.querySelector('textarea') as HTMLTextAreaElement;
-        if (textarea) {
-          textarea.focus();
-          setTextareaGlow(true);
-          // Remove glow after animation
-          setTimeout(() => {
-            setTextareaGlow(false);
-          }, 2000);
-        }
-      }, 800);
+      handleGetStarted();
     }
   }, [triggerTextareaGlow]);
 
@@ -409,7 +403,7 @@ export function HeroSection({
   ];
 
   return (
-    <div className="text-center max-w-6xl mx-auto px-4 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-12" style={{ scrollBehavior: 'smooth' }}>
+    <div className="text-center max-w-6xl mx-auto px-4 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-12">
       {/* Success state inline */}
       {emailSent ? (
         <div className="mb-16 md:mb-20 text-center animate-fade-in">
@@ -561,16 +555,29 @@ export function HeroSection({
                     setTimeout(() => {
                       const pricingElement = document.querySelector('.mobile-pricing-section');
                       smoothScrollTo(pricingElement);
-                    }, 300); // Longer delay for smoother transition
+                    }, 100);
                   } else {
                     // Scroll to top when pricing is collapsed
                     setTimeout(() => {
-                      document.documentElement.style.scrollBehavior = 'smooth';
-                      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-                      setTimeout(() => {
-                        document.documentElement.style.scrollBehavior = 'auto';
-                      }, 1000);
-                    }, 100);
+                      const startY = window.pageYOffset;
+                      const duration = Math.min(startY * 0.6, 400);
+                      let startTime: number | null = null;
+                      
+                      const scrollToTop = (currentTime: number) => {
+                        if (startTime === null) startTime = currentTime;
+                        const timeElapsed = currentTime - startTime;
+                        const progress = Math.min(timeElapsed / duration, 1);
+                        const ease = (t: number) => t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+                        
+                        window.scrollTo(0, startY * (1 - ease(progress)));
+                        
+                        if (progress < 1) {
+                          requestAnimationFrame(scrollToTop);
+                        }
+                      };
+                      
+                      requestAnimationFrame(scrollToTop);
+                    }, 50);
                   }
                 }} className="w-full max-w-sm">
                   <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 transition-all duration-300 relative shadow-md hover:shadow-lg">
@@ -798,16 +805,29 @@ export function HeroSection({
               setTimeout(() => {
                 const pricingElement = document.querySelector('#pricing-section');
                 smoothScrollTo(pricingElement);
-              }, 300); // Longer delay for smoother transition
+              }, 100);
             } else {
               // Scroll to top when pricing is collapsed
               setTimeout(() => {
-                document.documentElement.style.scrollBehavior = 'smooth';
-                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-                setTimeout(() => {
-                  document.documentElement.style.scrollBehavior = 'auto';
-                }, 1000);
-              }, 100);
+                const startY = window.pageYOffset;
+                const duration = Math.min(startY * 0.6, 400);
+                let startTime: number | null = null;
+                
+                const scrollToTop = (currentTime: number) => {
+                  if (startTime === null) startTime = currentTime;
+                  const timeElapsed = currentTime - startTime;
+                  const progress = Math.min(timeElapsed / duration, 1);
+                  const ease = (t: number) => t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+                  
+                  window.scrollTo(0, startY * (1 - ease(progress)));
+                  
+                  if (progress < 1) {
+                    requestAnimationFrame(scrollToTop);
+                  }
+                };
+                
+                requestAnimationFrame(scrollToTop);
+              }, 50);
             }
           }} className="w-full max-w-xs">
             <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300 relative">
@@ -895,16 +915,29 @@ export function HeroSection({
             setTimeout(() => {
               const worksElement = document.querySelector('#how-w5z-works-section');
               smoothScrollTo(worksElement);
-            }, 300);
+            }, 100);
           } else {
             // Scroll to top when collapsed
             setTimeout(() => {
-              document.documentElement.style.scrollBehavior = 'smooth';
-              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-              setTimeout(() => {
-                document.documentElement.style.scrollBehavior = 'auto';
-              }, 1000);
-            }, 100);
+              const startY = window.pageYOffset;
+              const duration = Math.min(startY * 0.6, 400);
+              let startTime: number | null = null;
+              
+              const scrollToTop = (currentTime: number) => {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1);
+                const ease = (t: number) => t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+                
+                window.scrollTo(0, startY * (1 - ease(progress)));
+                
+                if (progress < 1) {
+                  requestAnimationFrame(scrollToTop);
+                }
+              };
+              
+              requestAnimationFrame(scrollToTop);
+            }, 50);
           }
         }}>
           <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
@@ -961,16 +994,29 @@ export function HeroSection({
             setTimeout(() => {
               const faqsElement = document.querySelector('#faqs-section');
               smoothScrollTo(faqsElement);
-            }, 300);
+            }, 100);
           } else {
             // Scroll to top when collapsed
             setTimeout(() => {
-              document.documentElement.style.scrollBehavior = 'smooth';
-              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-              setTimeout(() => {
-                document.documentElement.style.scrollBehavior = 'auto';
-              }, 1000);
-            }, 100);
+              const startY = window.pageYOffset;
+              const duration = Math.min(startY * 0.6, 400);
+              let startTime: number | null = null;
+              
+              const scrollToTop = (currentTime: number) => {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1);
+                const ease = (t: number) => t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+                
+                window.scrollTo(0, startY * (1 - ease(progress)));
+                
+                if (progress < 1) {
+                  requestAnimationFrame(scrollToTop);
+                }
+              };
+              
+              requestAnimationFrame(scrollToTop);
+            }, 50);
           }
         }}>
           <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
