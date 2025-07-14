@@ -49,13 +49,15 @@ interface HeroSectionProps {
   setIsPricingOpen?: (open: boolean) => void;
   showPricingBadge?: boolean;
   setShowPricingBadge?: (show: boolean) => void;
+  triggerTextareaGlow?: boolean;
 }
 
 export function HeroSection({ 
   isPricingOpen: externalIsPricingOpen, 
   setIsPricingOpen: externalSetIsPricingOpen,
   showPricingBadge: externalShowPricingBadge = true,
-  setShowPricingBadge: externalSetShowPricingBadge
+  setShowPricingBadge: externalSetShowPricingBadge,
+  triggerTextareaGlow = false
 }: HeroSectionProps = {}) {
   const [projectDescription, setProjectDescription] = useState("");
   const [showEmailForm, setShowEmailForm] = useState(false);
@@ -134,6 +136,35 @@ export function HeroSection({
       }
     }, 800); // Increased delay to allow scroll to complete
   };
+
+  // Handle external trigger for textarea glow
+  useEffect(() => {
+    if (triggerTextareaGlow) {
+      // Scroll to top smoothly
+      if ('scrollBehavior' in document.documentElement.style) {
+        window.scrollTo({ 
+          top: 0, 
+          left: 0,
+          behavior: 'smooth' 
+        });
+      } else {
+        window.scrollTo(0, 0);
+      }
+      
+      // Add glow effect and focus textarea after scroll completes
+      setTimeout(() => {
+        const textarea = document.querySelector('textarea') as HTMLTextAreaElement;
+        if (textarea) {
+          textarea.focus();
+          setTextareaGlow(true);
+          // Remove glow after animation
+          setTimeout(() => {
+            setTextareaGlow(false);
+          }, 2000);
+        }
+      }, 800);
+    }
+  }, [triggerTextareaGlow]);
 
   // Generate previews when images change
   useEffect(() => {

@@ -180,6 +180,16 @@
     }
   }
 
+  /* Shimmer loading animation */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
   /* Hover scale utilities */
   .hover\:scale-102:hover {
     transform: scale(1.02);

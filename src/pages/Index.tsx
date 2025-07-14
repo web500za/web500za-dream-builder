@@ -11,6 +11,20 @@ const Index = () => {
   const [currentSection, setCurrentSection] = useState("quote");
   const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [showPricingBadge, setShowPricingBadge] = useState(true);
+  const [triggerTextareaGlow, setTriggerTextareaGlow] = useState(false);
+
+  // Enhanced navigation with glow effect
+  const handleNavigateToQuote = () => {
+    setCurrentSection("quote");
+    // Trigger the glow effect after a short delay to ensure the component is rendered
+    setTimeout(() => {
+      setTriggerTextareaGlow(true);
+      // Reset the trigger after the glow animation
+      setTimeout(() => {
+        setTriggerTextareaGlow(false);
+      }, 2500);
+    }, 100);
+  };
   // Custom smooth scroll with easing
   const smoothScrollTo = (element: HTMLElement, duration = 800) => {
     const start = window.pageYOffset;
@@ -63,11 +77,12 @@ const Index = () => {
           setIsPricingOpen={setIsPricingOpen}
           showPricingBadge={showPricingBadge}
           setShowPricingBadge={setShowPricingBadge}
+          triggerTextareaGlow={triggerTextareaGlow}
         />;
       case "work":
-        return <PortfolioSection onNavigateToQuote={() => setCurrentSection("quote")} />;
+        return <PortfolioSection onNavigateToQuote={handleNavigateToQuote} />;
       case "about":
-        return <AboutSection onNavigateToQuote={() => setCurrentSection("quote")} />;
+        return <AboutSection onNavigateToQuote={handleNavigateToQuote} />;
       case "contact":
         return <ContactSection />;
       default:
@@ -76,6 +91,7 @@ const Index = () => {
           setIsPricingOpen={setIsPricingOpen}
           showPricingBadge={showPricingBadge}
           setShowPricingBadge={setShowPricingBadge}
+          triggerTextareaGlow={triggerTextareaGlow}
         />;
     }
   };
