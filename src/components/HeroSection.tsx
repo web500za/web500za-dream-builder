@@ -359,11 +359,21 @@ export function HeroSection({
   ];
   */
 
+  type PriceCard = {
+    title: string;
+    price: string;
+    description: string;
+    features: string[];
+    featured: boolean;
+    isOther?: boolean;
+    badge?: string;
+  };
+
   // Launch Special Pricing (until August 1st, 2025)
-  const priceCards = [
+  const priceCards: PriceCard[] = [
     {
       title: "Single-Page Site",
-      price: "R1500",
+      price: "R800",
       description: "Perfect for establishing your online presence",
       features: [
         "Professional single-page website",
@@ -377,7 +387,7 @@ export function HeroSection({
     },
     {
       title: "Multi-Page Site",
-      price: "R3500",
+      price: "R1500",
       description: "Complete website for growing businesses",
       features: [
         "Multi-page website with navigation",
@@ -620,11 +630,11 @@ export function HeroSection({
                         <h3 className="text-xl md:text-2xl font-semibold text-brand-text-dark mb-2">{card.title}</h3>
                         <div className="mb-4">
                           {!card.isOther && (
-                            <p className="text-sm md:text-base text-red-500 line-through mb-2">
-                              {card.title.includes('Single-Page') ? 'R1500' : 'R3500'}
+                            <p className="text-sm md:text-base text-red-500 line-through mb-1">
+                              {card.title.includes('Single-Page') ? 'R1500' : 'R2500'}
                             </p>
                           )}
-                          <p className="text-2xl md:text-3xl font-bold text-brand-green">{card.price}</p>
+                          <p className="text-3xl md:text-4xl font-bold text-brand-green">{card.price}</p>
                         </div>
                         <p className="text-brand-text-muted text-sm md:text-base mb-6">{card.description}</p>
                         <ul className="space-y-3 mb-8">
@@ -635,22 +645,36 @@ export function HeroSection({
                             </li>
                           ))}
                         </ul>
-                        <Button 
-                          onClick={() => {
-                            if (card.isOther) {
-                              window.location.href = 'mailto:web500za@gmail.com?subject=Other%20Services%20Inquiry';
-                            } else {
-                              handleGetStarted();
-                            }
-                          }}
-                          className={`w-full ${
-                            card.featured 
-                              ? 'bg-brand-green hover:bg-brand-green-light text-white shadow-lg' 
-                              : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
-                          } transition-all duration-300`}
-                        >
-                          {card.isOther ? 'Contact me' : 'Get Started'}
-                        </Button>
+                        {card.isOther ? (
+                          <a
+                            href="mailto:web500za@gmail.com"
+                            className={`w-full inline-block text-center px-4 py-3 rounded-2xl font-semibold transition-all duration-300 ${
+                              card.featured
+                                ? 'bg-brand-green hover:bg-brand-green-light text-white shadow-lg'
+                                : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
+                            }`}
+                            style={{ textDecoration: 'none' }}
+                          >
+                            Contact me
+                          </a>
+                        ) : (
+                          <Button
+                            onClick={() => {
+                              if (card.isOther) {
+                                window.location.href = 'mailto:web500za@gmail.com?subject=Other%20Services%20Inquiry';
+                              } else {
+                                handleGetStarted();
+                              }
+                            }}
+                            className={`w-full ${
+                              card.featured
+                                ? 'bg-brand-green hover:bg-brand-green-light text-white shadow-lg'
+                                : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
+                            } transition-all duration-300`}
+                          >
+                            {card.isOther ? 'Contact me' : 'Get Started'}
+                          </Button>
+                        )}
                       </Card>
                     ))}
                   </div>
@@ -885,22 +909,36 @@ export function HeroSection({
                       </li>
                     ))}
                   </ul>
-                  <Button 
-                    onClick={() => {
-                      if (card.isOther) {
-                        window.location.href = 'mailto:web500za@gmail.com?subject=Other%20Services%20Inquiry';
-                      } else {
-                        handleGetStarted();
-                      }
-                    }}
-                    className={`w-full ${
-                      card.featured 
-                        ? 'bg-brand-green hover:bg-brand-green-light text-white shadow-lg' 
-                        : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
-                    } transition-all duration-300`}
-                  >
-                    {card.isOther ? 'Contact me' : 'Get Started'}
-                  </Button>
+                  {card.isOther ? (
+                    <a
+                      href="mailto:web500za@gmail.com"
+                      className={`w-full inline-block text-center px-4 py-3 rounded-2xl font-semibold transition-all duration-300 ${
+                        card.featured
+                          ? 'bg-brand-green hover:bg-brand-green-light text-white shadow-lg'
+                          : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
+                      }`}
+                      style={{ textDecoration: 'none' }}
+                    >
+                      Contact me
+                    </a>
+                  ) : (
+                    <Button 
+                      onClick={() => {
+                        if (card.isOther) {
+                          window.location.href = 'mailto:web500za@gmail.com?subject=Other%20Services%20Inquiry';
+                        } else {
+                          handleGetStarted();
+                        }
+                      }}
+                      className={`w-full ${
+                        card.featured 
+                          ? 'bg-brand-green hover:bg-brand-green-light text-white shadow-lg' 
+                          : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
+                      } transition-all duration-300`}
+                    >
+                      {card.isOther ? 'Contact me' : 'Get Started'}
+                    </Button>
+                  )}
                 </Card>
               ))}
             </div>

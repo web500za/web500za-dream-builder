@@ -70,6 +70,18 @@ const Index = () => {
     }
   };
 
+  const handleSectionChange = (section: string) => {
+    setCurrentSection(section);
+    if (section === 'about' && window.innerWidth < 768) {
+      setTimeout(() => {
+        const aboutSection = document.getElementById('about-section');
+        if (aboutSection) {
+          smoothScrollTo(aboutSection);
+        }
+      }, 100);
+    }
+  };
+
   const renderSection = () => {
     switch (currentSection) {
       case "quote":
@@ -113,7 +125,7 @@ const Index = () => {
           {/* Navigation */}
           <PillNav 
             currentSection={currentSection}
-            onSectionChange={setCurrentSection}
+            onSectionChange={handleSectionChange}
           />
         </div>
       </div>
