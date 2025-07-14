@@ -363,26 +363,28 @@ export function HeroSection({
   const priceCards = [
     {
       title: "Single-Page Site",
-      price: "R800",
+      price: "R1500",
       description: "Perfect for establishing your online presence",
       features: [
         "Professional single-page website",
         "Mobile-responsive design",
         "Basic branding & logo",
         "Contact form integration",
-        "30-day support"
+        "30-day support",
+        "Estimated completion: 1-4 days"
       ],
       featured: true
     },
     {
       title: "Multi-Page Site",
-      price: "R1300",
+      price: "R3500",
       description: "Complete website for growing businesses",
       features: [
         "Multi-page website with navigation",
         "Enhanced branding & design",
         "Contact forms & integrations",
-        "60-day support"
+        "60-day support",
+        "Estimated completion: 1-2 weeks"
       ],
       featured: true
     },
@@ -619,7 +621,7 @@ export function HeroSection({
                         <div className="mb-4">
                           {!card.isOther && (
                             <p className="text-sm md:text-base text-red-500 line-through mb-2">
-                              {card.title.includes('Single-Page') ? 'R2,500' : 'R4,500'}
+                              {card.title.includes('Single-Page') ? 'R1500' : 'R3500'}
                             </p>
                           )}
                           <p className="text-2xl md:text-3xl font-bold text-brand-green">{card.price}</p>
@@ -869,7 +871,7 @@ export function HeroSection({
                   <div className="mb-4">
                     {!card.isOther && (
                       <p className="text-sm md:text-base text-red-500 line-through mb-2">
-                        {card.title.includes('Single-Page') ? 'R2,500' : 'R4,500'}
+                        {card.title.includes('Single-Page') ? 'R1500' : 'R3500'}
                       </p>
                     )}
                     <p className="text-2xl md:text-3xl font-bold text-brand-green">{card.price}</p>
