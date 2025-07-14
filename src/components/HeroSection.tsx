@@ -766,7 +766,7 @@ export function HeroSection({
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }, 50);
             }
-          }} className="w-full max-w-xs">
+          }} className="w-full max-w-sm">
             <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 transition-all duration-300 relative shadow-md hover:shadow-lg">
               <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">Pricing</span>
               {showPricingBadge && (
