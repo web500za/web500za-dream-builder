@@ -88,10 +88,11 @@ export function HeroSection({
 
   const MAX_TOTAL_SIZE = 50 * 1024 * 1024;
 
-  // Native smooth scroll utility function
+  // Native smooth scroll utility function with offset
   const smoothScrollTo = (element: Element | null) => {
     if (!element) return;
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const elementPosition = (element as HTMLElement).offsetTop - 24;
+    window.scrollTo({ top: elementPosition, behavior: 'smooth' });
   };
 
   // Handle Get Started button clicks
@@ -747,38 +748,34 @@ export function HeroSection({
 
       {/* Pricing Dropdown - Desktop only (mobile version is above) */}
       <div id="pricing-section" className="hidden md:block mb-8 md:mb-12 max-w-4xl mx-auto px-4">
-        <div className="flex justify-center mb-2">
-          <Collapsible open={isPricingOpen} onOpenChange={(open) => {
-            setIsPricingOpen(open);
-            // Hide badge when pricing is opened
-            if (open && showPricingBadge) {
-              setShowPricingBadge(false);
-            }
-            // Scroll to pricing section when opened, or to top when closed
-            if (open) {
-              setTimeout(() => {
-                const pricingElement = document.querySelector('#pricing-section');
-                smoothScrollTo(pricingElement);
-              }, 100);
-            } else {
-              // Native scroll to top when pricing is collapsed
-              setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }, 50);
-            }
-          }} className="w-full max-w-sm">
-            <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 transition-all duration-300 relative shadow-md hover:shadow-lg">
-              <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">Pricing</span>
-              {showPricingBadge && (
-                <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
-                  1
-                </div>
-              )}
-              <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isPricingOpen ? 'rotate-180' : ''}`} />
-            </CollapsibleTrigger>
-          </Collapsible>
-        </div>
-        <Collapsible open={isPricingOpen} onOpenChange={setIsPricingOpen}>
+        <Collapsible open={isPricingOpen} onOpenChange={(open) => {
+          setIsPricingOpen(open);
+          // Hide badge when pricing is opened
+          if (open && showPricingBadge) {
+            setShowPricingBadge(false);
+          }
+          // Scroll to pricing section when opened, or to top when closed
+          if (open) {
+            setTimeout(() => {
+              const pricingElement = document.querySelector('#pricing-section');
+              smoothScrollTo(pricingElement);
+            }, 100);
+          } else {
+            // Native scroll to top when pricing is collapsed
+            setTimeout(() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 50);
+          }
+        }}>
+          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 transition-all duration-300 relative shadow-md hover:shadow-lg">
+            <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">Pricing</span>
+            {showPricingBadge && (
+              <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
+                1
+              </div>
+            )}
+            <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isPricingOpen ? 'rotate-180' : ''}`} />
+          </CollapsibleTrigger>
           <CollapsibleContent>
             <div className="text-center mb-6">
               <p className="text-red-500 font-semibold text-sm md:text-base mb-2">

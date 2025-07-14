@@ -25,10 +25,11 @@ const Index = () => {
       }, 2500);
     }, 100);
   };
-  // Native smooth scroll function
+  // Native smooth scroll function with offset
   const smoothScrollTo = (element: HTMLElement) => {
     if (!element) return;
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const elementPosition = element.offsetTop - 24;
+    window.scrollTo({ top: elementPosition, behavior: 'smooth' });
   };
 
   const handleLaunchSpecialClick = () => {
