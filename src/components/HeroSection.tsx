@@ -88,17 +88,74 @@ export function HeroSection({
 
   const MAX_TOTAL_SIZE = 50 * 1024 * 1024;
 
-  // Native smooth scroll utility function with offset
+  // Cross-platform smooth scroll utility function with offset
   const smoothScrollTo = (element: Element | null) => {
     if (!element) return;
     const elementPosition = (element as HTMLElement).offsetTop - 24;
-    window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+    
+    // Check if smooth scrolling is supported
+    if ('scrollBehavior' in document.documentElement.style) {
+      window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+    } else {
+      // Fallback for iOS Safari and older browsers
+      const startPosition = window.pageYOffset;
+      const distance = elementPosition - startPosition;
+      const duration = Math.min(Math.abs(distance) * 0.5, 800);
+      let startTime: number | null = null;
+      
+      const easeInOutCubic = (t: number): number => {
+        return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+      };
+      
+      const animateScroll = (currentTime: number) => {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        
+        window.scrollTo(0, startPosition + distance * easeInOutCubic(progress));
+        
+        if (progress < 1) {
+          requestAnimationFrame(animateScroll);
+        }
+      };
+      
+      requestAnimationFrame(animateScroll);
+    }
+  };
+
+  // Cross-platform scroll to top function
+  const scrollToTop = () => {
+    if ('scrollBehavior' in document.documentElement.style) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Fallback for iOS Safari and older browsers
+      const startPosition = window.pageYOffset;
+      const duration = Math.min(startPosition * 0.5, 800);
+      let startTime: number | null = null;
+      
+      const easeInOutCubic = (t: number): number => {
+        return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+      };
+      
+      const animateScroll = (currentTime: number) => {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        
+        window.scrollTo(0, startPosition * (1 - easeInOutCubic(progress)));
+        
+        if (progress < 1) {
+          requestAnimationFrame(animateScroll);
+        }
+      };
+      
+      requestAnimationFrame(animateScroll);
+    }
   };
 
   // Handle Get Started button clicks
   const handleGetStarted = () => {
-    // Native smooth scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    scrollToTop();
     
     // Focus and glow after a short delay
     setTimeout(() => {
@@ -761,9 +818,9 @@ export function HeroSection({
               smoothScrollTo(pricingElement);
             }, 100);
           } else {
-            // Native scroll to top when pricing is collapsed
+            // Cross-platform scroll to top when pricing is collapsed
             setTimeout(() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              scrollToTop();
             }, 50);
           }
         }}>
@@ -865,9 +922,9 @@ export function HeroSection({
               smoothScrollTo(worksElement);
             }, 100);
           } else {
-            // Native scroll to top when collapsed
+            // Cross-platform scroll to top when collapsed
             setTimeout(() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              scrollToTop();
             }, 50);
           }
         }}>
@@ -927,9 +984,9 @@ export function HeroSection({
               smoothScrollTo(faqsElement);
             }, 100);
           } else {
-            // Native scroll to top when collapsed
+            // Cross-platform scroll to top when collapsed
             setTimeout(() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              scrollToTop();
             }, 50);
           }
         }}>

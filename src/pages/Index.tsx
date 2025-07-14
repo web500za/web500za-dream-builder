@@ -25,11 +25,39 @@ const Index = () => {
       }, 2500);
     }, 100);
   };
-  // Native smooth scroll function with offset
+  // Cross-platform smooth scroll function with offset
   const smoothScrollTo = (element: HTMLElement) => {
     if (!element) return;
     const elementPosition = element.offsetTop - 24;
-    window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+    
+    // Check if smooth scrolling is supported
+    if ('scrollBehavior' in document.documentElement.style) {
+      window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+    } else {
+      // Fallback for iOS Safari and older browsers
+      const startPosition = window.pageYOffset;
+      const distance = elementPosition - startPosition;
+      const duration = Math.min(Math.abs(distance) * 0.5, 800);
+      let startTime: number | null = null;
+      
+      const easeInOutCubic = (t: number): number => {
+        return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+      };
+      
+      const animateScroll = (currentTime: number) => {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        
+        window.scrollTo(0, startPosition + distance * easeInOutCubic(progress));
+        
+        if (progress < 1) {
+          requestAnimationFrame(animateScroll);
+        }
+      };
+      
+      requestAnimationFrame(animateScroll);
+    }
   };
 
   const handleLaunchSpecialClick = () => {
