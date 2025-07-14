@@ -34,7 +34,7 @@ export function AboutSection({ onNavigateToQuote }: AboutSectionProps) {
     <div id="about-section" className="max-w-5xl mx-auto px-4 md:px-6 pt-8 md:pt-6">
       {/* Photo Section */}
       <div className="mb-12">
-        <div className="w-full max-w-4xl mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl border border-gray-100 relative">
+        <div id="about-photo" className="w-full max-w-4xl mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl border border-gray-100 relative">
           {/* Skeleton placeholder - only shown on error now */}
           {!imageLoaded && imageError && (
             <div className="w-full h-64 md:h-80 lg:h-96 bg-gray-100 flex items-center justify-center">

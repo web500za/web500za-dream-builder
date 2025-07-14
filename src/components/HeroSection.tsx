@@ -90,7 +90,8 @@ export function HeroSection({
   // Optimized smooth scroll utility function
   const smoothScrollTo = (element: Element | null) => {
     if (!element) return;
-    (element as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const y = (element as HTMLElement).getBoundingClientRect().top + window.pageYOffset - 24;
+    window.scrollTo({ top: y, behavior: 'smooth' });
   };
 
   // Handle Get Started button clicks

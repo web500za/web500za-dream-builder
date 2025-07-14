@@ -28,7 +28,8 @@ const Index = () => {
   // Optimized smooth scroll function
   const smoothScrollTo = (element: HTMLElement) => {
     if (!element) return;
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const y = element.getBoundingClientRect().top + window.pageYOffset - 24;
+    window.scrollTo({ top: y, behavior: 'smooth' });
   };
 
   const handleLaunchSpecialClick = () => {
@@ -51,9 +52,9 @@ const Index = () => {
     setCurrentSection(section);
     if (section === 'about' && window.innerWidth < 768) {
       setTimeout(() => {
-        const aboutSection = document.getElementById('about-section');
-        if (aboutSection) {
-          smoothScrollTo(aboutSection);
+        const aboutPhoto = document.getElementById('about-photo');
+        if (aboutPhoto) {
+          smoothScrollTo(aboutPhoto);
         }
       }, 100);
     }
