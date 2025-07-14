@@ -80,9 +80,60 @@ export function HeroSection({
   const [uploadProgress, setUploadProgress] = useState<number[]>([0, 0, 0]);
   const [rejectedFileError, setRejectedFileError] = useState("");
   const [emailSent, setEmailSent] = useState(false);
+  const [textareaGlow, setTextareaGlow] = useState(false);
   const { toast } = useToast();
 
   const MAX_TOTAL_SIZE = 50 * 1024 * 1024;
+
+  // Enhanced smooth scroll utility function
+  const smoothScrollTo = (element: Element | null, options?: ScrollIntoViewOptions) => {
+    if (!element) return;
+    
+    // Add CSS smooth scroll behavior to html
+    document.documentElement.style.scrollBehavior = 'smooth';
+    
+    // Use scrollIntoView with smooth behavior, adjust for mobile
+    const isMobile = window.innerWidth < 768;
+    element.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: isMobile ? 'start' : 'center',
+      inline: 'nearest',
+      ...options
+    });
+    
+    // Reset scroll behavior after a short delay
+    setTimeout(() => {
+      document.documentElement.style.scrollBehavior = 'auto';
+    }, 1000);
+  };
+
+  // Handle Get Started button clicks
+  const handleGetStarted = () => {
+    // Scroll to top with smooth behavior
+    if ('scrollBehavior' in document.documentElement.style) {
+      window.scrollTo({ 
+        top: 0, 
+        left: 0,
+        behavior: 'smooth' 
+      });
+    } else {
+      // Fallback for older browsers
+      window.scrollTo(0, 0);
+    }
+    
+    // Add glow effect and focus textarea after scroll completes
+    setTimeout(() => {
+      const textarea = document.querySelector('textarea') as HTMLTextAreaElement;
+      if (textarea) {
+        textarea.focus();
+        setTextareaGlow(true);
+        // Remove glow after animation
+        setTimeout(() => {
+          setTextareaGlow(false);
+        }, 2000);
+      }
+    }, 800); // Increased delay to allow scroll to complete
+  };
 
   // Generate previews when images change
   useEffect(() => {
@@ -286,75 +337,75 @@ export function HeroSection({
   // Launch Special Pricing (until August 1st, 2025)
   const priceCards = [
     {
-      title: "Digital Foundation Package",
+      title: "Single-Page Site",
       price: "R800",
-      description: "Everything you need to establish your online presence",
+      description: "Perfect for establishing your online presence",
       features: [
-        "Professional domain setup with business email",
-        "Single-page signature website",
-        "Logo creation or refinement",
-        "Mobile-optimized design",
-        "30-day support included"
-      ],
-      featured: false
-    },
-    {
-      title: "Business Presence Package",
-      price: "R1300",
-      description: "Complete digital transformation for growing businesses",
-      features: [
-        "Everything in Digital Foundation",
-        "Multi-page website with strategic flow",
-        "AI chatbot integration",
-        "Advanced business integrations",
-        "Search-ready setup",
-        "Analytics setup",
-        "60-day support included"
+        "Professional single-page website",
+        "Mobile-responsive design",
+        "Basic branding & logo",
+        "Contact form integration",
+        "30-day support"
       ],
       featured: true
     },
     {
-      title: "Custom Solutions",
-      price: "Let's talk",
-      description: "For complex web applications & unique functionality",
+      title: "Multi-Page Site",
+      price: "R1300",
+      description: "Complete website for growing businesses",
       features: [
-        "E-commerce platforms",
-        "Custom web applications",
-        "Enterprise integrations",
-        "Unique functionality",
-        "Dedicated project management",
-        "Extended support options"
+        "Multi-page website with navigation",
+        "Enhanced branding & design",
+        "Contact forms & integrations",
+        "60-day support"
+      ],
+      featured: true
+    },
+    {
+      title: "Other Services",
+      price: "Let's chat",
+      description: "Ask me about",
+      features: [
+        "Social media setup & branding",
+        "Website AI chatbots",
+        "E-commerce functionality",
+        "Custom integrations",
+        "Website maintenance plans"
       ],
       featured: false,
-      isCustom: true
+      isOther: true
     }
   ];
 
   return (
-    <div className="text-center max-w-5xl mx-auto mobile-padding px-4 md:px-6 hero-mobile pt-8 md:pt-6">
+    <div className="text-center max-w-6xl mx-auto px-4 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-12" style={{ scrollBehavior: 'smooth' }}>
       {/* Success state inline */}
       {emailSent ? (
-        <div className="mb-12 text-center animate-fade-in px-4">
-          <div className="mb-6">
-            <svg className="animate-bounce-in mx-auto" width="60" height="60" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div className="mb-16 md:mb-20 text-center animate-fade-in">
+          <div className="mb-8">
+            <svg className="animate-bounce-in mx-auto" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="40" cy="40" r="40" fill="#22c55e"/>
               <path d="M24 42l12 12 20-24" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
-          <h3 className="text-2xl font-bold text-brand-green mb-4">Thank you!</h3>
-          <p className="text-brand-text-dark text-lg leading-relaxed">I've received your brief and will aim to respond within <span className="font-semibold">1-2 business days</span>.</p>
+          <h3 className="text-3xl md:text-4xl font-bold text-brand-green mb-6">Thank you!</h3>
+          <p className="text-lg md:text-xl text-brand-text-dark leading-relaxed max-w-2xl mx-auto">I've received your brief and will aim to respond within <span className="font-semibold">1-2 business days</span>.</p>
         </div>
       ) : (
         <>
           {/* Mobile: Textarea first, then pricing, then description */}
           <div className="md:hidden">
-            <form onSubmit={handleIdeaSubmit} className="section-margin-mobile mb-4">
+            <form onSubmit={handleIdeaSubmit} className="mb-8 md:mb-12">
               <div className="relative max-w-4xl mx-auto">
                 <AnimatedInput
                   value={projectDescription}
                   onChange={(e) => setProjectDescription(e.target.value)}
                   onSubmit={handleIdeaSubmit}
-                  className="input-field-mobile w-full text-base md:text-xl px-6 md:px-8 py-5 pl-12 md:pl-16 pr-16 md:pr-28 pb-14 md:pb-16 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-0 focus:shadow-[0_20px_80px_rgba(45,90,61,0.4)] focus:border-brand-green/80 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
+                  className={`w-full text-lg md:text-xl px-6 md:px-8 py-6 md:py-8 pl-16 md:pl-20 pr-20 md:pr-32 bg-white/95 backdrop-blur-md border-2 rounded-2xl md:rounded-3xl placeholder:text-brand-text-muted/70 text-brand-text-dark focus:outline-none focus:ring-0 transition-all duration-500 min-h-[120px] md:min-h-[140px] ${
+                    textareaGlow 
+                      ? 'border-brand-green shadow-[0_0_30px_rgba(34,197,94,0.4),0_20px_80px_rgba(45,90,61,0.25)] animate-pulse' 
+                      : 'border-brand-green/30 shadow-[0_12px_40px_rgba(45,90,61,0.12)] focus:shadow-[0_20px_80px_rgba(45,90,61,0.25)] focus:border-brand-green/60 hover:shadow-[0_16px_60px_rgba(45,90,61,0.15)] hover:border-brand-green/40'
+                  }`}
                 />
                 <Button
                   type="button"
@@ -466,17 +517,33 @@ export function HeroSection({
             </form>
             
             {/* Mobile: Pricing bubble second */}
-            <div className="mb-4 max-w-4xl mx-auto px-4">
-              <div className="flex justify-center mb-2">
+            <div className="mobile-pricing-section mb-10 md:mb-16 max-w-5xl mx-auto">
+              <div className="flex justify-center mb-4">
                 <Collapsible open={isPricingOpen} onOpenChange={(open) => {
                   setIsPricingOpen(open);
                   // Hide badge when pricing is opened
                   if (open && showPricingBadge) {
                     setShowPricingBadge(false);
                   }
-                }} className="w-full max-w-xs">
-                  <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300 relative">
-                    <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">Pricing</span>
+                  // Scroll to pricing section when opened, or to top when closed
+                  if (open) {
+                    setTimeout(() => {
+                      const pricingElement = document.querySelector('.mobile-pricing-section');
+                      smoothScrollTo(pricingElement);
+                    }, 300); // Longer delay for smoother transition
+                  } else {
+                    // Scroll to top when pricing is collapsed
+                    setTimeout(() => {
+                      document.documentElement.style.scrollBehavior = 'smooth';
+                      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                      setTimeout(() => {
+                        document.documentElement.style.scrollBehavior = 'auto';
+                      }, 1000);
+                    }, 100);
+                  }
+                }} className="w-full max-w-sm">
+                  <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 transition-all duration-300 relative shadow-md hover:shadow-lg">
+                    <span className="text-lg md:text-xl font-semibold mr-3 md:mr-4">Pricing</span>
                     {showPricingBadge && (
                       <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
                         1
@@ -493,7 +560,7 @@ export function HeroSection({
                       Launch Special til 10 August, 2025
                     </p>
                   </div>
-                  <div className="grid md:grid-cols-3 gap-6 md:gap-8 mt-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mt-6">
                     {priceCards.map((card, index) => (
                       <Card 
                         key={index} 
@@ -512,9 +579,9 @@ export function HeroSection({
                         )}
                         <h3 className="text-xl md:text-2xl font-semibold text-brand-text-dark mb-2">{card.title}</h3>
                         <div className="mb-4">
-                          {!card.isCustom && (
-                            <p className="text-sm text-red-500 line-through mb-1">
-                              {card.title.includes('Digital Foundation') ? 'R2,500' : 'R4,500'}
+                          {!card.isOther && (
+                            <p className="text-sm md:text-base text-red-500 line-through mb-2">
+                              {card.title.includes('Single-Page') ? 'R2,500' : 'R4,500'}
                             </p>
                           )}
                           <p className="text-2xl md:text-3xl font-bold text-brand-green">{card.price}</p>
@@ -530,10 +597,10 @@ export function HeroSection({
                         </ul>
                         <Button 
                           onClick={() => {
-                            if (card.isCustom) {
-                              window.location.href = 'mailto:web500za@gmail.com?subject=Custom%20Web%20Solution%20Inquiry';
+                            if (card.isOther) {
+                              window.location.href = 'mailto:web500za@gmail.com?subject=Other%20Services%20Inquiry';
                             } else {
-                              window.location.href = `mailto:web500za@gmail.com?subject=${encodeURIComponent(card.title)}%20Inquiry`;
+                              handleGetStarted();
                             }
                           }}
                           className={`w-full ${
@@ -542,7 +609,7 @@ export function HeroSection({
                               : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
                           } transition-all duration-300`}
                         >
-                          {card.isCustom ? 'Tell me...' : 'Get Started'}
+                          {card.isOther ? 'Contact me' : 'Get Started'}
                         </Button>
                       </Card>
                     ))}
@@ -550,32 +617,29 @@ export function HeroSection({
                 </CollapsibleContent>
               </Collapsible>
             </div>
-            
-            {/* Mobile: Description third */}
-            <div className="mb-1">
-              <p className="hero-subtitle-mobile text-sm text-brand-text-muted/60 max-w-3xl mx-auto leading-relaxed text-center">
-                Send me your idea and I'll send you 3 free mock-ups. Only pay when you want to work together.
-              </p>
-            </div>
           </div>
 
           {/* Desktop: Description first, then textarea */}
           <div className="hidden md:block">
             {/* Description */}
-            <div className="mb-4">
-              <p className="text-lg text-brand-text-muted/60 max-w-3xl mx-auto leading-relaxed text-center">
+            <div className="mb-8 md:mb-12">
+              <p className="text-xl md:text-2xl text-brand-text-muted/70 max-w-4xl mx-auto leading-relaxed text-center font-medium">
                 Send me your idea and I'll send you 3 free mock-ups. Only pay when you want to work together.
               </p>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleIdeaSubmit} className="mb-12">
+            <form onSubmit={handleIdeaSubmit} className="mb-16 md:mb-20">
               <div className="relative max-w-4xl mx-auto">
                 <AnimatedInput
                   value={projectDescription}
                   onChange={(e) => setProjectDescription(e.target.value)}
                   onSubmit={handleIdeaSubmit}
-                  className="w-full text-xl px-8 py-5 pl-16 pr-28 pb-16 bg-white/98 backdrop-blur-md border-2 border-brand-green/20 rounded-2xl shadow-[0_8px_32px_rgba(45,90,61,0.15)] placeholder:text-brand-text-muted text-brand-text-dark focus:outline-none focus:ring-0 focus:shadow-[0_20px_80px_rgba(45,90,61,0.4)] focus:border-brand-green/80 transition-all duration-300 hover:shadow-[0_10px_40px_rgba(45,90,61,0.2)] hover:border-brand-green/30"
+                  className={`w-full text-xl md:text-2xl px-8 md:px-12 py-8 md:py-10 pl-20 md:pl-24 pr-32 md:pr-40 bg-white/95 backdrop-blur-md border-2 rounded-2xl md:rounded-3xl placeholder:text-brand-text-muted/70 text-brand-text-dark focus:outline-none focus:ring-0 transition-all duration-500 min-h-[160px] md:min-h-[180px] ${
+                    textareaGlow 
+                      ? 'border-brand-green shadow-[0_0_30px_rgba(34,197,94,0.4),0_20px_80px_rgba(45,90,61,0.25)] animate-pulse' 
+                      : 'border-brand-green/30 shadow-[0_12px_40px_rgba(45,90,61,0.12)] focus:shadow-[0_20px_80px_rgba(45,90,61,0.25)] focus:border-brand-green/60 hover:shadow-[0_16px_60px_rgba(45,90,61,0.15)] hover:border-brand-green/40'
+                  }`}
                 />
                 <Button
                   type="button"
@@ -690,13 +754,29 @@ export function HeroSection({
       )}
 
       {/* Pricing Dropdown - Desktop only (mobile version is above) */}
-      <div id="pricing-section" className="hidden md:block mb-12 md:mb-16 max-w-4xl mx-auto px-4">
+      <div id="pricing-section" className="hidden md:block mb-8 md:mb-12 max-w-4xl mx-auto px-4">
         <div className="flex justify-center mb-2">
           <Collapsible open={isPricingOpen} onOpenChange={(open) => {
             setIsPricingOpen(open);
             // Hide badge when pricing is opened
             if (open && showPricingBadge) {
               setShowPricingBadge(false);
+            }
+            // Scroll to pricing section when opened, or to top when closed
+            if (open) {
+              setTimeout(() => {
+                const pricingElement = document.querySelector('#pricing-section');
+                smoothScrollTo(pricingElement);
+              }, 300); // Longer delay for smoother transition
+            } else {
+              // Scroll to top when pricing is collapsed
+              setTimeout(() => {
+                document.documentElement.style.scrollBehavior = 'smooth';
+                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                setTimeout(() => {
+                  document.documentElement.style.scrollBehavior = 'auto';
+                }, 1000);
+              }, 100);
             }
           }} className="w-full max-w-xs">
             <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300 relative">
@@ -717,7 +797,7 @@ export function HeroSection({
                 Launch Special til 10 August, 2025
               </p>
             </div>
-            <div className="grid md:grid-cols-3 gap-6 md:gap-8 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mt-6">
               {priceCards.map((card, index) => (
                 <Card 
                   key={index} 
@@ -736,9 +816,9 @@ export function HeroSection({
                   )}
                   <h3 className="text-xl md:text-2xl font-semibold text-brand-text-dark mb-2">{card.title}</h3>
                   <div className="mb-4">
-                    {!card.isCustom && (
-                      <p className="text-sm text-red-500 line-through mb-1">
-                        {card.title.includes('Digital Foundation') ? 'R2,500' : 'R4,500'}
+                    {!card.isOther && (
+                      <p className="text-sm md:text-base text-red-500 line-through mb-2">
+                        {card.title.includes('Single-Page') ? 'R2,500' : 'R4,500'}
                       </p>
                     )}
                     <p className="text-2xl md:text-3xl font-bold text-brand-green">{card.price}</p>
@@ -754,10 +834,10 @@ export function HeroSection({
                   </ul>
                   <Button 
                     onClick={() => {
-                      if (card.isCustom) {
-                        window.location.href = 'mailto:web500za@gmail.com?subject=Custom%20Web%20Solution%20Inquiry';
+                      if (card.isOther) {
+                        window.location.href = 'mailto:web500za@gmail.com?subject=Other%20Services%20Inquiry';
                       } else {
-                        window.location.href = `mailto:web500za@gmail.com?subject=${encodeURIComponent(card.title)}%20Inquiry`;
+                        handleGetStarted();
                       }
                     }}
                     className={`w-full ${
@@ -766,7 +846,7 @@ export function HeroSection({
                         : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
                     } transition-all duration-300`}
                   >
-                    {card.isCustom ? 'Tell me...' : 'Get Started'}
+                    {card.isOther ? 'Contact me' : 'Get Started'}
                   </Button>
                 </Card>
               ))}
@@ -775,17 +855,35 @@ export function HeroSection({
         </Collapsible>
       </div>
 
-      {/* How w5z Works Section */}
-      <div className="mb-12 md:mb-16 max-w-4xl mx-auto px-4">
-        <Collapsible open={isHowItWorksOpen} onOpenChange={setIsHowItWorksOpen}>
-          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-2xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
-            <span className="text-xl md:text-lg font-medium mr-3 md:mr-3">
-              How <span className="text-brand-green">w5z</span> Works
+      {/* How w5z works Section */}
+      <div id="how-w5z-works-section" className="mb-8 md:mb-12 max-w-4xl mx-auto px-4">
+        <Collapsible open={isHowItWorksOpen} onOpenChange={(open) => {
+          setIsHowItWorksOpen(open);
+          // Scroll to section when opened, or to top when closed
+          if (open) {
+            setTimeout(() => {
+              const worksElement = document.querySelector('#how-w5z-works-section');
+              smoothScrollTo(worksElement);
+            }, 300);
+          } else {
+            // Scroll to top when collapsed
+            setTimeout(() => {
+              document.documentElement.style.scrollBehavior = 'smooth';
+              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+              setTimeout(() => {
+                document.documentElement.style.scrollBehavior = 'auto';
+              }, 1000);
+            }, 100);
+          }
+        }}>
+          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
+            <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">
+              How <span className="text-brand-green">w5z</span> works
             </span>
             <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isHowItWorksOpen ? 'rotate-180' : ''}`} />
           </CollapsibleTrigger>
           <CollapsibleContent>
-            <div className="glass-effect rounded-2xl p-6 md:p-8 mt-4 md:mt-6">
+            <div className="glass-effect rounded-xl p-6 md:p-8 mt-4 md:mt-6">
               <div className="space-y-8 md:space-y-10">
                 <div>
                   <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">1. Discovery & Vision</h4>
@@ -824,14 +922,32 @@ export function HeroSection({
       </div>
 
       {/* FAQs Section */}
-      <div className="faq-mobile mb-16 md:mb-20 max-w-4xl mx-auto">
-        <Collapsible open={isWorkflowOpen} onOpenChange={setIsWorkflowOpen}>
-          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-2xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
-            <span className="text-xl md:text-lg font-medium mr-3 md:mr-3">FAQs</span>
+      <div id="faqs-section" className="faq-mobile mb-8 md:mb-12 max-w-4xl mx-auto px-4">
+        <Collapsible open={isWorkflowOpen} onOpenChange={(open) => {
+          setIsWorkflowOpen(open);
+          // Scroll to section when opened, or to top when closed
+          if (open) {
+            setTimeout(() => {
+              const faqsElement = document.querySelector('#faqs-section');
+              smoothScrollTo(faqsElement);
+            }, 300);
+          } else {
+            // Scroll to top when collapsed
+            setTimeout(() => {
+              document.documentElement.style.scrollBehavior = 'smooth';
+              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+              setTimeout(() => {
+                document.documentElement.style.scrollBehavior = 'auto';
+              }, 1000);
+            }, 100);
+          }
+        }}>
+          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
+            <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">FAQs</span>
             <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isWorkflowOpen ? 'rotate-180' : ''}`} />
           </CollapsibleTrigger>
           <CollapsibleContent>
-            <div className="glass-effect rounded-2xl p-6 md:p-8 mt-4 md:mt-6">
+            <div className="glass-effect rounded-xl p-6 md:p-8 mt-4 md:mt-6">
               <div className="space-y-8 md:space-y-10">
                 <div>
                   <h4 className="text-brand-text-dark font-semibold mb-3 text-lg">1. How quickly will you respond?</h4>
@@ -882,20 +998,12 @@ export function HeroSection({
       </div>
 
       {/* Mobile CTA Button */}
-      <div className="mt-20 mb-12 md:hidden">
+      <div className="mt-16 mb-12 md:hidden px-4">
         <Button 
-          onClick={() => {
-            // Scroll to top and focus the input
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            // Focus the input after a short delay to allow scroll to complete
-            setTimeout(() => {
-              const input = document.querySelector('textarea') as HTMLTextAreaElement;
-              if (input) input.focus();
-            }, 500);
-          }}
-          className="w-full bg-brand-green hover:bg-brand-green-light text-white py-6 text-xl font-semibold rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 min-h-[60px]"
+          onClick={handleGetStarted}
+          className="w-full bg-brand-green hover:bg-brand-green-light text-white py-8 text-xl md:text-2xl font-bold rounded-2xl shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl min-h-[70px]"
         >
-          Let's get building
+          Let's Get Building
         </Button>
       </div>
     </div>

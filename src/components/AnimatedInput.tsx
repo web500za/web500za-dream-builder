@@ -7,9 +7,10 @@ interface AnimatedInputProps {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   className?: string;
   onSubmit?: () => void;
+  placeholder?: string;
 }
 
-export function AnimatedInput({ value, onChange, className, onSubmit }: AnimatedInputProps) {
+export function AnimatedInput({ value, onChange, className, onSubmit, placeholder }: AnimatedInputProps) {
   const [dotCount, setDotCount] = useState(0);
 
   useEffect(() => {
@@ -29,9 +30,11 @@ export function AnimatedInput({ value, onChange, className, onSubmit }: Animated
   const dots = '.'.repeat(dotCount);
   const spaces = '\u00A0'.repeat(3 - dotCount); // Non-breaking spaces to maintain width
 
+  const defaultPlaceholder = `Tell me what to build for you${dots}${spaces}`;
+  
   return (
     <Textarea
-      placeholder={`What should I build for you${dots}${spaces}`}
+      placeholder={placeholder || defaultPlaceholder}
       value={value}
       onChange={onChange}
       onKeyPress={handleKeyPress}
