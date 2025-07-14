@@ -346,7 +346,7 @@ export function HeroSection({
         </div>
       ) : (
         <>
-          {/* Mobile: Textarea first */}
+          {/* Mobile: Textarea first, then pricing, then description */}
           <div className="md:hidden">
             <form onSubmit={handleIdeaSubmit} className="section-margin-mobile mb-4">
               <div className="relative max-w-4xl mx-auto">
@@ -465,7 +465,93 @@ export function HeroSection({
             )}
             </form>
             
-            {/* Mobile: Description after textarea */}
+            {/* Mobile: Pricing bubble second */}
+            <div className="mb-4 max-w-4xl mx-auto px-4">
+              <div className="flex justify-center mb-2">
+                <Collapsible open={isPricingOpen} onOpenChange={(open) => {
+                  setIsPricingOpen(open);
+                  // Hide badge when pricing is opened
+                  if (open && showPricingBadge) {
+                    setShowPricingBadge(false);
+                  }
+                }} className="w-full max-w-xs">
+                  <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300 relative">
+                    <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">Pricing</span>
+                    {showPricingBadge && (
+                      <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
+                        1
+                      </div>
+                    )}
+                    <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isPricingOpen ? 'rotate-180' : ''}`} />
+                  </CollapsibleTrigger>
+                </Collapsible>
+              </div>
+              <Collapsible open={isPricingOpen} onOpenChange={setIsPricingOpen}>
+                <CollapsibleContent>
+                  <div className="text-center mb-6">
+                    <p className="text-red-500 font-semibold text-sm md:text-base mb-2">
+                      Launch Special til 10 August, 2025
+                    </p>
+                  </div>
+                  <div className="grid md:grid-cols-3 gap-6 md:gap-8 mt-6">
+                    {priceCards.map((card, index) => (
+                      <Card 
+                        key={index} 
+                        className={`relative overflow-hidden transition-all duration-300 ${
+                          card.featured 
+                            ? 'glass-effect border-2 border-brand-green shadow-xl hover:shadow-2xl md:scale-105' 
+                            : 'glass-effect border-brand-green/20 hover:shadow-xl hover:scale-102'
+                        } p-6 md:p-8`}
+                      >
+                        {card.badge && (
+                          <div className="absolute -top-1 -right-1 overflow-hidden" style={{width: '120px', height: '120px'}}>
+                            <div className="absolute bg-brand-green text-white text-xs font-semibold py-1.5 transform rotate-45" style={{width: '150px', textAlign: 'center', top: '25px', right: '-35px'}}>
+                              {card.badge}
+                            </div>
+                          </div>
+                        )}
+                        <h3 className="text-xl md:text-2xl font-semibold text-brand-text-dark mb-2">{card.title}</h3>
+                        <div className="mb-4">
+                          {!card.isCustom && (
+                            <p className="text-sm text-red-500 line-through mb-1">
+                              {card.title.includes('Digital Foundation') ? 'R2,500' : 'R4,500'}
+                            </p>
+                          )}
+                          <p className="text-2xl md:text-3xl font-bold text-brand-green">{card.price}</p>
+                        </div>
+                        <p className="text-brand-text-muted text-sm md:text-base mb-6">{card.description}</p>
+                        <ul className="space-y-3 mb-8">
+                          {card.features?.map((feature, idx) => (
+                            <li key={idx} className="flex items-start gap-2 text-sm md:text-base text-left">
+                              <Check className="h-5 w-5 text-brand-green flex-shrink-0 mt-0.5" />
+                              <span className="text-brand-text-dark text-left">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        <Button 
+                          onClick={() => {
+                            if (card.isCustom) {
+                              window.location.href = 'mailto:web500za@gmail.com?subject=Custom%20Web%20Solution%20Inquiry';
+                            } else {
+                              window.location.href = `mailto:web500za@gmail.com?subject=${encodeURIComponent(card.title)}%20Inquiry`;
+                            }
+                          }}
+                          className={`w-full ${
+                            card.featured 
+                              ? 'bg-brand-green hover:bg-brand-green-light text-white shadow-lg' 
+                              : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
+                          } transition-all duration-300`}
+                        >
+                          {card.isCustom ? 'Tell me...' : 'Get Started'}
+                        </Button>
+                      </Card>
+                    ))}
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
+            </div>
+            
+            {/* Mobile: Description third */}
             <div className="mb-1">
               <p className="hero-subtitle-mobile text-sm text-brand-text-muted/60 max-w-3xl mx-auto leading-relaxed text-center">
                 Send me your idea and I'll send you 3 free mock-ups. Only pay when you want to work together.
@@ -603,8 +689,8 @@ export function HeroSection({
         </>
       )}
 
-      {/* Pricing Dropdown */}
-      <div id="pricing-section" className="mb-12 md:mb-16 max-w-4xl mx-auto px-4">
+      {/* Pricing Dropdown - Desktop only (mobile version is above) */}
+      <div id="pricing-section" className="hidden md:block mb-12 md:mb-16 max-w-4xl mx-auto px-4">
         <div className="flex justify-center mb-2">
           <Collapsible open={isPricingOpen} onOpenChange={(open) => {
             setIsPricingOpen(open);
