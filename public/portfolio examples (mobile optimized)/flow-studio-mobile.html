@@ -241,6 +241,48 @@
             overflow: hidden;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Visual variety for portfolio items */
+        .portfolio-item:nth-child(1) {
+            background: linear-gradient(135deg, #D99185 0%, #C17A6F 100%);
+        }
+
+        .portfolio-item:nth-child(2) {
+            background: linear-gradient(135deg, #E8C5BE 0%, #D4A299 100%);
+        }
+
+        .portfolio-item:nth-child(3) {
+            background: linear-gradient(135deg, #BF8078 0%, #A66960 100%);
+        }
+
+        .portfolio-item:nth-child(4) {
+            background: linear-gradient(135deg, #F0DDD9 0%, #E0C5BF 100%);
+        }
+
+        .portfolio-item:nth-child(5) {
+            background: linear-gradient(135deg, #D4A299 0%, #C48B82 100%);
+        }
+
+        .portfolio-item:nth-child(6) {
+            background: linear-gradient(135deg, #E2B9B0 0%, #D99F94 100%);
+        }
+
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover::before {
+            opacity: 1;
         }
 
         .portfolio-item:hover {
@@ -255,12 +297,8 @@
             background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
             color: white;
             padding: 2rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .portfolio-item:hover .portfolio-overlay {
             transform: translateY(0);
+            transition: transform 0.3s ease;
         }
 
         .portfolio-overlay h3 {
