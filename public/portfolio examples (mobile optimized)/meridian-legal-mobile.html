@@ -2,16 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meridian Legal - Justice Shouldn't Feel Intimidating</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
@@ -20,66 +17,21 @@
             --sand: #F4E8D8;
             --light: #FAFAFA;
             --warm-gray: #E8E2D8;
-            --safe-area-top: env(safe-area-inset-top);
-            --safe-area-bottom: env(safe-area-inset-bottom);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: var(--navy);
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Typography */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&family=Inter:wght@300;400;500&display=swap');
 
-        /* Mobile Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: calc(1rem + var(--safe-area-top)) 1.5rem 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        .logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
-            letter-spacing: 0.15em;
-            color: var(--navy);
-            font-weight: 400;
-        }
-
-        .menu-button {
-            background: none;
-            border: none;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            cursor: pointer;
-        }
-
-        .menu-button span {
-            display: block;
-            height: 2px;
-            background: var(--navy);
-            transition: all 0.3s ease;
-        }
-
-        /* Hero Section Mobile */
+        /* Hero Section */
         .hero {
             height: 100vh;
             background: var(--navy);
@@ -88,7 +40,6 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            padding: 2rem;
         }
 
         .hero::before {
@@ -97,8 +48,9 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.02) 49%, rgba(255, 255, 255, 0.02) 51%, transparent 51%);
-            background-size: 30px 30px;
+                linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.02) 49%, rgba(255, 255, 255, 0.02) 51%, transparent 51%),
+                linear-gradient(-45deg, transparent 49%, rgba(255, 255, 255, 0.02) 49%, rgba(255, 255, 255, 0.02) 51%, transparent 51%);
+            background-size: 40px 40px;
             animation: subtle-shift 30s linear infinite;
         }
 
@@ -107,7 +59,7 @@
                 transform: translateX(0) translateY(0);
             }
             100% {
-                transform: translateX(30px) translateY(30px);
+                transform: translateX(40px) translateY(40px);
             }
         }
 
@@ -120,7 +72,7 @@
 
         .hero-brand {
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
+            font-size: 1rem;
             font-weight: 300;
             letter-spacing: 0.3em;
             text-transform: uppercase;
@@ -130,45 +82,37 @@
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            line-height: 1.2;
+            font-size: clamp(3rem, 7rem, 9vw);
+            line-height: 1.1;
             font-weight: 400;
-            margin-bottom: 2rem;
         }
 
-        .hero-tagline {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            padding: 0.75rem 1.5rem;
-            background: var(--ochre);
-            display: inline-block;
-            text-transform: uppercase;
-        }
-
-        /* Philosophy Section Mobile */
+        /* Philosophy Section */
         .philosophy {
-            padding: 4rem 1.5rem;
+            padding: 8rem 3rem;
             background: var(--sand);
         }
 
         .philosophy-content {
-            max-width: 500px;
+            max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
         }
 
         .philosophy-text h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             color: var(--navy);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             line-height: 1.2;
             font-weight: 400;
         }
 
         .philosophy-text p {
-            font-size: 1rem;
+            font-size: 1.2rem;
             line-height: 1.8;
             color: var(--navy);
             opacity: 0.8;
@@ -177,9 +121,8 @@
 
         .philosophy-visual {
             position: relative;
-            height: 200px;
+            height: 500px;
             background: var(--ochre);
-            margin-top: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -201,10 +144,11 @@
         }
 
         .movement-lines::before {
-            top: 50%;
+            top: 20%;
             left: 10%;
             right: 10%;
             height: 2px;
+            transform-origin: left center;
         }
 
         .movement-lines::after {
@@ -212,6 +156,7 @@
             bottom: 10%;
             left: 50%;
             width: 2px;
+            transform-origin: center top;
         }
 
         @keyframes pulse {
@@ -225,19 +170,19 @@
             }
         }
 
-        /* Approach Section Mobile */
+        /* Services Section */
         .approach {
             padding: 0;
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
         }
 
         .approach-item {
-            padding: 4rem 2rem;
+            padding: 6rem 3rem;
             text-align: center;
             position: relative;
             overflow: hidden;
-            min-height: 50vh;
+            min-height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -260,14 +205,14 @@
 
         .approach-item h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
             font-weight: 400;
         }
 
         .approach-item p {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             line-height: 1.8;
             max-width: 300px;
             margin: 0 auto;
@@ -277,43 +222,45 @@
         .approach-number {
             position: absolute;
             font-family: 'Montserrat', sans-serif;
-            font-size: 8rem;
+            font-size: 15rem;
             font-weight: 100;
             opacity: 0.05;
-            bottom: -2rem;
-            right: 1rem;
+            bottom: -3rem;
+            right: 2rem;
             line-height: 1;
         }
 
-        /* Team Section Mobile */
+        /* Team Section */
         .team {
-            padding: 4rem 1.5rem;
+            padding: 6rem 3rem;
             background: white;
         }
 
         .team h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             text-align: center;
             color: var(--navy);
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
 
         .team-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .team-member {
             text-align: center;
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .team-avatar {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 1.5rem;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 2rem;
             background: var(--warm-gray);
             border-radius: 50%;
             display: flex;
@@ -332,14 +279,14 @@
 
         .team-member h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--navy);
             margin-bottom: 0.5rem;
         }
 
         .team-member .title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--ochre);
             font-weight: 500;
             letter-spacing: 0.1em;
@@ -349,14 +296,14 @@
 
         .team-member .qualification {
             font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--navy);
             opacity: 0.7;
         }
 
-        /* Contact Section Mobile */
+        /* Contact Section */
         .space {
-            padding: 4rem 1.5rem;
+            padding: 8rem 3rem;
             background: var(--navy);
             color: white;
             text-align: center;
@@ -364,25 +311,24 @@
 
         .space h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
+            font-size: 4.5rem;
+            margin-bottom: 2rem;
             font-weight: 400;
-            line-height: 1.1;
         }
 
         .space p {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
+            font-size: 1.3rem;
             font-weight: 300;
-            max-width: 400px;
-            margin: 0 auto 2rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
             opacity: 0.9;
             line-height: 1.8;
         }
 
         .cta-button {
             display: inline-block;
-            padding: 1rem 2.5rem;
+            padding: 1.5rem 4rem;
             background: var(--ochre);
             color: white;
             text-decoration: none;
@@ -391,21 +337,17 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             transition: all 0.3s ease;
-            font-size: 0.9rem;
-            border-radius: 100px;
-            width: 100%;
-            max-width: 280px;
         }
 
-        .cta-button:active {
-            transform: scale(0.98);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        /* Footer Mobile */
+        /* Footer */
         footer {
             background: var(--sand);
-            padding: 3rem 1.5rem calc(3rem + var(--safe-area-bottom));
+            padding: 4rem 3rem;
             text-align: center;
         }
 
@@ -415,26 +357,128 @@
             letter-spacing: 0.1em;
             color: var(--navy);
             opacity: 0.7;
-            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            /* Hero adjustments */
+            .hero h1 {
+                font-size: 3rem;
+                line-height: 1.2;
+            }
+
+            .hero-brand {
+                font-size: 0.9rem;
+                letter-spacing: 0.2em;
+            }
+
+            /* Philosophy section */
+            .philosophy {
+                padding: 4rem 1.5rem;
+            }
+
+            .philosophy h2 {
+                font-size: 2rem;
+            }
+
+            .philosophy-text p {
+                font-size: 1rem;
+            }
+
+            .philosophy-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .philosophy-visual {
+                height: 300px;
+            }
+
+            /* Services section */
+            .approach {
+                grid-template-columns: 1fr;
+            }
+
+            .approach-item {
+                min-height: auto;
+                padding: 4rem 2rem;
+            }
+
+            .approach-item h3 {
+                font-size: 2rem;
+            }
+
+            .approach-item p {
+                font-size: 1rem;
+            }
+
+            .approach-number {
+                font-size: 8rem;
+                opacity: 0.03;
+            }
+
+            /* Team section */
+            .team {
+                padding: 4rem 1.5rem;
+            }
+
+            .team h2 {
+                font-size: 2.5rem;
+                margin-bottom: 3rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            /* Contact section */
+            .space {
+                padding: 4rem 1.5rem;
+            }
+
+            .space h2 {
+                font-size: 2.5rem;
+                line-height: 1.2;
+            }
+
+            .space p {
+                font-size: 1.1rem;
+            }
+
+            .cta-button {
+                padding: 1.25rem 3rem;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            /* Footer */
+            footer {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Small mobile */
+        @media (max-width: 375px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .philosophy h2,
+            .team h2,
+            .space h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">MERIDIAN LEGAL</div>
-        <button class="menu-button" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </nav>
-
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="home">
         <div class="hero-content">
             <p class="hero-brand">MERIDIAN LEGAL</p>
-            <h1>JUSTICE SHOULDN'T FEEL INTIMIDATING</h1>
+            <h1>JUSTICE SHOULDN'T<br>FEEL INTIMIDATING</h1>
         </div>
     </section>
 

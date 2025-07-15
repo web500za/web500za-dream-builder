@@ -147,6 +147,22 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
+  /* Banner animation */
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
   .glass-effect {
     backdrop-filter: blur(10px);
     background: rgba(248, 246, 241, 0.8);
@@ -260,6 +276,8 @@
       --space-xl: 3rem;     /* 48px */
       --space-2xl: 4rem;    /* 64px */
       --space-3xl: 5rem;    /* 80px */
+      --safe-area-inset-left: env(safe-area-inset-left, 1.5rem);
+      --safe-area-inset-right: env(safe-area-inset-right, 1.5rem);
     }
 
     /* Premium typography scale for mobile */
@@ -315,11 +333,17 @@
       min-width: 44px !important;
     }
 
-    /* Generous mobile container padding */
+    /* Generous mobile container padding with safe area support */
     .container,
     .mobile-padding {
-      padding-left: 1rem !important;
-      padding-right: 1rem !important;
+      padding-left: var(--safe-area-inset-left) !important;
+      padding-right: var(--safe-area-inset-right) !important;
+    }
+
+    /* Enhanced mobile edge padding for main content areas */
+    .mobile-safe-padding {
+      padding-left: max(1.5rem, var(--safe-area-inset-left)) !important;
+      padding-right: max(1.5rem, var(--safe-area-inset-right)) !important;
     }
 
     /* Section spacing - increased by 20% */
@@ -489,6 +513,28 @@
       margin-bottom: var(--space-md) !important;
     }
 
+    /* iOS specific fixes */
+    /* Pricing button width fix for iOS */
+    .mobile-pricing-section button[role="button"] {
+      min-width: 200px !important;
+      max-width: calc(100vw - 3rem) !important;
+      width: 100% !important;
+    }
+
+    /* iOS scroll behavior enhancement */
+    html {
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    /* Instagram browser specific fixes */
+    @supports (-webkit-appearance: none) {
+      .collapsible-trigger {
+        -webkit-appearance: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+        width: 100% !important;
+      }
+    }
+
     /* Card and container spacing */
     .card-mobile {
       padding: var(--space-lg) !important;
@@ -520,6 +566,60 @@
   /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Social media in-app browser optimizations */
+  .social-browser-mode {
+    /* Disable smooth scrolling for problematic browsers */
+    scroll-behavior: auto !important;
+  }
+
+  .social-browser-mode * {
+    /* Reduce animations and transitions */
+    animation-duration: 0.1s !important;
+    transition-duration: 0.1s !important;
+  }
+
+  .social-browser-mode .collapsible-inner {
+    /* Instant expand/collapse */
+    transition: none !important;
+  }
+
+  .social-browser-mode [data-state="open"] > .collapsible-inner {
+    max-height: none !important;
+    height: auto !important;
+  }
+
+  /* Instagram-specific fixes */
+  .instagram-browser {
+    /* Force hardware acceleration for better performance */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  .instagram-browser .glass-effect {
+    /* Simplify glass effects for Instagram */
+    backdrop-filter: none !important;
+    background: rgba(248, 246, 241, 0.95) !important;
+  }
+
+  .instagram-browser .hover\:scale-105:hover,
+  .instagram-browser .hover\:scale-110:hover,
+  .instagram-browser .hover\:scale-102:hover {
+    /* Disable hover scaling in Instagram */
+    transform: none !important;
+  }
+
+  /* Fallback button styling for social browsers */
+  .social-browser-mode button {
+    min-height: 48px !important;
+    padding: 12px 16px !important;
+    font-size: 16px !important;
+  }
+
+  /* Ensure text remains readable */
+  .social-browser-mode .text-shadow {
+    text-shadow: none !important;
   }
   
   /* Desktop refinements */

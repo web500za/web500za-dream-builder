@@ -7,6 +7,7 @@ import { ChevronDown, ArrowUp, Plus, Check, Crown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { sendEmail, validateEmail } from "@/lib/emailService";
+import { detectBrowser } from "@/lib/browserDetection";
 import './HeroSection.css';
 
 // Add Cloudinary upload helper
@@ -84,14 +85,42 @@ export function HeroSection({
   const [rejectedFileError, setRejectedFileError] = useState("");
   const [emailSent, setEmailSent] = useState(false);
   const [textareaGlow, setTextareaGlow] = useState(false);
+  const [browserInfo, setBrowserInfo] = useState({ isInstagram: false, isSocialMedia: false });
   const { toast } = useToast();
 
   const MAX_TOTAL_SIZE = 50 * 1024 * 1024;
+
+  // Detect browser on mount
+  useEffect(() => {
+    const browser = detectBrowser();
+    setBrowserInfo({
+      isInstagram: browser.isInstagram,
+      isSocialMedia: browser.isSocialMedia
+    });
+
+    // Apply browser-specific CSS classes
+    if (browser.isSocialMedia) {
+      document.documentElement.classList.add('social-browser-mode');
+    }
+    if (browser.isInstagram) {
+      document.documentElement.classList.add('instagram-browser');
+    }
+
+    return () => {
+      document.documentElement.classList.remove('social-browser-mode', 'instagram-browser');
+    };
+  }, []);
 
   // Cross-platform smooth scroll utility function with offset
   const smoothScrollTo = (element: Element | null) => {
     if (!element) return;
     const elementPosition = (element as HTMLElement).offsetTop - 24;
+    
+    // For social media browsers, use instant scroll
+    if (browserInfo.isSocialMedia) {
+      window.scrollTo(0, elementPosition);
+      return;
+    }
     
     // Check if smooth scrolling is supported
     if ('scrollBehavior' in document.documentElement.style) {
@@ -125,6 +154,12 @@ export function HeroSection({
 
   // Cross-platform scroll to top function
   const scrollToTop = () => {
+    // For social media browsers, use instant scroll
+    if (browserInfo.isSocialMedia) {
+      window.scrollTo(0, 0);
+      return;
+    }
+    
     if ('scrollBehavior' in document.documentElement.style) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -430,7 +465,7 @@ export function HeroSection({
   ];
 
   return (
-    <div className="text-center max-w-6xl mx-auto px-4 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-12">
+    <div className="text-center max-w-6xl mx-auto mobile-safe-padding md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-12">
       {/* Success state inline */}
       {emailSent ? (
         <div className="mb-16 md:mb-20 text-center animate-fade-in">
@@ -569,10 +604,10 @@ export function HeroSection({
             </form>
             
             {/* Mobile: Pricing bubble second */}
-            <div className="mobile-pricing-section mb-10 md:mb-16 max-w-5xl mx-auto">
+            <div className="mobile-pricing-section mb-10 md:mb-16 max-w-5xl mx-auto mobile-safe-padding">
               <div className="flex justify-center mb-4">
                 <Collapsible open={isPricingOpen} onOpenChange={setIsPricingOpen}>
-                  <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 transition-all duration-300 relative shadow-md hover:shadow-lg">
+                  <CollapsibleTrigger className="collapsible-trigger flex items-center justify-center min-w-[200px] max-w-[90vw] glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 transition-all duration-300 relative shadow-md hover:shadow-lg">
                     <span className="text-lg md:text-xl font-semibold mr-3 md:mr-4">Pricing</span>
                     {showPricingBadge && (
                       <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
@@ -586,8 +621,15 @@ export function HeroSection({
                       className="collapsible-inner"
                       onTransitionEnd={e => {
                         if (isPricingOpen && e.propertyName === 'max-height') {
-                          const pricingElement = document.querySelector('.mobile-pricing-section');
-                          smoothScrollTo(pricingElement);
+                          // Use setTimeout to ensure iOS Safari handles the scroll properly
+                          setTimeout(() => {
+                            const pricingElement = document.querySelector('.mobile-pricing-section');
+                            if (pricingElement) {
+                              const elementPosition = (pricingElement as HTMLElement).getBoundingClientRect().top + window.pageYOffset - 24;
+                              // Force iOS Safari to use native scroll
+                              window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+                            }
+                          }, 100);
                         }
                       }}
                     >
@@ -804,7 +846,7 @@ export function HeroSection({
         </div>
 
       {/* Pricing Dropdown - Desktop only (mobile version is above) */}
-      <div id="pricing-section" className="hidden md:block mb-8 md:mb-12 max-w-4xl mx-auto px-4">
+      <div id="pricing-section" className="hidden md:block mb-8 md:mb-12 max-w-4xl mx-auto px-6">
         <Collapsible open={isPricingOpen} onOpenChange={(open) => {
           setIsPricingOpen(open);
           // Hide badge when pricing is opened
@@ -912,7 +954,7 @@ export function HeroSection({
       </div>
 
       {/* How w5z works Section */}
-      <div id="how-w5z-works-section" className="mb-8 md:mb-12 max-w-4xl mx-auto px-4">
+      <div id="how-w5z-works-section" className="mb-8 md:mb-12 max-w-4xl mx-auto px-6">
         <Collapsible open={isHowItWorksOpen} onOpenChange={(open) => {
           setIsHowItWorksOpen(open);
           // Scroll to section when opened, or to top when closed
@@ -974,7 +1016,7 @@ export function HeroSection({
       </div>
 
       {/* FAQs Section */}
-      <div id="faqs-section" className="faq-mobile mb-8 md:mb-12 max-w-4xl mx-auto px-4">
+      <div id="faqs-section" className="faq-mobile mb-8 md:mb-12 max-w-4xl mx-auto px-6">
         <Collapsible open={isWorkflowOpen} onOpenChange={(open) => {
           setIsWorkflowOpen(open);
           // Scroll to section when opened, or to top when closed
@@ -1046,7 +1088,7 @@ export function HeroSection({
       </div>
 
       {/* Mobile CTA Button */}
-      <div className="mt-16 mb-12 md:hidden px-4">
+      <div className="mt-16 mb-12 md:hidden px-6">
         <Button 
           onClick={handleGetStarted}
           className="w-full bg-brand-green hover:bg-brand-green-light text-white py-8 text-xl md:text-2xl font-bold rounded-2xl shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl min-h-[70px]"

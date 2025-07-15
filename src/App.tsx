@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { initEmailJS } from "@/lib/emailService";
 import { PreLoader } from "@/components/PreLoader";
+import { OpenInBrowserBanner } from "@/components/OpenInBrowserBanner";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <OpenInBrowserBanner />
         {isLoading && <PreLoader onLoadComplete={handleLoadComplete} />}
         <BrowserRouter>
           <Routes>
