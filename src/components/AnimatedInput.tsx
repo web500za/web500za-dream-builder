@@ -30,7 +30,7 @@ export function AnimatedInput({ value, onChange, className, onSubmit, placeholde
   const dots = '.'.repeat(dotCount);
   const spaces = '\u00A0'.repeat(3 - dotCount); // Non-breaking spaces to maintain width
 
-  const defaultPlaceholder = `Tell me what to build for you${dots}${spaces}`;
+  const defaultPlaceholder = `Let me build something for you${dots}${spaces}`;
   
   return (
     <Textarea

@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { initEmailJS } from "@/lib/emailService";
 import { PreLoader } from "@/components/PreLoader";
+import { cleanUrl, shouldCleanUrl } from "@/lib/urlCleaner";
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,11 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Clean URL of tracking parameters
+    if (shouldCleanUrl()) {
+      cleanUrl();
+    }
+    
     // Initialize EmailJS
     initEmailJS();
 

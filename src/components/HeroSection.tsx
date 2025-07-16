@@ -400,7 +400,7 @@ export function HeroSection({
   const priceCards: PriceCard[] = [
     {
       title: "Single-Page Site",
-      price: "R800",
+      price: "R1000",
       description: "Perfect for establishing your online presence",
       features: [
         "Professional single-page website",
@@ -414,7 +414,7 @@ export function HeroSection({
     },
     {
       title: "Multi-Page Site",
-      price: "R1500",
+      price: "R2500",
       description: "Complete website for growing businesses",
       features: [
         "Multi-page website with navigation",
@@ -643,7 +643,7 @@ export function HeroSection({
                             <div className="mb-4">
                               {!card.isOther && (
                                 <p className="text-sm md:text-base text-red-500 line-through mb-1">
-                                  {card.title.includes('Single-Page') ? 'R1500' : 'R2500'}
+                                  {card.title.includes('Single-Page') ? 'R2500' : 'R5000'}
                                 </p>
                               )}
                               <p className="text-3xl md:text-4xl font-bold text-brand-green">{card.price}</p>

@@ -14,7 +14,7 @@ export function PillNav({ currentSection, onSectionChange }: PillNavProps) {
   ];
 
   return (
-    <div className="mt-1 mb-1 mobile-safe-padding md:max-w-4xl md:mx-auto md:flex md:justify-center md:px-0">
+    <div className="mt-1 mb-1 px-8 md:max-w-4xl md:mx-auto md:flex md:justify-center md:px-0">
       <div className="flex items-center justify-center rounded-2xl p-0.5 bg-white/20 backdrop-blur-sm mx-2">
         {sections.map((section, index) => (
           <div key={section.id} className="flex items-center">
