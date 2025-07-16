@@ -18,7 +18,7 @@ export function BrandHeader({ onLaunchSpecialClick }: BrandHeaderProps) {
             {/* Launch Special - Desktop */}
             <button 
               onClick={onLaunchSpecialClick}
-              className="text-red-500 text-lg font-semibold mt-2 hover:text-red-600 transition-colors cursor-pointer"
+              className="text-red-500 text-lg font-semibold mt-2 hover:text-red-600 ios-touch cursor-pointer"
             >
               Launch Special
             </button>
@@ -31,7 +31,7 @@ export function BrandHeader({ onLaunchSpecialClick }: BrandHeaderProps) {
             viewBox="0 0 256 256" 
             fill="none" 
             xmlns="http://www.w3.org/2000/svg" 
-            className="absolute left-0 top-1/2 -translate-y-1/2 drop-shadow-xl"
+            className="absolute left-0 top-1/2 -translate-y-1/2 drop-shadow-xl ios-hover cursor-pointer"
           >
             <rect x="16" y="16" width="224" height="224" rx="32" fill="#2d5a3d"/>
             <text x="128" y="150" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontSize="48" fontWeight="700" fill="#f8f6f1">&lt;/w5z/&gt;</text>
@@ -42,7 +42,7 @@ export function BrandHeader({ onLaunchSpecialClick }: BrandHeaderProps) {
             href="https://wa.me/27832540891"
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute right-0 top-1/2 -translate-y-1/2 w-35 h-35 bg-transparent transition-all duration-300 hover:scale-105 flex items-center justify-center drop-shadow-xl"
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-35 h-35 bg-transparent ios-button flex items-center justify-center drop-shadow-xl"
             aria-label="WhatsApp"
           >
             <svg 
@@ -83,7 +83,7 @@ export function BrandHeader({ onLaunchSpecialClick }: BrandHeaderProps) {
             </h1>
             <button 
               onClick={onLaunchSpecialClick}
-              className="text-red-500 text-sm font-semibold mt-1 hover:text-red-600 transition-colors cursor-pointer"
+              className="text-red-500 text-sm font-semibold mt-1 hover:text-red-600 ios-touch cursor-pointer"
             >
               Launch Special
             </button>

@@ -502,7 +502,7 @@ export function HeroSection({
                         {uploadStatus[slotIdx] === "uploading" && (
                           <>
                             <div className="absolute inset-0 flex items-center justify-center bg-white/70 z-10">
-                              <svg className="animate-spin" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="4" fill="none" /></svg>
+                              <div className="ios-spinner-lg text-brand-green"></div>
                             </div>
                             <div className="absolute bottom-0 left-0 w-full h-2 bg-brand-green/20 z-20">
                               <div className="h-2 bg-brand-green rounded-b-2xl transition-all duration-200" style={{ width: `${uploadProgress[slotIdx]}%` }} />
@@ -573,7 +573,14 @@ export function HeroSection({
                     disabled={!validateEmail(quickEmail) || isSubmitting}
                     className="bg-brand-green hover:bg-brand-green-light text-white px-6"
                   >
-                    {isSubmitting ? "Sending..." : "Send"}
+                    {isSubmitting ? (
+                      <div className="flex items-center gap-2">
+                        <div className="ios-spinner-sm text-white"></div>
+                        <span>Sending...</span>
+                      </div>
+                    ) : (
+                      "Send"
+                    )}
                   </Button>
                 </div>
               </div>
@@ -581,7 +588,7 @@ export function HeroSection({
             </form>
             
             {/* Mobile: Pricing bubble second */}
-            <div className="mobile-pricing-section mb-10 md:mb-16 max-w-4xl mx-auto px-6">
+            <div className="mobile-pricing-section ios-section max-w-4xl mx-auto px-6">
               <div className="flex justify-center mb-4">
                 <Collapsible open={isPricingOpen} onOpenChange={setIsPricingOpen}>
                   <CollapsibleTrigger className="collapsible-trigger ios-touch flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 relative shadow-md hover:shadow-lg">
@@ -619,10 +626,10 @@ export function HeroSection({
                         {priceCards.map((card, index) => (
                           <Card 
                             key={index} 
-                            className={`relative overflow-hidden transition-all duration-300 ${
+                            className={`relative overflow-hidden ios-hover ${
                               card.featured 
                                 ? 'glass-effect border-2 border-brand-green shadow-xl hover:shadow-2xl md:scale-105' 
-                                : 'glass-effect border-brand-green/20 hover:shadow-xl hover:scale-102'
+                                : 'glass-effect border-brand-green/20 hover:shadow-xl'
                             } p-6 md:p-8`}
                           >
                             {card.badge && (
@@ -692,8 +699,8 @@ export function HeroSection({
           {/* Desktop: Description first, then textarea */}
           <div className="hidden md:block">
             {/* Description */}
-            <div className="mb-8 md:mb-12">
-              <p className="text-xl md:text-2xl text-brand-text-muted/70 max-w-4xl mx-auto leading-relaxed text-center font-medium">
+            <div className="ios-element-spacing">
+              <p className="text-xl md:text-2xl text-brand-text-muted/70 max-w-4xl mx-auto leading-relaxed text-center font-medium ios-body-spacing">
                 Send me your idea and I'll send you 3 free mock-ups. Only pay when you want to work together.
               </p>
             </div>
@@ -726,7 +733,11 @@ export function HeroSection({
                   disabled={isSubmitting}
                   className="absolute right-4 bottom-4 h-12 w-12 bg-brand-green hover:bg-brand-green-light text-white rounded-2xl shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50"
                 >
-                  <ArrowUp className="h-5 w-5 text-white" />
+                  {isSubmitting ? (
+                    <div className="ios-spinner text-white"></div>
+                  ) : (
+                    <ArrowUp className="h-5 w-5 text-white" />
+                  )}
                 </Button>
               </div>
               
@@ -742,7 +753,7 @@ export function HeroSection({
                           {uploadStatus[slotIdx] === "uploading" && (
                             <>
                               <div className="absolute inset-0 flex items-center justify-center bg-white/70 z-10">
-                                <svg className="animate-spin" width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="4" fill="none" /></svg>
+                                <div className="ios-spinner-lg text-brand-green"></div>
                               </div>
                               <div className="absolute bottom-0 left-0 w-full h-2 bg-brand-green/20 z-20">
                                 <div className="h-2 bg-brand-green rounded-b-2xl transition-all duration-200" style={{ width: `${uploadProgress[slotIdx]}%` }} />
@@ -813,7 +824,14 @@ export function HeroSection({
                       disabled={!validateEmail(quickEmail) || isSubmitting}
                       className="bg-brand-green hover:bg-brand-green-light text-white px-6"
                     >
-                      {isSubmitting ? "Sending..." : "Send"}
+                      {isSubmitting ? (
+                        <div className="flex items-center gap-2">
+                          <div className="ios-spinner-sm text-white"></div>
+                          <span>Sending...</span>
+                        </div>
+                      ) : (
+                        "Send"
+                      )}
                     </Button>
                   </div>
                 </div>
@@ -823,7 +841,7 @@ export function HeroSection({
         </div>
 
       {/* Pricing Dropdown - Desktop only (mobile version is above) */}
-      <div id="pricing-section" className="hidden md:block mb-8 md:mb-12 max-w-4xl mx-auto px-6">
+      <div id="pricing-section" className="hidden md:block ios-section max-w-4xl mx-auto px-6">
         <Collapsible open={isPricingOpen} onOpenChange={(open) => {
           setIsPricingOpen(open);
           // Hide badge when pricing is opened
@@ -993,7 +1011,7 @@ export function HeroSection({
       </div>
 
       {/* FAQs Section */}
-      <div id="faqs-section" className="faq-mobile mb-8 md:mb-12 max-w-4xl mx-auto px-6">
+      <div id="faqs-section" className="faq-mobile ios-section max-w-4xl mx-auto px-6">
         <Collapsible open={isWorkflowOpen} onOpenChange={(open) => {
           setIsWorkflowOpen(open);
           // Scroll to section when opened, or to top when closed

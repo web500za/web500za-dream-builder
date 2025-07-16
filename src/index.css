@@ -41,6 +41,15 @@
     --scale-press: 0.96;
     --scale-hover: 1.02;
 
+    /* iOS-style spacing system for consistent rhythm */
+    --space-xs: 0.25rem;   /* 4px */
+    --space-sm: 0.5rem;    /* 8px */
+    --space-md: 1rem;      /* 16px */
+    --space-lg: 1.5rem;    /* 24px */
+    --space-xl: 2rem;      /* 32px */
+    --space-2xl: 3rem;     /* 48px */
+    --space-3xl: 4rem;     /* 64px */
+
     --destructive: 239 68 68;
     --destructive-foreground: 248 246 241;
 
@@ -625,5 +634,89 @@
                 border-color var(--duration-normal) var(--ease-ios),
                 box-shadow var(--duration-normal) var(--ease-ios),
                 transform var(--duration-fast) var(--ease-ios-smooth);
+  }
+
+  /* iOS-style loading spinner */
+  .ios-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: ios-spin 0.8s linear infinite;
+  }
+
+  .ios-spinner-sm {
+    width: 16px;
+    height: 16px;
+    border-width: 1.5px;
+  }
+
+  .ios-spinner-lg {
+    width: 28px;
+    height: 28px;
+    border-width: 3px;
+  }
+
+  @keyframes ios-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* iOS-style pulse for loading states */
+  .ios-pulse {
+    animation: ios-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes ios-pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  /* iOS-style spacing utilities for better rhythm */
+  .ios-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .ios-card-spacing {
+    padding: var(--space-xl);
+  }
+
+  .ios-element-spacing {
+    margin-bottom: var(--space-lg);
+  }
+
+  .ios-tight-spacing {
+    margin-bottom: var(--space-md);
+  }
+
+  /* Refined typography rhythm */
+  .ios-heading-spacing {
+    margin-bottom: var(--space-lg);
+    line-height: 1.2;
+  }
+
+  .ios-body-spacing {
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+  }
+
+  /* Better visual hierarchy */
+  .ios-visual-hierarchy h1 {
+    margin-bottom: var(--space-xl);
+  }
+
+  .ios-visual-hierarchy h2 {
+    margin-bottom: var(--space-lg);
+    margin-top: var(--space-2xl);
+  }
+
+  .ios-visual-hierarchy h3 {
+    margin-bottom: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  .ios-visual-hierarchy p {
+    margin-bottom: var(--space-md);
   }
 }
