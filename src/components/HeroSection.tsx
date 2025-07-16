@@ -101,12 +101,17 @@ export function HeroSection({
     // Apply browser-specific CSS classes
     // Check if user manually opened in browser (has navigation UI visible)
     const hasNavigation = window.outerHeight - window.innerHeight > 100;
-    const shouldApplySocialMode = browser.isSocialMedia && !hasNavigation;
+    // Also check if URL was cleaned of IG parameters (indicates real browser)
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasIGParams = urlParams.has('igshid') || urlParams.has('igsh') || 
+                        urlParams.get('utm_source') === 'ig_web_copy_link';
+    const isRealBrowser = hasNavigation || !hasIGParams;
+    const shouldApplySocialMode = browser.isSocialMedia && !isRealBrowser;
     
     if (shouldApplySocialMode) {
       document.documentElement.classList.add('social-browser-mode');
     }
-    if (browser.isInstagram && !hasNavigation) {
+    if (browser.isInstagram && !isRealBrowser) {
       document.documentElement.classList.add('instagram-browser');
     }
 
@@ -122,7 +127,11 @@ export function HeroSection({
     
     // For social media browsers without navigation UI, use instant scroll
     const hasNavigation = window.outerHeight - window.innerHeight > 100;
-    if (browserInfo.isSocialMedia && !hasNavigation) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasIGParams = urlParams.has('igshid') || urlParams.has('igsh') || 
+                        urlParams.get('utm_source') === 'ig_web_copy_link';
+    const isRealBrowser = hasNavigation || !hasIGParams;
+    if (browserInfo.isSocialMedia && !isRealBrowser) {
       window.scrollTo(0, elementPosition);
       return;
     }
@@ -161,7 +170,11 @@ export function HeroSection({
   const scrollToTop = () => {
     // For social media browsers without navigation UI, use instant scroll
     const hasNavigation = window.outerHeight - window.innerHeight > 100;
-    if (browserInfo.isSocialMedia && !hasNavigation) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasIGParams = urlParams.has('igshid') || urlParams.has('igsh') || 
+                        urlParams.get('utm_source') === 'ig_web_copy_link';
+    const isRealBrowser = hasNavigation || !hasIGParams;
+    if (browserInfo.isSocialMedia && !isRealBrowser) {
       window.scrollTo(0, 0);
       return;
     }
