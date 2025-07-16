@@ -514,12 +514,6 @@
     }
 
     /* iOS specific fixes */
-    /* Pricing button width fix for iOS */
-    .mobile-pricing-section button[role="button"] {
-      min-width: 200px !important;
-      max-width: calc(100vw - 3rem) !important;
-      width: 100% !important;
-    }
 
     /* iOS scroll behavior enhancement */
     html {

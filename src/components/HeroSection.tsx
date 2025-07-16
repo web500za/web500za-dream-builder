@@ -99,10 +99,14 @@ export function HeroSection({
     });
 
     // Apply browser-specific CSS classes
-    if (browser.isSocialMedia) {
+    // Check if user manually opened in browser (has navigation UI visible)
+    const hasNavigation = window.outerHeight - window.innerHeight > 100;
+    const shouldApplySocialMode = browser.isSocialMedia && !hasNavigation;
+    
+    if (shouldApplySocialMode) {
       document.documentElement.classList.add('social-browser-mode');
     }
-    if (browser.isInstagram) {
+    if (browser.isInstagram && !hasNavigation) {
       document.documentElement.classList.add('instagram-browser');
     }
 
@@ -116,8 +120,9 @@ export function HeroSection({
     if (!element) return;
     const elementPosition = (element as HTMLElement).offsetTop - 24;
     
-    // For social media browsers, use instant scroll
-    if (browserInfo.isSocialMedia) {
+    // For social media browsers without navigation UI, use instant scroll
+    const hasNavigation = window.outerHeight - window.innerHeight > 100;
+    if (browserInfo.isSocialMedia && !hasNavigation) {
       window.scrollTo(0, elementPosition);
       return;
     }
@@ -154,8 +159,9 @@ export function HeroSection({
 
   // Cross-platform scroll to top function
   const scrollToTop = () => {
-    // For social media browsers, use instant scroll
-    if (browserInfo.isSocialMedia) {
+    // For social media browsers without navigation UI, use instant scroll
+    const hasNavigation = window.outerHeight - window.innerHeight > 100;
+    if (browserInfo.isSocialMedia && !hasNavigation) {
       window.scrollTo(0, 0);
       return;
     }
@@ -604,10 +610,10 @@ export function HeroSection({
             </form>
             
             {/* Mobile: Pricing bubble second */}
-            <div className="mobile-pricing-section mb-10 md:mb-16 max-w-5xl mx-auto mobile-safe-padding">
+            <div className="mobile-pricing-section mb-10 md:mb-16 max-w-4xl mx-auto px-6">
               <div className="flex justify-center mb-4">
                 <Collapsible open={isPricingOpen} onOpenChange={setIsPricingOpen}>
-                  <CollapsibleTrigger className="collapsible-trigger flex items-center justify-center min-w-[200px] max-w-[90vw] glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 transition-all duration-300 relative shadow-md hover:shadow-lg">
+                  <CollapsibleTrigger className="collapsible-trigger flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 transition-all duration-300 relative shadow-md hover:shadow-lg">
                     <span className="text-lg md:text-xl font-semibold mr-3 md:mr-4">Pricing</span>
                     {showPricingBadge && (
                       <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
