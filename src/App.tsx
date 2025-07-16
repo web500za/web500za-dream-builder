@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import { initEmailJS } from "@/lib/emailService";
 import { PreLoader } from "@/components/PreLoader";
 import { OpenInBrowserBanner } from "@/components/OpenInBrowserBanner";
+import { handleInstagramDM } from "@/lib/instagramDMFix";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,9 @@ const App = () => {
   useEffect(() => {
     // Initialize EmailJS
     initEmailJS();
+    
+    // Handle Instagram DM issues
+    handleInstagramDM();
 
     // Register service worker for caching
     if ('serviceWorker' in navigator) {
