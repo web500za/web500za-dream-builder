@@ -10,8 +10,5 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: Instagram
-Allow: /
-
 User-agent: *
 Allow: /

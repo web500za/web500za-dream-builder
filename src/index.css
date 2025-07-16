@@ -28,6 +28,19 @@
     --accent: 74 124 89;
     --accent-foreground: 44 42 38;
 
+    /* iOS-style animation system */
+    --ease-ios: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-ios-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+    --ease-ios-sharp: cubic-bezier(0.4, 0.0, 0.6, 1);
+    --ease-ios-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    --duration-fast: 150ms;
+    --duration-normal: 250ms;
+    --duration-slow: 350ms;
+    
+    --scale-press: 0.96;
+    --scale-hover: 1.02;
+
     --destructive: 239 68 68;
     --destructive-foreground: 248 246 241;
 
@@ -562,59 +575,6 @@
     scroll-behavior: smooth;
   }
 
-  /* Social media in-app browser optimizations */
-  .social-browser-mode {
-    /* Disable smooth scrolling for problematic browsers */
-    scroll-behavior: auto !important;
-  }
-
-  .social-browser-mode * {
-    /* Reduce animations and transitions */
-    animation-duration: 0.1s !important;
-    transition-duration: 0.1s !important;
-  }
-
-  .social-browser-mode .collapsible-inner {
-    /* Instant expand/collapse */
-    transition: none !important;
-  }
-
-  .social-browser-mode [data-state="open"] > .collapsible-inner {
-    max-height: none !important;
-    height: auto !important;
-  }
-
-  /* Instagram-specific fixes */
-  .instagram-browser {
-    /* Force hardware acceleration for better performance */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-  }
-
-  .instagram-browser .glass-effect {
-    /* Simplify glass effects for Instagram */
-    backdrop-filter: none !important;
-    background: rgba(248, 246, 241, 0.95) !important;
-  }
-
-  .instagram-browser .hover\:scale-105:hover,
-  .instagram-browser .hover\:scale-110:hover,
-  .instagram-browser .hover\:scale-102:hover {
-    /* Disable hover scaling in Instagram */
-    transform: none !important;
-  }
-
-  /* Fallback button styling for social browsers */
-  .social-browser-mode button {
-    min-height: 48px !important;
-    padding: 12px 16px !important;
-    font-size: 16px !important;
-  }
-
-  /* Ensure text remains readable */
-  .social-browser-mode .text-shadow {
-    text-shadow: none !important;
-  }
   
   /* Desktop refinements */
   @media (min-width: 768px) {
@@ -624,5 +584,46 @@
       padding-bottom: 3rem !important;
     }
     
+  }
+
+  /* iOS-style interaction system */
+  .ios-touch {
+    transition: transform var(--duration-fast) var(--ease-ios-smooth);
+    will-change: transform;
+  }
+
+  .ios-touch:active {
+    transform: scale(var(--scale-press));
+  }
+
+  .ios-hover {
+    transition: transform var(--duration-fast) var(--ease-ios-smooth);
+    will-change: transform;
+  }
+
+  .ios-hover:hover {
+    transform: scale(var(--scale-hover));
+  }
+
+  .ios-button {
+    transition: transform var(--duration-fast) var(--ease-ios-smooth),
+                box-shadow var(--duration-fast) var(--ease-ios-smooth);
+    will-change: transform;
+  }
+
+  .ios-button:hover {
+    transform: translateY(-1px);
+  }
+
+  .ios-button:active {
+    transform: scale(var(--scale-press)) translateY(0px);
+  }
+
+  /* Enhance existing glass effects with iOS timing */
+  .glass-effect {
+    transition: background-color var(--duration-normal) var(--ease-ios),
+                border-color var(--duration-normal) var(--ease-ios),
+                box-shadow var(--duration-normal) var(--ease-ios),
+                transform var(--duration-fast) var(--ease-ios-smooth);
   }
 }

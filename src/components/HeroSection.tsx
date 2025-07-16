@@ -90,34 +90,13 @@ export function HeroSection({
 
   const MAX_TOTAL_SIZE = 50 * 1024 * 1024;
 
-  // Detect browser on mount
+  // Initialize browser info (simplified)
   useEffect(() => {
     const browser = detectBrowser();
     setBrowserInfo({
       isInstagram: browser.isInstagram,
       isSocialMedia: browser.isSocialMedia
     });
-
-    // Apply browser-specific CSS classes
-    // Check if user manually opened in browser (has navigation UI visible)
-    const hasNavigation = window.outerHeight - window.innerHeight > 100;
-    // Also check if URL was cleaned of IG parameters (indicates real browser)
-    const urlParams = new URLSearchParams(window.location.search);
-    const hasIGParams = urlParams.has('igshid') || urlParams.has('igsh') || 
-                        urlParams.get('utm_source') === 'ig_web_copy_link';
-    const isRealBrowser = hasNavigation || !hasIGParams;
-    const shouldApplySocialMode = browser.isSocialMedia && !isRealBrowser;
-    
-    if (shouldApplySocialMode) {
-      document.documentElement.classList.add('social-browser-mode');
-    }
-    if (browser.isInstagram && !isRealBrowser) {
-      document.documentElement.classList.add('instagram-browser');
-    }
-
-    return () => {
-      document.documentElement.classList.remove('social-browser-mode', 'instagram-browser');
-    };
   }, []);
 
   // Cross-platform smooth scroll utility function with offset
@@ -125,16 +104,6 @@ export function HeroSection({
     if (!element) return;
     const elementPosition = (element as HTMLElement).offsetTop - 24;
     
-    // For social media browsers without navigation UI, use instant scroll
-    const hasNavigation = window.outerHeight - window.innerHeight > 100;
-    const urlParams = new URLSearchParams(window.location.search);
-    const hasIGParams = urlParams.has('igshid') || urlParams.has('igsh') || 
-                        urlParams.get('utm_source') === 'ig_web_copy_link';
-    const isRealBrowser = hasNavigation || !hasIGParams;
-    if (browserInfo.isSocialMedia && !isRealBrowser) {
-      window.scrollTo(0, elementPosition);
-      return;
-    }
     
     // Check if smooth scrolling is supported
     if ('scrollBehavior' in document.documentElement.style) {
@@ -168,17 +137,6 @@ export function HeroSection({
 
   // Cross-platform scroll to top function
   const scrollToTop = () => {
-    // For social media browsers without navigation UI, use instant scroll
-    const hasNavigation = window.outerHeight - window.innerHeight > 100;
-    const urlParams = new URLSearchParams(window.location.search);
-    const hasIGParams = urlParams.has('igshid') || urlParams.has('igsh') || 
-                        urlParams.get('utm_source') === 'ig_web_copy_link';
-    const isRealBrowser = hasNavigation || !hasIGParams;
-    if (browserInfo.isSocialMedia && !isRealBrowser) {
-      window.scrollTo(0, 0);
-      return;
-    }
-    
     if ('scrollBehavior' in document.documentElement.style) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -626,7 +584,7 @@ export function HeroSection({
             <div className="mobile-pricing-section mb-10 md:mb-16 max-w-4xl mx-auto px-6">
               <div className="flex justify-center mb-4">
                 <Collapsible open={isPricingOpen} onOpenChange={setIsPricingOpen}>
-                  <CollapsibleTrigger className="collapsible-trigger flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 transition-all duration-300 relative shadow-md hover:shadow-lg">
+                  <CollapsibleTrigger className="collapsible-trigger ios-touch flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 relative shadow-md hover:shadow-lg">
                     <span className="text-lg md:text-xl font-semibold mr-3 md:mr-4">Pricing</span>
                     {showPricingBadge && (
                       <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
@@ -713,11 +671,11 @@ export function HeroSection({
                                     handleGetStarted();
                                   }
                                 }}
-                                className={`w-full ${
+                                className={`w-full ios-button ${
                                   card.featured
                                     ? 'bg-brand-green hover:bg-brand-green-light text-white shadow-lg'
                                     : 'bg-brand-green/10 hover:bg-brand-green hover:text-white text-brand-green'
-                                } transition-all duration-300`}
+                                }`}
                               >
                                 {card.isOther ? 'Contact me' : 'Get Started'}
                               </Button>
@@ -757,7 +715,7 @@ export function HeroSection({
                   type="button"
                   size="icon"
                   onClick={() => setShowAttachments(!showAttachments)}
-                  className="absolute left-4 bottom-4 h-12 w-12 bg-brand-green/10 hover:bg-brand-green/20 text-brand-green rounded-2xl shadow-sm transition-all duration-300 hover:scale-105 border border-brand-green/20"
+                  className="absolute left-4 bottom-4 h-12 w-12 bg-brand-green/10 hover:bg-brand-green/20 text-brand-green rounded-2xl shadow-sm ios-button border border-brand-green/20"
                   title="Add attachments"
                 >
                   <Plus className="h-5 w-5" />
@@ -885,7 +843,7 @@ export function HeroSection({
             }, 50);
           }
         }}>
-          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 transition-all duration-300 relative shadow-md hover:shadow-lg">
+          <CollapsibleTrigger className="ios-touch flex items-center justify-center w-full glass-effect rounded-xl p-5 md:p-6 text-brand-text-dark hover:bg-brand-green/8 relative shadow-md hover:shadow-lg">
             <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">Pricing</span>
             {showPricingBadge && (
               <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg">
@@ -989,7 +947,7 @@ export function HeroSection({
             }, 50);
           }
         }}>
-          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
+          <CollapsibleTrigger className="ios-touch flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5">
             <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">
               How <span className="text-brand-green">w5z</span> works
             </span>
@@ -1051,7 +1009,7 @@ export function HeroSection({
             }, 50);
           }
         }}>
-          <CollapsibleTrigger className="flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5 transition-all duration-300">
+          <CollapsibleTrigger className="ios-touch flex items-center justify-center w-full glass-effect rounded-xl p-4 md:p-4 text-brand-text-dark hover:bg-brand-green/5">
             <span className="text-lg md:text-lg font-medium mr-3 md:mr-3">FAQs</span>
             <ChevronDown className={`h-5 w-5 md:h-5 md:w-5 transition-transform duration-300 ${isWorkflowOpen ? 'rotate-180' : ''}`} />
           </CollapsibleTrigger>

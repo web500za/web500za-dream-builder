@@ -14,14 +14,14 @@ export function PillNav({ currentSection, onSectionChange }: PillNavProps) {
   ];
 
   return (
-    <div className="flex justify-center mt-1 mb-1 mobile-safe-padding md:px-2">
-      <div className="flex items-center rounded-2xl p-0.5 bg-white/20 backdrop-blur-sm mx-2">
+    <div className="mt-1 mb-1 mobile-safe-padding md:max-w-4xl md:mx-auto md:flex md:justify-center md:px-0">
+      <div className="flex items-center justify-center rounded-2xl p-0.5 bg-white/20 backdrop-blur-sm mx-2">
         {sections.map((section, index) => (
           <div key={section.id} className="flex items-center">
             <button
               onClick={() => onSectionChange(section.id)}
               className={cn(
-                "px-1.5 py-1.5 md:px-6 md:py-3 text-xs md:text-base font-medium transition-all duration-300 rounded-2xl whitespace-nowrap",
+                "px-1.5 py-1.5 md:px-6 md:py-3 text-xs md:text-base font-medium ios-touch rounded-2xl whitespace-nowrap",
                 currentSection === section.id
                   ? "bg-brand-green text-white"
                   : "text-brand-text-muted hover:text-brand-text-dark"
