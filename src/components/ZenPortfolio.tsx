@@ -40,7 +40,9 @@ export function ZenPortfolio() {
           }}>
             2 → Receive 3 <span style={{ 
               color: 'var(--brand-primary)', 
-              fontFamily: 'Junicode Italic, serif',
+              fontFamily: 'var(--font-primary)',
+              fontWeight: '700',
+              fontStyle: 'italic',
               background: 'none',
               WebkitBackgroundClip: 'unset',
               WebkitTextFillColor: 'unset'
@@ -54,7 +56,7 @@ export function ZenPortfolio() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transform: 'translateY(10%)'
+          transform: isMobile ? 'translateY(40%)' : 'translateY(10%)'
         }}>
           <ScrollFolderMockups />
         </div>

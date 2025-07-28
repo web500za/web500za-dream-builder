@@ -16,19 +16,21 @@ export function ZenRecentWorks() {
       .catch(error => console.error('Error loading animation:', error));
   }, []);
 
-  // Intersection Observer for scroll animation
+  // Intersection Observer for scroll animation trigger
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
+          } else {
+            setIsVisible(false); // Pause animation when out of view
           }
         });
       },
       {
-        threshold: 0.1, // Trigger when 10% of the element is visible
-        rootMargin: '0px 0px -100px 0px' // Start animation before fully in view
+        threshold: 0.3, // Trigger when 30% of the element is visible (more conservative)
+        rootMargin: '0px 0px -200px 0px' // Require more scroll before triggering
       }
     );
 
@@ -48,29 +50,33 @@ export function ZenRecentWorks() {
       ref={sectionRef}
       className="section" 
       style={{ 
-        paddingTop: isMobile ? 'var(--space-2xl)' : 'var(--space-4xl)',
+        paddingTop: '0', // Remove top padding to allow overlap
         paddingBottom: isMobile ? 'var(--space-4xl)' : 'var(--space-5xl)',
         backgroundColor: 'var(--bg-primary)',
-        transition: 'var(--transition-colors)'
+        transition: 'var(--transition-colors)',
+        marginTop: isMobile ? '-10vh' : '-30vh', // Less overlap on mobile to avoid heading collision
+        position: 'relative',
+        zIndex: 10 // Ensure it appears above hero
       }}
     >
       <div className="container">
-        {/* Lottie Animation Container - First Thing People See */}
+        {/* Lottie Animation Container - Visible on load but animation controlled by scroll */}
         <div style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           marginBottom: isMobile ? 'var(--space-lg)' : 'var(--space-xl)',
           width: '100%',
-          opacity: isVisible ? 1 : 0,
-          transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(50px) scale(0.9)',
-          transition: 'all 1.2s cubic-bezier(0.4, 0, 0.2, 1)'
+          opacity: 1, // Always visible
+          transform: 'translateY(0) scale(1)', // Always in final position
+          transition: 'all 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          marginTop: isMobile ? 'var(--space-xl)' : 'var(--space-2xl)' // Add some top spacing
         }}>
           <div style={{
             width: '100%',
-            height: isMobile ? '100vw' : '100vh',
-            maxWidth: isMobile ? 'none' : '1000px',
-            maxHeight: isMobile ? '100vw' : '1000px',
+            height: isMobile ? '80vw' : '60vh', // Smaller height for better peeking effect
+            maxWidth: isMobile ? 'none' : '800px', // Slightly smaller max width
+            maxHeight: isMobile ? '80vw' : '600px', // Adjust max height accordingly
             position: 'relative',
             display: 'flex',
             alignItems: 'center',
@@ -80,11 +86,14 @@ export function ZenRecentWorks() {
               <Lottie
                 animationData={animationData}
                 loop={true}
-                autoplay={true}
+                autoplay={true} // Always autoplay
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'contain'
+                  objectFit: 'contain',
+                  opacity: isVisible ? 1 : 0.8, // Slightly dimmed when not animating
+                  filter: isVisible ? 'none' : 'brightness(0.9)', // Subtle visual cue
+                  transition: 'opacity 0.3s ease, filter 0.3s ease'
                 }}
                 rendererSettings={{
                   preserveAspectRatio: 'xMidYMid meet',
@@ -92,7 +101,7 @@ export function ZenRecentWorks() {
                   progressiveLoad: true,
                   hideOnTransparent: true
                 }}
-                speed={1}
+                speed={isVisible ? 1 : 0.1} // Very slow when not visible, normal when visible  
                 direction={1}
                 isPaused={false}
                 isStopped={false}
@@ -116,73 +125,27 @@ export function ZenRecentWorks() {
         </div>
 
 
-        {/* Call to Action */}
+        {/* Section Label */}
         <div style={{
           textAlign: 'center',
           marginTop: isMobile ? 'var(--space-xl)' : 'var(--space-2xl)',
-          opacity: isVisible ? 1 : 0,
+          opacity: isVisible ? 1 : 0.7,
           transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
           transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
-          transitionDelay: '0.6s' // Final element to appear
+          transitionDelay: isVisible ? '0.6s' : '0s'
         }}>
-          <p 
+          <h3 
             style={{
-              fontSize: isMobile ? '0.9rem' : '1rem',
-              color: 'var(--text-tertiary)',
-              marginBottom: isMobile ? 'var(--space-md)' : 'var(--space-lg)',
-              fontFamily: 'var(--font-sans)',
-              lineHeight: '1.5'
+              fontSize: isMobile ? '1.5rem' : '1.75rem',
+              color: 'var(--text-primary)',
+              fontFamily: 'var(--font-primary)',
+              fontWeight: '600',
+              letterSpacing: '-0.01em',
+              textTransform: 'lowercase'
             }}
           >
-            Ready to bring your vision to life?
-          </p>
-          
-          <button 
-            className="btn btn-accent"
-            onClick={() => {
-              // Scroll to hero section form and focus textarea
-              const heroSection = document.querySelector('.hero');
-              if (heroSection) {
-                heroSection.scrollIntoView({ behavior: 'smooth' });
-                // Focus textarea after scroll completes
-                setTimeout(() => {
-                  const textarea = document.querySelector('textarea[name="project"]') as HTMLElement;
-                  if (textarea) {
-                    textarea.focus();
-                  }
-                }, 800);
-              }
-            }}
-            style={{
-              fontSize: isMobile ? '1rem' : '1rem',
-              fontWeight: '500',
-              padding: isMobile ? 'var(--space-md) var(--space-xl)' : 'var(--space-md) var(--space-xl)',
-              minHeight: 'var(--space-mobile-touch)',
-              backgroundColor: 'var(--brand-primary)',
-              color: 'var(--bg-primary)',
-              border: 'none',
-              borderRadius: 'var(--radius-sm)',
-              cursor: 'pointer',
-              transition: 'var(--transition-all)',
-              fontFamily: 'var(--font-sans)',
-              touchAction: 'manipulation',
-              userSelect: 'none'
-            }}
-            onMouseEnter={(e) => {
-              if (!isMobile) {
-                e.currentTarget.style.transform = 'translateY(-1px)';
-                e.currentTarget.style.backgroundColor = 'var(--brand-primary-hover)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!isMobile) {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.backgroundColor = 'var(--brand-primary)';
-              }
-            }}
-          >
-            Start Your Project
-          </button>
+            recent work
+          </h3>
         </div>
       </div>
 

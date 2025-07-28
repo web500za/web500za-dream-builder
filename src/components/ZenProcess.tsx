@@ -24,7 +24,7 @@ export function ZenProcessStep1() {
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
           }}>
-            1 → Fill in the Textarea
+            1 → Share your vision
           </h2>
           
           <p className="text-body-lg" style={{ 

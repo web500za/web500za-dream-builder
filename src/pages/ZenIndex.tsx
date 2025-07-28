@@ -64,8 +64,6 @@ export default function ZenIndex() {
         {/* Recent Works Section */}
         <ZenRecentWorks />
 
-        {/* Features Section */}
-        <ZenFeatures />
 
         {/* Process Step 1 */}
         <ZenProcessStep1 />
