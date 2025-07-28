@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE - Clarity Through Challenge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --forest: #1B3B36;
+            --cream: #F9F7F4;
+            --soft-white: #FFFFFF;
+            --muted-text: #758B87;
+            --accent-line: #E8E6E1;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--forest);
+            background: var(--soft-white);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Inter:wght@300;400;500&display=swap');
+
+        .hero {
+            min-height: 100vh;
+            background: var(--soft-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 700px;
+        }
+
+        .hero-brand {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 4rem;
+            color: var(--muted-text);
+            position: relative;
+        }
+
+        .hero-brand::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2rem;
+            height: 1px;
+            background: var(--accent-line);
+        }
+
+        .hero h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(4rem, 8vw, 7rem);
+            margin-bottom: 2rem;
+            line-height: 0.9;
+            font-weight: 400;
+            color: var(--forest);
+            letter-spacing: -0.03em;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: var(--muted-text);
+            max-width: 500px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.7;
+        }
+
+        .problem-solution {
+            padding: 8rem 2rem;
+            background: var(--cream);
+        }
+
+        .problem-solution-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .problem, .solution {
+            padding: 3rem;
+        }
+
+        .problem {
+            background: rgba(27, 59, 54, 0.03);
+            border-left: 3px solid var(--forest);
+        }
+
+        .solution {
+            background: var(--soft-white);
+            border-left: 3px solid var(--muted-text);
+        }
+
+        .problem h2, .solution h2 {
+            font-family: 'Crimson Text', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .problem h2 {
+            color: var(--forest);
+        }
+
+        .solution h2 {
+            color: var(--muted-text);
+        }
+
+        .problem p, .solution p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--forest);
+        }
+
+        .proof {
+            padding: 6rem 2rem;
+            background: var(--soft-white);
+            text-align: center;
+        }
+
+        .proof-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.8rem;
+            color: var(--forest);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .testimonial-source {
+            font-size: 0.9rem;
+            color: var(--muted-text);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .action {
+            padding: 6rem 2rem;
+            background: var(--forest);
+            text-align: center;
+        }
+
+        .action-content {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--soft-white);
+        }
+
+        .action h2 {
+            font-family: 'Crimson Text', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .action p {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+        }
+
+        .action-cta {
+            display: inline-block;
+            background: transparent;
+            color: var(--soft-white);
+            padding: 1.25rem 3rem;
+            text-decoration: none;
+            font-weight: 500;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .action-cta:hover {
+            border-color: var(--soft-white);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .qualification {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 1.5rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .problem-solution-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .problem-solution, .proof, .action {
+                padding: 4rem 1.5rem;
+            }
+            
+            .testimonial {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-brand">SAGE</p>
+            <h1>Clarity<br>Through<br>Challenge</h1>
+            <p class="hero-description">Strategic mental health support for leaders who transform pressure into performance</p>
+        </div>
+    </section>
+
+    <section class="problem-solution">
+        <div class="problem-solution-content">
+            <div class="problem">
+                <h2>The Hidden Cost</h2>
+                <p>High-performing leaders often struggle in isolation. Traditional therapy doesn't address the unique pressures of strategic decision-making under uncertainty. The result: declining performance when you need clarity most.</p>
+            </div>
+            <div class="solution">
+                <h2>Strategic Intervention</h2>
+                <p>We combine clinical expertise with business acumen. Our approach builds resilience while maintaining competitive edge—transforming psychological challenges into strategic advantages.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="proof">
+        <div class="proof-content">
+            <p class="testimonial">"Within six weeks, I was making decisions with clarity I hadn't felt in years. My team noticed the difference immediately."</p>
+            <p class="testimonial-source">— CEO, Financial Services (Name withheld for confidentiality)</p>
+        </div>
+    </section>
+
+    <section class="action">
+        <div class="action-content">
+            <h2>Begin the Process</h2>
+            <p>Our work is intensive and selective. We accept a limited number of clients who are committed to meaningful transformation, not temporary relief.</p>
+            <a href="#" class="action-cta">Request Consultation</a>
+            <p class="qualification">Selection based on fit assessment</p>
+        </div>
+    </section>
+</body>
+</html>

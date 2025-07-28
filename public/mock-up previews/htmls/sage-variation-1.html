@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE - Transform Crisis Into Clarity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --charcoal: #2B2B2B;
+            --bronze: #B8860B;
+            --warm-white: #FEFEFE;
+            --soft-gray: #F8F8F8;
+            --text-light: #6A6A6A;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--charcoal);
+            background: var(--warm-white);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap');
+
+        .hero {
+            height: 100vh;
+            background: var(--charcoal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(135deg, transparent 0%, rgba(184, 134, 11, 0.03) 100%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='m36 34v-4h4v4h-4zm0-8v-4h4v4h-4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--warm-white);
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero-brand {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            color: var(--bronze);
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3.5rem, 7vw, 6rem);
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.02em;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .transformation {
+            padding: 8rem 2rem;
+            background: var(--soft-gray);
+        }
+
+        .transformation-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .transformation h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--charcoal);
+            font-weight: 400;
+        }
+
+        .transformation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .before, .after {
+            padding: 3rem;
+            border-radius: 4px;
+        }
+
+        .before {
+            background: rgba(43, 43, 43, 0.05);
+        }
+
+        .after {
+            background: rgba(184, 134, 11, 0.05);
+        }
+
+        .before h3, .after h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .before h3 {
+            color: var(--charcoal);
+        }
+
+        .after h3 {
+            color: var(--bronze);
+        }
+
+        .authority {
+            padding: 6rem 2rem;
+            background: var(--warm-white);
+            text-align: center;
+        }
+
+        .authority-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .metric {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            color: var(--bronze);
+            font-weight: 500;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .metric-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .conversion {
+            padding: 6rem 2rem;
+            background: var(--charcoal);
+            text-align: center;
+        }
+
+        .conversion-content {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--warm-white);
+        }
+
+        .conversion h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .conversion-cta {
+            display: inline-block;
+            background: var(--bronze);
+            color: var(--warm-white);
+            padding: 1.5rem 4rem;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+        }
+
+        .conversion-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(184, 134, 11, 0.3);
+        }
+
+        .selectivity {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .transformation-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .transformation, .authority, .conversion {
+                padding: 4rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-brand">SAGE</p>
+            <h1>Transform Crisis<br>Into Clarity</h1>
+            <p class="hero-subtitle">Executive mental health support that builds competitive advantage from personal challenges</p>
+        </div>
+    </section>
+
+    <section class="transformation">
+        <div class="transformation-content">
+            <h2>The Transformation</h2>
+            <div class="transformation-grid">
+                <div class="before">
+                    <h3>Before</h3>
+                    <p>Overwhelmed by pressure, making decisions from stress, avoiding difficult conversations, performance declining under uncertainty</p>
+                </div>
+                <div class="after">
+                    <h3>After</h3>
+                    <p>Clear strategic thinking under pressure, confident decision-making, direct communication, transforming challenges into growth opportunities</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="authority">
+        <div class="authority-content">
+            <span class="metric">94%</span>
+            <p class="metric-description">of executives report improved strategic decision-making within 8 weeks</p>
+            <p>Our approach combines clinical psychology with business strategy, developed specifically for high-performing leaders who need practical solutions, not traditional therapy.</p>
+        </div>
+    </section>
+
+    <section class="conversion">
+        <div class="conversion-content">
+            <h2>Request Strategic Assessment</h2>
+            <p>Limited to executives seeking transformation, not maintenance. Initial consultation determines fit.</p>
+            <a href="#" class="conversion-cta">Request Assessment</a>
+            <p class="selectivity">By invitation following preliminary discussion</p>
+        </div>
+    </section>
+</body>
+</html>

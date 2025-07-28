@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE - Executive Conditioning</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --burgundy: #722F37;
+            --burgundy-dark: #5A252A;
+            --burgundy-light: #8B3A42;
+            --cream: #F7F3F0;
+            --gold-accent: #D4A574;
+            --warm-white: #FFFEF9;
+            --charcoal: #2F2F2F;
+            --soft-gray: #6B6B6B;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--charcoal);
+            background: var(--warm-white);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+
+        .hero {
+            height: 100vh;
+            background: var(--burgundy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(135deg, transparent 0%, rgba(212, 165, 116, 0.08) 100%),
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23D4A574' fill-opacity='0.03'%3E%3Cpath d='M50 50c0-27.6-22.4-50-50-50v50h50z'/%3E%3Cpath d='M100 50c0-27.6-22.4-50-50-50v50h50z' transform='rotate(90 75 25)'/%3E%3Cpath d='M50 100c27.6 0 50-22.4 50-50H50v50z' transform='rotate(180 75 75)'/%3E%3Cpath d='M0 100c27.6 0 50-22.4 50-50H0v50z' transform='rotate(270 25 75)'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--warm-white);
+            max-width: 800px;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-insignia {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--gold-accent);
+            border-radius: 50%;
+            margin: 0 auto 3rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-insignia::before {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--gold-accent);
+            border-radius: 2px;
+            transform: rotate(45deg);
+        }
+
+        .hero-brand {
+            font-family: 'Spectral', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            color: var(--gold-accent);
+        }
+
+        .hero h1 {
+            font-family: 'Spectral', serif;
+            font-size: clamp(4rem, 8vw, 7rem);
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-mission {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .distinction {
+            padding: 8rem 2rem;
+            background: var(--cream);
+        }
+
+        .distinction-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .distinction-text {
+            padding-right: 2rem;
+        }
+
+        .distinction-marker {
+            width: 60px;
+            height: 3px;
+            background: var(--gold-accent);
+            margin-bottom: 2rem;
+        }
+
+        .distinction-title {
+            font-family: 'Spectral', serif;
+            font-size: 2.8rem;
+            color: var(--charcoal);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .distinction-description {
+            font-size: 1.2rem;
+            color: var(--soft-gray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .distinction-points {
+            list-style: none;
+        }
+
+        .distinction-points li {
+            font-size: 1rem;
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .distinction-points li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.8rem;
+            width: 8px;
+            height: 8px;
+            background: var(--gold-accent);
+            border-radius: 50%;
+        }
+
+        .distinction-visual {
+            background: var(--burgundy-light);
+            height: 450px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .distinction-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.05) 100%);
+        }
+
+        .performance {
+            padding: 6rem 2rem;
+            background: var(--warm-white);
+            text-align: center;
+        }
+
+        .performance-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .performance-title {
+            font-family: 'Spectral', serif;
+            font-size: 2.5rem;
+            color: var(--charcoal);
+            margin-bottom: 3rem;
+            font-weight: 500;
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .performance-metric {
+            background: var(--cream);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--burgundy);
+            text-align: left;
+        }
+
+        .metric-figure {
+            font-family: 'Spectral', serif;
+            font-size: 3.5rem;
+            color: var(--burgundy);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .metric-title {
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .metric-context {
+            font-size: 0.95rem;
+            color: var(--soft-gray);
+            line-height: 1.6;
+        }
+
+        .testimonial-section {
+            background: var(--burgundy-dark);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .testimonial-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .testimonial-frame {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4rem 3rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .testimonial-quote {
+            font-family: 'Spectral', serif;
+            font-size: 1.8rem;
+            color: var(--warm-white);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .testimonial-attribution {
+            font-size: 0.9rem;
+            color: var(--gold-accent);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .commitment {
+            padding: 6rem 2rem;
+            background: var(--charcoal);
+            text-align: center;
+        }
+
+        .commitment-content {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--warm-white);
+        }
+
+        .commitment-title {
+            font-family: 'Spectral', serif;
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            color: var(--gold-accent);
+        }
+
+        .commitment-description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+        }
+
+        .commitment-cta {
+            display: inline-block;
+            background: var(--burgundy);
+            color: var(--warm-white);
+            padding: 1.5rem 4rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+            border-radius: 4px;
+            border: 2px solid var(--burgundy);
+        }
+
+        .commitment-cta:hover {
+            background: transparent;
+            border-color: var(--gold-accent);
+            color: var(--gold-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(114, 47, 55, 0.3);
+        }
+
+        .commitment-terms {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .distinction-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .distinction-text {
+                padding-right: 0;
+            }
+            
+            .performance-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .distinction, .performance, .testimonial-section, .commitment {
+                padding: 4rem 1.5rem;
+            }
+            
+            .testimonial-quote {
+                font-size: 1.4rem;
+            }
+            
+            .testimonial-frame {
+                padding: 3rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-insignia"></div>
+            <p class="hero-brand">SAGE</p>
+            <h1>Executive<br>Conditioning</h1>
+            <p class="hero-mission">Strategic psychological development for leaders who transform organizational challenges into competitive advantages</p>
+        </div>
+    </section>
+
+    <section class="distinction">
+        <div class="distinction-content">
+            <div class="distinction-text">
+                <div class="distinction-marker"></div>
+                <h2 class="distinction-title">The Executive Edge</h2>
+                <p class="distinction-description">Traditional approaches fail when leadership demands exceed conventional stress management capabilities. We develop psychological frameworks specifically designed for C-suite decision-making under extreme pressure.</p>
+                <ul class="distinction-points">
+                    <li>Crisis becomes strategic opportunity</li>
+                    <li>Uncertainty transforms into competitive intelligence</li>
+                    <li>Pressure enhances rather than impairs cognitive performance</li>
+                    <li>Complex challenges resolve into actionable strategies</li>
+                </ul>
+            </div>
+            <div class="distinction-visual"></div>
+        </div>
+    </section>
+
+    <section class="performance">
+        <div class="performance-content">
+            <h2 class="performance-title">Documented Performance Enhancement</h2>
+            
+            <div class="performance-grid">
+                <div class="performance-metric">
+                    <div class="metric-figure">92%</div>
+                    <h3 class="metric-title">Strategic Decision Improvement</h3>
+                    <p class="metric-context">Executives demonstrate measurable enhancement in decision quality and strategic thinking under high-pressure conditions within 12 weeks</p>
+                </div>
+                <div class="performance-metric">
+                    <div class="metric-figure">7.2</div>
+                    <h3 class="metric-title">Weeks to Transformation</h3>
+                    <p class="metric-context">Average time to documented improvement in crisis management capabilities and leadership confidence during organizational challenges</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonial-section">
+        <div class="testimonial-content">
+            <div class="testimonial-frame">
+                <p class="testimonial-quote">"The psychological conditioning I received fundamentally altered how I approach leadership during crisis. What previously felt overwhelming now represents strategic opportunity for organizational advancement."</p>
+                <p class="testimonial-attribution">Chief Executive Officer, Global Manufacturing</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="commitment">
+        <div class="commitment-content">
+            <h2 class="commitment-title">Selective Engagement</h2>
+            <p class="commitment-description">Our methodology requires intensive commitment to measurable transformation. We engage exclusively with senior executives who understand that psychological optimization directly determines organizational performance and competitive positioning.</p>
+            <a href="#" class="commitment-cta">Request Executive Assessment</a>
+            <p class="commitment-terms">Acceptance determined through preliminary evaluation and strategic fit analysis</p>
+        </div>
+    </section>
+</body>
+</html>

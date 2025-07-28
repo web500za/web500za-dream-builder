@@ -54,7 +54,7 @@ export function ZenRecentWorks() {
         paddingBottom: isMobile ? 'var(--space-4xl)' : 'var(--space-5xl)',
         backgroundColor: 'var(--bg-primary)',
         transition: 'var(--transition-colors)',
-        marginTop: isMobile ? '-10vh' : '-30vh', // Less overlap on mobile to avoid heading collision
+        marginTop: isMobile ? '-5vh' : '-15vh', // Just peeking into hero section
         position: 'relative',
         zIndex: 10 // Ensure it appears above hero
       }}

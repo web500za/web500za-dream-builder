@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE - Executive Resilience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --slate: #475569;
+            --dusty-rose: #D4A5A5;
+            --pearl: #F8F9FA;
+            --charcoal: #334155;
+            --soft-text: #64748B;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--charcoal);
+            background: var(--pearl);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--slate) 0%, #3A4A5C 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212, 165, 165, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(212, 165, 165, 0.05) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-brand {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            color: var(--dusty-rose);
+        }
+
+        .hero h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: clamp(3.5rem, 7vw, 6.5rem);
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.85);
+            letter-spacing: 0.02em;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .methodology {
+            padding: 8rem 2rem;
+            background: white;
+        }
+
+        .methodology-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .methodology h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--charcoal);
+            font-weight: 400;
+        }
+
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .methodology-number {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 8rem;
+            color: var(--dusty-rose);
+            font-weight: 700;
+            line-height: 0.8;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        .methodology-text {
+            padding-top: 2rem;
+        }
+
+        .methodology-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--charcoal);
+            font-weight: 600;
+        }
+
+        .methodology-text p {
+            font-size: 1.1rem;
+            color: var(--soft-text);
+            line-height: 1.7;
+        }
+
+        .results {
+            padding: 6rem 2rem;
+            background: var(--pearl);
+            text-align: center;
+        }
+
+        .results-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .results-metric {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            margin-bottom: 2rem;
+        }
+
+        .results-number {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 5rem;
+            color: var(--dusty-rose);
+            font-weight: 700;
+            margin-right: 1rem;
+        }
+
+        .results-unit {
+            font-size: 2rem;
+            color: var(--slate);
+            font-weight: 300;
+        }
+
+        .results-description {
+            font-size: 1.2rem;
+            color: var(--soft-text);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .case-study {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            text-align: left;
+            border-left: 4px solid var(--dusty-rose);
+        }
+
+        .case-study-quote {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.4rem;
+            color: var(--charcoal);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .case-study-details {
+            font-size: 0.9rem;
+            color: var(--soft-text);
+            font-weight: 500;
+        }
+
+        .engagement {
+            padding: 6rem 2rem;
+            background: var(--charcoal);
+            text-align: center;
+        }
+
+        .engagement-content {
+            max-width: 700px;
+            margin: 0 auto;
+            color: white;
+        }
+
+        .engagement h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .engagement p {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+        }
+
+        .engagement-cta {
+            display: inline-block;
+            background: var(--dusty-rose);
+            color: var(--charcoal);
+            padding: 1.5rem 3.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+            border-radius: 2px;
+        }
+
+        .engagement-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 165, 165, 0.3);
+        }
+
+        .disclaimer {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 2rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .methodology-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .methodology-number {
+                font-size: 5rem;
+            }
+            
+            .methodology, .results, .engagement {
+                padding: 4rem 1.5rem;
+            }
+            
+            .results-number {
+                font-size: 3.5rem;
+            }
+            
+            .results-unit {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-brand">SAGE</p>
+            <h1>Executive<br>Resilience</h1>
+            <p class="hero-tagline">Strategic psychological support for leaders navigating complex challenges</p>
+        </div>
+    </section>
+
+    <section class="methodology">
+        <div class="methodology-content">
+            <h2>The Method</h2>
+            <div class="methodology-grid">
+                <div class="methodology-number">01</div>
+                <div class="methodology-text">
+                    <h3>Strategic Assessment</h3>
+                    <p>We analyze the intersection of personal challenges and business performance. Our initial assessment identifies specific pressure points affecting your decision-making and leadership effectiveness.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="results">
+        <div class="results-content">
+            <div class="results-metric">
+                <span class="results-number">12</span>
+                <span class="results-unit">weeks</span>
+            </div>
+            <p class="results-description">Average time to achieve measurable improvement in strategic decision-making under pressure</p>
+            
+            <div class="case-study">
+                <p class="case-study-quote">"The clarity I gained transformed not just my leadership style, but our entire company's approach to crisis management. We now see challenges as strategic opportunities."</p>
+                <p class="case-study-details">Technology CEO, Series B startup, 200+ employees</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="engagement">
+        <div class="engagement-content">
+            <h2>Begin Strategic Work</h2>
+            <p>Our engagement is designed for executives who recognize that personal resilience directly impacts business outcomes. We work with a select number of leaders committed to measurable transformation.</p>
+            <a href="#" class="engagement-cta">Request Assessment</a>
+            <p class="disclaimer">Initial consultation determines program fit and approach. All client relationships remain strictly confidential.</p>
+        </div>
+    </section>
+</body>
+</html>

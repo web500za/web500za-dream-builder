@@ -1,9 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 // Step 1 Component
 export function ZenProcessStep1() {
   const isMobile = useIsMobile();
+  const [typedText, setTypedText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(false);
+  
+  const exampleText = "I run Sage Therapy, a mental health practice in Cape Town. I need a calming, professional website that helps potential clients understand my services and easily book appointments. The site should feel warm and trustworthy, with information about therapy approaches, my background, and a simple booking system. I'd love to showcase client testimonials and have a blog section for mental health resources.";
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    
+    if (isTyping && currentIndex < exampleText.length) {
+      timer = setTimeout(() => {
+        setTypedText(exampleText.slice(0, currentIndex + 1));
+        setCurrentIndex(currentIndex + 1);
+      }, 50); // Typing speed
+    } else if (isTyping && currentIndex >= exampleText.length) {
+      // Finished typing, pause then restart
+      timer = setTimeout(() => {
+        setCurrentIndex(0);
+        setTypedText('');
+      }, 3000); // Pause before restarting
+    }
+
+    return () => clearTimeout(timer);
+  }, [currentIndex, isTyping, exampleText]);
+
+  const startTyping = () => {
+    setIsTyping(true);
+    setCurrentIndex(0);
+    setTypedText('');
+  };
 
   return (
     <section className="section" style={{ 
@@ -37,49 +67,79 @@ export function ZenProcessStep1() {
             Share your vision in the form at the top of this page. Tell me about your business, goals, and what you need your website to accomplish. The more details you provide, the better I can create something perfect for you.
           </p>
 
-          <button 
-            className="btn btn-accent"
-            onClick={() => {
-              // Scroll to hero section form
-              const heroSection = document.querySelector('.hero');
-              if (heroSection) {
-                heroSection.scrollIntoView({ behavior: 'smooth' });
-                // Focus textarea after scroll
-                setTimeout(() => {
-                  const textarea = document.querySelector('textarea[name="project"]') as HTMLElement;
-                  if (textarea) {
-                    textarea.focus();
-                  }
-                }, 800);
-              }
-            }}
-            style={{
-              fontSize: isMobile ? '1rem' : '1rem',
+          {/* Example Textarea Demo */}
+          <div style={{
+            maxWidth: isMobile ? '100%' : '600px',
+            margin: '0 auto',
+            backgroundColor: 'var(--bg-secondary)',
+            borderRadius: 'var(--radius-md)',
+            padding: isMobile ? 'var(--space-lg)' : 'var(--space-xl)',
+            border: '1px solid var(--border-subtle)',
+            position: 'relative'
+          }}>
+            {/* Example Label */}
+            <div style={{
+              position: 'absolute',
+              top: '-12px',
+              left: '20px',
+              backgroundColor: 'var(--bg-primary)',
+              padding: '0 var(--space-sm)',
+              fontSize: '0.875rem',
+              color: 'var(--brand-primary)',
               fontWeight: '500',
-              padding: isMobile ? 'var(--space-md) var(--space-xl)' : 'var(--space-md) var(--space-xl)',
-              backgroundColor: 'var(--brand-primary)',
-              color: 'var(--bg-primary)',
-              border: 'none',
-              borderRadius: 'var(--radius-sm)',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
               fontFamily: 'var(--font-sans)'
-            }}
-            onMouseEnter={(e) => {
-              if (!isMobile) {
-                e.currentTarget.style.transform = 'translateY(-1px)';
-                e.currentTarget.style.backgroundColor = 'var(--brand-primary-hover)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!isMobile) {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.backgroundColor = 'var(--brand-primary)';
-              }
-            }}
-          >
-            Start Your Project
-          </button>
+            }}>
+              Example: Sage Therapy
+            </div>
+
+            {/* Mock Textarea */}
+            <div 
+              style={{
+                minHeight: isMobile ? '120px' : '150px',
+                padding: 'var(--space-md)',
+                backgroundColor: 'var(--bg-primary)',
+                border: `2px solid ${isTyping ? 'var(--brand-primary)' : 'var(--border-default)'}`,
+                borderRadius: 'var(--radius-sm)',
+                fontFamily: 'var(--font-sans)',
+                fontSize: isMobile ? '0.875rem' : '1rem',
+                lineHeight: '1.5',
+                color: 'var(--text-primary)',
+                position: 'relative',
+                cursor: 'text',
+                transition: 'border-color 0.2s ease'
+              }}
+              onClick={startTyping}
+            >
+              {typedText}
+              {isTyping && (
+                <span style={{
+                  display: 'inline-block',
+                  width: '2px',
+                  height: '1.2em',
+                  backgroundColor: 'var(--brand-primary)',
+                  marginLeft: '1px',
+                  animation: 'blink 1s infinite'
+                }} />
+              )}
+              {!isTyping && !typedText && (
+                <span style={{
+                  color: 'var(--text-tertiary)',
+                  fontSize: isMobile ? '0.875rem' : '1rem'
+                }}>
+                  Click to see an example...
+                </span>
+              )}
+            </div>
+
+          </div>
+
+          {/* Blinking Animation */}
+          <style jsx>{`
+            @keyframes blink {
+              0%, 50% { opacity: 1; }
+              51%, 100% { opacity: 0; }
+            }
+          `}</style>
         </div>
       </div>
     </section>

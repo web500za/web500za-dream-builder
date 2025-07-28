@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE - Strategic Intelligence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --emerald: #1E6B52;
+            --emerald-dark: #154A3B;
+            --emerald-light: #2A7F64;
+            --ivory: #FFFFF0;
+            --pearl: #F8F8F6;
+            --champagne: #F7F3E9;
+            --charcoal: #333333;
+            --warm-gray: #5A5A5A;
+            --silver: #B8B8B8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--charcoal);
+            background: var(--ivory);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Optima:wght@400;500;600&family=Cormorant:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+
+        .hero {
+            min-height: 100vh;
+            background: var(--emerald);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(255, 255, 240, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 70%, rgba(255, 255, 240, 0.05) 0%, transparent 60%),
+                url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFF0' fill-opacity='0.02'%3E%3Cpath d='M60 60L30 30v60h60l-30-30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: subtle-shift 30s ease-in-out infinite;
+        }
+
+        @keyframes subtle-shift {
+            0%, 100% {
+                transform: translateX(0) translateY(0) scale(1);
+            }
+            25% {
+                transform: translateX(10px) translateY(-5px) scale(1.01);
+            }
+            50% {
+                transform: translateX(-5px) translateY(10px) scale(0.99);
+            }
+            75% {
+                transform: translateX(-10px) translateY(-8px) scale(1.01);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--ivory);
+            max-width: 900px;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-crest {
+            width: 120px;
+            height: 120px;
+            border: 3px solid var(--ivory);
+            margin: 0 auto 4rem auto;
+            position: relative;
+            transform: rotate(45deg);
+            background: rgba(255, 255, 240, 0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-crest::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--ivory);
+            background: transparent;
+        }
+
+        .hero-brand {
+            font-family: 'Cormorant', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 0.6em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 240, 0.9);
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant', serif;
+            font-size: clamp(4.5rem, 9vw, 8.5rem);
+            margin-bottom: 2.5rem;
+            line-height: 1;
+            font-weight: 300;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-essence {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: rgba(255, 255, 240, 0.85);
+            max-width: 750px;
+            margin: 0 auto;
+            line-height: 1.6;
+            letter-spacing: 0.01em;
+        }
+
+        .mastery {
+            padding: 8rem 2rem;
+            background: var(--champagne);
+        }
+
+        .mastery-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .mastery-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .mastery-ornament {
+            width: 80px;
+            height: 1px;
+            background: var(--emerald);
+            margin: 0 auto 3rem auto;
+            position: relative;
+        }
+
+        .mastery-ornament::before,
+        .mastery-ornament::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            width: 7px;
+            height: 7px;
+            background: var(--emerald);
+            border-radius: 50%;
+        }
+
+        .mastery-ornament::before {
+            left: 0;
+        }
+
+        .mastery-ornament::after {
+            right: 0;
+        }
+
+        .mastery-title {
+            font-family: 'Cormorant', serif;
+            font-size: 3.2rem;
+            color: var(--charcoal);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .mastery-philosophy {
+            font-size: 1.3rem;
+            color: var(--warm-gray);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .mastery-principles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            margin-top: 6rem;
+        }
+
+        .principle {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--ivory);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(30, 107, 82, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .principle:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(30, 107, 82, 0.15);
+        }
+
+        .principle-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--emerald);
+            border-radius: 50%;
+            margin: 0 auto 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .principle-icon::before {
+            content: '';
+            width: 25px;
+            height: 25px;
+            border: 2px solid var(--ivory);
+            background: transparent;
+            transform: rotate(45deg);
+        }
+
+        .principle h3 {
+            font-family: 'Cormorant', serif;
+            font-size: 1.8rem;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .principle p {
+            color: var(--warm-gray);
+            line-height: 1.7;
+        }
+
+        .excellence {
+            padding: 6rem 2rem;
+            background: var(--pearl);
+            text-align: center;
+        }
+
+        .excellence-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .excellence-title {
+            font-family: 'Cormorant', serif;
+            font-size: 2.8rem;
+            color: var(--charcoal);
+            margin-bottom: 4rem;
+            font-weight: 500;
+        }
+
+        .excellence-data {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 5rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .data-highlight {
+            text-align: center;
+        }
+
+        .data-number {
+            font-family: 'Cormorant', serif;
+            font-size: 6rem;
+            color: var(--emerald);
+            font-weight: 600;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .data-context {
+            font-size: 1.1rem;
+            color: var(--warm-gray);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .data-narrative {
+            text-align: left;
+            padding-left: 3rem;
+        }
+
+        .data-narrative h3 {
+            font-family: 'Cormorant', serif;
+            font-size: 2rem;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .data-narrative p {
+            font-size: 1.1rem;
+            color: var(--warm-gray);
+            line-height: 1.7;
+        }
+
+        .evidence {
+            background: var(--emerald-light);
+            padding: 4rem 3rem;
+            border-radius: 12px;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .evidence-quote {
+            font-family: 'Cormorant', serif;
+            font-size: 1.6rem;
+            color: var(--ivory);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .evidence-source {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 240, 0.8);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .alliance {
+            padding: 6rem 2rem;
+            background: var(--emerald-dark);
+            text-align: center;
+        }
+
+        .alliance-content {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--ivory);
+        }
+
+        .alliance-title {
+            font-family: 'Cormorant', serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .alliance-proposition {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 240, 0.9);
+            line-height: 1.7;
+        }
+
+        .alliance-cta {
+            display: inline-block;
+            background: transparent;
+            color: var(--ivory);
+            padding: 1.8rem 4.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            border: 2px solid var(--ivory);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-family: 'Cormorant', serif;
+        }
+
+        .alliance-cta:hover {
+            background: var(--ivory);
+            color: var(--emerald-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 255, 240, 0.2);
+        }
+
+        .alliance-exclusivity {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 240, 0.7);
+            margin-top: 2rem;
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .mastery-principles {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .excellence-data {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            
+            .data-narrative {
+                padding-left: 0;
+                text-align: center;
+            }
+            
+            .mastery, .excellence, .alliance {
+                padding: 4rem 1.5rem;
+            }
+            
+            .data-number {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-crest"></div>
+            <p class="hero-brand">SAGE</p>
+            <h1>Strategic<br>Intelligence</h1>
+            <p class="hero-essence">Executive psychological development for leaders who transform organizational complexity into sustainable competitive advantage</p>
+        </div>
+    </section>
+
+    <section class="mastery">
+        <div class="mastery-content">
+            <div class="mastery-header">
+                <div class="mastery-ornament"></div>
+                <h2 class="mastery-title">The Art of Executive Mastery</h2>
+                <p class="mastery-philosophy">We cultivate psychological sophistication that enables C-suite executives to maintain strategic clarity and decisive leadership during periods of maximum organizational pressure and uncertainty.</p>
+            </div>
+            
+            <div class="mastery-principles">
+                <div class="principle">
+                    <div class="principle-icon"></div>
+                    <h3>Cognitive Supremacy</h3>
+                    <p>Develop mental frameworks that transform complex challenges into strategic opportunities through enhanced decision-making capabilities.</p>
+                </div>
+                <div class="principle">
+                    <div class="principle-icon"></div>
+                    <h3>Pressure Mastery</h3>
+                    <p>Convert high-stakes situations into competitive advantages through psychological conditioning and strategic thinking optimization.</p>
+                </div>
+                <div class="principle">
+                    <div class="principle-icon"></div>
+                    <h3>Leadership Evolution</h3>
+                    <p>Transcend conventional executive limitations through advanced psychological development and strategic intelligence enhancement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="excellence">
+        <div class="excellence-content">
+            <h2 class="excellence-title">Demonstrated Excellence</h2>
+            
+            <div class="excellence-data">
+                <div class="data-highlight">
+                    <div class="data-number">96%</div>
+                    <p class="data-context">Executive Transformation</p>
+                </div>
+                <div class="data-narrative">
+                    <h3>Measurable Leadership Enhancement</h3>
+                    <p>Senior executives demonstrate significant improvement in strategic decision-making, crisis management, and organizational leadership effectiveness within an average of 11 weeks of intensive psychological development.</p>
+                </div>
+            </div>
+            
+            <div class="evidence">
+                <p class="evidence-quote">"The psychological intelligence I developed fundamentally transformed my approach to executive leadership. Complex organizational challenges now represent strategic advantages rather than management burdens."</p>
+                <p class="evidence-source">Chairman & Chief Executive, International Technology Corporation</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="alliance">
+        <div class="alliance-content">
+            <h2 class="alliance-title">Strategic Alliance</h2>
+            <p class="alliance-proposition">Our methodology requires unwavering commitment to executive excellence and measurable transformation. We form strategic alliances exclusively with senior leaders who recognize that psychological mastery directly determines organizational success and competitive positioning.</p>
+            <a href="#" class="alliance-cta">Request Executive Alliance</a>
+            <p class="alliance-exclusivity">Alliance formation based on comprehensive evaluation and strategic compatibility assessment</p>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE - Strategic Mindset</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --soft-blue: #A8C8EC;
+            --blue-dark: #7FA8D3;
+            --blue-light: #C4D7F0;
+            --navy: #2C3E50;
+            --charcoal: #34495E;
+            --white: #FFFFFF;
+            --pearl: #F8FAFB;
+            --text-gray: #5D6D7E;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--navy);
+            background: var(--white);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--soft-blue) 0%, var(--blue-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 60% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: drift 25s ease-in-out infinite;
+        }
+
+        @keyframes drift {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(-20px, -10px) scale(1.02);
+            }
+            66% {
+                transform: translate(10px, -15px) scale(0.98);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            max-width: 900px;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-ornament {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+
+        .hero-brand {
+            font-family: 'Merriweather', serif;
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero h1 {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(4rem, 8vw, 7.5rem);
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-statement {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .approach {
+            padding: 8rem 2rem;
+            background: var(--pearl);
+        }
+
+        .approach-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .approach-intro {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .approach-title {
+            font-family: 'Merriweather', serif;
+            font-size: 2.8rem;
+            color: var(--navy);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .approach-description {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .approach-methodology {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .methodology-visual {
+            background: var(--soft-blue);
+            height: 500px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .methodology-visual::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.1) 100%),
+                url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.08' fill-rule='evenodd'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zM0 0h20v20H0V0zm20 20h20v20H20V20z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .methodology-steps {
+            padding-left: 2rem;
+        }
+
+        .step {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--blue-light);
+        }
+
+        .step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .step-number {
+            background: var(--soft-blue);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .step-title {
+            font-family: 'Merriweather', serif;
+            font-size: 1.4rem;
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .step-description {
+            color: var(--text-gray);
+            line-height: 1.7;
+            margin-left: 3rem;
+        }
+
+        .validation {
+            padding: 6rem 2rem;
+            background: var(--white);
+            text-align: center;
+        }
+
+        .validation-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .validation-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .metric {
+            background: var(--pearl);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            border-top: 4px solid var(--soft-blue);
+        }
+
+        .metric-value {
+            font-family: 'Merriweather', serif;
+            font-size: 2.8rem;
+            color: var(--soft-blue);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-context {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        .case-study {
+            background: var(--blue-light);
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .case-study-quote {
+            font-family: 'Merriweather', serif;
+            font-size: 1.4rem;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .case-study-details {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .access {
+            padding: 6rem 2rem;
+            background: var(--navy);
+            text-align: center;
+        }
+
+        .access-content {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--white);
+        }
+
+        .access-title {
+            font-family: 'Merriweather', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .access-description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+        }
+
+        .access-cta {
+            display: inline-block;
+            background: var(--soft-blue);
+            color: var(--navy);
+            padding: 1.5rem 3.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+            border-radius: 6px;
+        }
+
+        .access-cta:hover {
+            background: var(--blue-dark);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(168, 200, 236, 0.3);
+        }
+
+        .access-qualifier {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .approach-methodology {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .methodology-steps {
+                padding-left: 0;
+            }
+            
+            .validation-metrics {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .approach, .validation, .access {
+                padding: 4rem 1.5rem;
+            }
+            
+            .step-description {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-ornament">◦</div>
+            <p class="hero-brand">SAGE</p>
+            <h1>Strategic<br>Mindset</h1>
+            <p class="hero-statement">Executive psychology that transforms decision-making under uncertainty into systematic competitive advantage</p>
+        </div>
+    </section>
+
+    <section class="approach">
+        <div class="approach-content">
+            <div class="approach-intro">
+                <h2 class="approach-title">The Methodology</h2>
+                <p class="approach-description">We develop cognitive frameworks that enhance strategic thinking under pressure, transforming psychological challenges into decision-making advantages.</p>
+            </div>
+            
+            <div class="approach-methodology">
+                <div class="methodology-visual"></div>
+                <div class="methodology-steps">
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number">01</div>
+                            <h3 class="step-title">Cognitive Assessment</h3>
+                        </div>
+                        <p class="step-description">Comprehensive analysis of current decision-making patterns, stress responses, and cognitive performance under high-stakes conditions.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number">02</div>
+                            <h3 class="step-title">Framework Development</h3>
+                        </div>
+                        <p class="step-description">Custom psychological strategies designed to optimize cognitive performance while maintaining emotional intelligence and strategic perspective.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number">03</div>
+                            <h3 class="step-title">Implementation</h3>
+                        </div>
+                        <p class="step-description">Real-world application of enhanced decision-making processes with continuous refinement based on outcomes and strategic results.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="validation">
+        <div class="validation-content">
+            <div class="validation-metrics">
+                <div class="metric">
+                    <div class="metric-value">87%</div>
+                    <p class="metric-label">Success Rate</p>
+                    <p class="metric-context">Executives achieving measurable improvement in strategic decision-making</p>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">9</div>
+                    <p class="metric-label">Week Average</p>
+                    <p class="metric-context">Time to documented enhancement in crisis management capabilities</p>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">95%</div>
+                    <p class="metric-label">Retention</p>
+                    <p class="metric-context">Long-term maintenance of improved cognitive performance patterns</p>
+                </div>
+            </div>
+            
+            <div class="case-study">
+                <p class="case-study-quote">"The cognitive tools I developed fundamentally changed how I approach complex strategic decisions. Uncertainty became a strategic advantage rather than a source of stress."</p>
+                <p class="case-study-details">Senior Vice President, Fortune 500 Technology Company</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="access">
+        <div class="access-content">
+            <h2 class="access-title">Strategic Partnership</h2>
+            <p class="access-description">Our engagement is designed for senior executives who recognize that cognitive optimization directly impacts business performance. We maintain selective client relationships to ensure intensive, personalized development.</p>
+            <a href="#" class="access-cta">Request Strategic Consultation</a>
+            <p class="access-qualifier">Selection based on commitment to transformation and strategic fit assessment</p>
+        </div>
+    </section>
+</body>
+</html>
