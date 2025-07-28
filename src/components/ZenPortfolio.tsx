@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { ScrollFolderMockups } from './ScrollFolderMockups';
+import { FolderLottieStyled } from './FolderLottieStyled';
 
 export function ZenPortfolio() {
   const isMobile = useIsMobile();
@@ -20,7 +20,10 @@ export function ZenPortfolio() {
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        minHeight: isMobile ? '50vh' : '60vh'
+        minHeight: isMobile ? '50vh' : '60vh',
+        maxWidth: '100vw',
+        overflow: 'hidden', // Prevent horizontal overflow
+        position: 'relative'
       }}>
         {/* Section Header */}
         <div style={{ 
@@ -58,7 +61,7 @@ export function ZenPortfolio() {
           justifyContent: 'center',
           transform: isMobile ? 'translateY(60%)' : 'translateY(40%)'
         }}>
-          <ScrollFolderMockups />
+          <FolderLottieStyled />
         </div>
       </div>
 

@@ -167,19 +167,29 @@ export function ZenNav({ onThemeToggle, currentTheme = 'light' }: ZenNavProps) {
             </button>
           )}
           
-          {/* Theme Toggle */}
-          {onThemeToggle && !isMobile && (
+          {/* Theme Toggle - Always Visible */}
+          {onThemeToggle && (
             <button
               onClick={onThemeToggle}
-              className="btn btn-secondary"
               style={{
-                padding: 'var(--space-sm) var(--space-md)',
-                fontSize: '0.875rem',
-                minHeight: 'var(--space-mobile-touch)'
+                background: 'none',
+                border: 'none',
+                color: 'var(--text-primary)',
+                cursor: 'pointer',
+                padding: 'var(--space-sm)',
+                minHeight: 'var(--space-mobile-touch)',
+                minWidth: 'var(--space-mobile-touch)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 'var(--radius-sm)',
+                transition: 'var(--transition-colors)'
               }}
               aria-label="Toggle theme"
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--minimal-bg)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width={isMobile ? "20" : "16"} height={isMobile ? "20" : "16"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 {currentTheme === 'light' ? (
                   <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                 ) : (

@@ -861,9 +861,57 @@
     }
   }
 
-  /* Prevent horizontal scroll on mobile */
-  body {
+  /* Prevent horizontal scroll on mobile and desktop */
+  html, body {
     overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  /* Prevent horizontal overflow on all containers */
+  .container,
+  .section,
+  main {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  /* Ensure all elements stay within viewport bounds */
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Mobile performance optimizations */
+  @media (max-width: 768px) {
+    /* Enable hardware acceleration for animations */
+    .folder,
+    .paper,
+    [class*="mockup"],
+    [class*="animation"] {
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      perspective: 1000px;
+    }
+    
+    /* Optimize scrolling performance */
+    body {
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+    
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    
+    /* Optimize touch interactions */
+    button, a, [role="button"] {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
   }
 
   /* Smooth scrolling */
