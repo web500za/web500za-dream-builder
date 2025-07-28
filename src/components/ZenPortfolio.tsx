@@ -56,7 +56,7 @@ export function ZenPortfolio() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transform: isMobile ? 'translateY(40%)' : 'translateY(10%)'
+          transform: isMobile ? 'translateY(60%)' : 'translateY(40%)'
         }}>
           <ScrollFolderMockups />
         </div>

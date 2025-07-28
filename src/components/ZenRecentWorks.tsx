@@ -101,7 +101,7 @@ export function ZenRecentWorks() {
                   progressiveLoad: true,
                   hideOnTransparent: true
                 }}
-                speed={isVisible ? 1 : 0.1} // Very slow when not visible, normal when visible  
+                speed={isVisible ? 1 : 0} // Frozen when not visible, normal when visible  
                 direction={1}
                 isPaused={false}
                 isStopped={false}
@@ -136,15 +136,17 @@ export function ZenRecentWorks() {
         }}>
           <h3 
             style={{
-              fontSize: isMobile ? '1.5rem' : '1.75rem',
+              fontSize: isMobile ? '1.25rem' : '1.5rem',
               color: 'var(--text-primary)',
               fontFamily: 'var(--font-primary)',
-              fontWeight: '600',
+              fontWeight: '500',
               letterSpacing: '-0.01em',
-              textTransform: 'lowercase'
+              lineHeight: '1.4',
+              maxWidth: isMobile ? '100%' : '600px',
+              margin: '0 auto'
             }}
           >
-            recent work
+            like what you see? let's get your website made in 3 steps:
           </h3>
         </div>
       </div>
