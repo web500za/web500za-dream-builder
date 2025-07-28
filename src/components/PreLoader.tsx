@@ -16,12 +16,22 @@ export function PreLoader({ onLoadComplete }: PreLoaderProps) {
 
   // Preload fonts and other resources
   const preloadResources = () => {
-    // Preload Inter font
-    const fontLink = document.createElement('link');
-    fontLink.rel = 'preload';
-    fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap';
-    fontLink.as = 'style';
-    document.head.appendChild(fontLink);
+    // Preload Bricolage Grotesque fonts
+    const fontFiles = [
+      '/fonts/BricolageGrotesque-Variable.ttf',
+      '/fonts/Fonts/Junicode/Junicode.ttf',
+      '/fonts/Fonts/Junicode/Junicode-Italic.ttf'
+    ];
+    
+    fontFiles.forEach(fontPath => {
+      const fontLink = document.createElement('link');
+      fontLink.rel = 'preload';
+      fontLink.href = fontPath;
+      fontLink.as = 'font';
+      fontLink.type = 'font/ttf';
+      fontLink.crossOrigin = 'anonymous';
+      document.head.appendChild(fontLink);
+    });
 
     // Preload Cloudinary connection
     const cloudinaryLink = document.createElement('link');

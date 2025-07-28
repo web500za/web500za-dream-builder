@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web500za Design System</title>
+    <link rel="stylesheet" href="src/styles/design-system.css">
+    <link rel="stylesheet" href="src/styles/fonts.css">
+    <style>
+        /* Additional showcase styles */
+        .showcase-section {
+            padding: var(--space-3xl) 0;
+            border-bottom: 1px solid var(--border-default);
+        }
+        
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+        
+        .color-swatch {
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            text-align: center;
+            font-family: var(--font-sans);
+        }
+        
+        .swatch-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .swatch-value {
+            font-size: 0.75rem;
+            font-family: monospace;
+            opacity: 0.8;
+        }
+        
+        .button-grid {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            margin-top: var(--space-lg);
+        }
+        
+        .typography-sample {
+            margin-bottom: var(--space-xl);
+            padding: var(--space-lg);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+        }
+        
+        .spacing-demo {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md);
+        }
+        
+        .spacing-visual {
+            background: var(--brand-primary);
+            border-radius: var(--radius-sm);
+        }
+        
+        .theme-toggle-showcase {
+            position: fixed;
+            top: var(--space-lg);
+            right: var(--space-lg);
+            z-index: var(--z-fixed);
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-showcase">
+        <button id="themeToggle" class="btn btn-secondary">
+            <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+            Toggle Theme
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header class="showcase-section" style="text-align: center;">
+        <div class="container">
+            <h1 class="text-hero">Web500za Design System</h1>
+            <p class="text-hero-tagline">Zen Browser inspired design foundation</p>
+        </div>
+    </header>
+
+    <!-- Colors Section -->
+    <section class="showcase-section">
+        <div class="container">
+            <h2 class="text-section-title">Color Palette</h2>
+            
+            <h3 class="text-card-title" style="margin-top: var(--space-2xl);">Backgrounds</h3>
+            <div class="showcase-grid">
+                <div class="color-swatch" style="background-color: var(--bg-primary); color: var(--text-primary);">
+                    <div class="swatch-label">Primary Background</div>
+                    <div class="swatch-value">--bg-primary</div>
+                </div>
+                <div class="color-swatch" style="background-color: var(--bg-secondary); color: var(--text-primary);">
+                    <div class="swatch-label">Secondary Background</div>
+                    <div class="swatch-value">--bg-secondary</div>
+                </div>
+                <div class="color-swatch" style="background-color: var(--bg-tertiary); color: var(--text-primary);">
+                    <div class="swatch-label">Tertiary Background</div>
+                    <div class="swatch-value">--bg-tertiary</div>
+                </div>
+                <div class="color-swatch" style="background-color: var(--bg-elevated); color: var(--text-primary);">
+                    <div class="swatch-label">Elevated Background</div>
+                    <div class="swatch-value">--bg-elevated</div>
+                </div>
+            </div>
+            
+            <h3 class="text-card-title" style="margin-top: var(--space-2xl);">Text Colors</h3>
+            <div class="showcase-grid">
+                <div class="color-swatch" style="background-color: var(--bg-secondary);">
+                    <div class="swatch-label" style="color: var(--text-primary);">Primary Text</div>
+                    <div class="swatch-value" style="color: var(--text-primary);">--text-primary</div>
+                </div>
+                <div class="color-swatch" style="background-color: var(--bg-secondary);">
+                    <div class="swatch-label" style="color: var(--text-secondary);">Secondary Text</div>
+                    <div class="swatch-value" style="color: var(--text-secondary);">--text-secondary</div>
+                </div>
+                <div class="color-swatch" style="background-color: var(--bg-secondary);">
+                    <div class="swatch-label" style="color: var(--text-tertiary);">Tertiary Text</div>
+                    <div class="swatch-value" style="color: var(--text-tertiary);">--text-tertiary</div>
+                </div>
+            </div>
+            
+            <h3 class="text-card-title" style="margin-top: var(--space-2xl);">Brand Colors</h3>
+            <div class="showcase-grid">
+                <div class="color-swatch" style="background-color: var(--brand-primary); color: var(--bg-primary);">
+                    <div class="swatch-label">Brand Primary (Green)</div>
+                    <div class="swatch-value">--brand-primary</div>
+                </div>
+                <div class="color-swatch" style="background-color: var(--brand-primary-hover); color: var(--bg-primary);">
+                    <div class="swatch-label">Brand Primary Hover</div>
+                    <div class="swatch-value">--brand-primary-hover</div>
+                </div>
+                <div class="color-swatch" style="background-color: var(--brand-secondary); color: var(--bg-primary);">
+                    <div class="swatch-label">Brand Secondary</div>
+                    <div class="swatch-value">--brand-secondary</div>
+                </div>
+                <div class="color-swatch" style="background-color: var(--brand-tertiary); color: var(--bg-primary);">
+                    <div class="swatch-label">Brand Tertiary</div>
+                    <div class="swatch-value">--brand-tertiary</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Typography Section -->
+    <section class="showcase-section">
+        <div class="container">
+            <h2 class="text-section-title">Typography</h2>
+            
+            <div class="typography-sample">
+                <h2 class="text-hero-lead">welcome to</h2>
+                <h1 class="text-hero">professional <span style="color: var(--brand-primary);">web design</span></h1>
+                <p class="text-hero-tagline">This is the hero tagline style used for main messaging</p>
+            </div>
+            
+            <div class="typography-sample">
+                <h2 class="text-section-title">Section Title Style</h2>
+                <p class="text-body-lg">This is large body text for important descriptions and lead paragraphs that need more emphasis.</p>
+                <p class="text-body">This is regular body text for general content, descriptions, and most readable text on the site.</p>
+                <p class="text-caption">This is caption text for small labels, metadata, and less important information.</p>
+            </div>
+            
+            <div class="typography-sample">
+                <h3 class="text-card-title">Card Title Style</h3>
+                <p class="text-body">Used for feature cards, portfolio items, and section headings within content areas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Buttons Section -->
+    <section class="showcase-section">
+        <div class="container">
+            <h2 class="text-section-title">Button Styles</h2>
+            
+            <div class="button-grid">
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-accent">Accent Button (Green)</button>
+                <button class="btn btn-green-secondary">Green Secondary</button>
+                <button class="btn btn-subtle">Subtle Button</button>
+                <button class="btn btn-secondary">Secondary Button</button>
+            </div>
+            
+            <h3 class="text-card-title" style="margin-top: var(--space-2xl);">Button Usage</h3>
+            <div class="typography-sample">
+                <p class="text-body"><strong>btn-primary:</strong> Dark button following Zen Browser's "Download" style</p>
+                <p class="text-body"><strong>btn-accent:</strong> Your brand green for main CTAs and primary actions</p>
+                <p class="text-body"><strong>btn-green-secondary:</strong> Lighter green for secondary actions</p>
+                <p class="text-body"><strong>btn-subtle:</strong> Subtle beige button for contact actions</p>
+                <p class="text-body"><strong>btn-secondary:</strong> Outline button for tertiary actions</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="showcase-section">
+        <div class="container">
+            <h2 class="text-section-title">Card Components</h2>
+            
+            <div class="showcase-grid">
+                <div class="card">
+                    <h3 class="text-card-title">Feature Card</h3>
+                    <p class="text-body" style="margin-top: var(--space-md);">
+                        This is how feature cards look with the current styling. Clean, minimal, with subtle shadows.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3 class="text-card-title">Another Card</h3>
+                    <p class="text-body" style="margin-top: var(--space-md);">
+                        Cards have hover effects and use the secondary background color.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3 class="text-card-title">Third Card</h3>
+                    <p class="text-body" style="margin-top: var(--space-md);">
+                        All cards follow the same design system for consistency.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spacing Section -->
+    <section class="showcase-section">
+        <div class="container">
+            <h2 class="text-section-title">Spacing Scale</h2>
+            
+            <div style="margin-top: var(--space-xl);">
+                <div class="spacing-demo">
+                    <span class="text-body">--space-xs (0.25rem)</span>
+                    <div class="spacing-visual" style="width: var(--space-xs); height: 20px;"></div>
+                </div>
+                <div class="spacing-demo">
+                    <span class="text-body">--space-sm (0.5rem)</span>
+                    <div class="spacing-visual" style="width: var(--space-sm); height: 20px;"></div>
+                </div>
+                <div class="spacing-demo">
+                    <span class="text-body">--space-md (1rem)</span>
+                    <div class="spacing-visual" style="width: var(--space-md); height: 20px;"></div>
+                </div>
+                <div class="spacing-demo">
+                    <span class="text-body">--space-lg (1.5rem)</span>
+                    <div class="spacing-visual" style="width: var(--space-lg); height: 20px;"></div>
+                </div>
+                <div class="spacing-demo">
+                    <span class="text-body">--space-xl (2rem)</span>
+                    <div class="spacing-visual" style="width: var(--space-xl); height: 20px;"></div>
+                </div>
+                <div class="spacing-demo">
+                    <span class="text-body">--space-2xl (3rem)</span>
+                    <div class="spacing-visual" style="width: var(--space-2xl); height: 20px;"></div>
+                </div>
+                <div class="spacing-demo">
+                    <span class="text-body">--space-3xl (4rem)</span>
+                    <div class="spacing-visual" style="width: var(--space-3xl); height: 20px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Badges & Utilities -->
+    <section class="showcase-section">
+        <div class="container">
+            <h2 class="text-section-title">Badges & Utilities</h2>
+            
+            <div style="margin-top: var(--space-xl);">
+                <div style="margin-bottom: var(--space-lg);">
+                    <span class="badge badge-accent">Built for You</span>
+                    <span class="badge" style="background-color: var(--brand-primary); color: var(--bg-primary); margin-left: var(--space-sm);">New Feature</span>
+                </div>
+                
+                <h3 class="text-card-title" style="margin-top: var(--space-2xl);">Shadow Examples</h3>
+                <div class="showcase-grid">
+                    <div style="padding: var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+                        <p class="text-body">Shadow SM</p>
+                    </div>
+                    <div style="padding: var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-md); box-shadow: var(--shadow-md);">
+                        <p class="text-body">Shadow MD</p>
+                    </div>
+                    <div style="padding: var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-md); box-shadow: var(--shadow-lg);">
+                        <p class="text-body">Shadow LG</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Initialize theme
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon();
+        
+        themeToggle.addEventListener('click', () => {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', currentTheme);
+            localStorage.setItem('theme', currentTheme);
+            updateThemeIcon();
+        });
+        
+        function updateThemeIcon() {
+            if (currentTheme === 'light') {
+                themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />';
+            } else {
+                themeIcon.innerHTML = '<circle cx="12" cy="12" r="5" /><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />';
+            }
+        }
+    </script>
+</body>
+</html>

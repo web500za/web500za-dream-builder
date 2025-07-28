@@ -5,12 +5,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>web500za - Websites and Web-Apps from R500</title>
-    <meta name="description" content="Professional websites and web applications from R500. Pay only if you're happy with the result. Free hosting and 3 rounds of revisions included." />
+    <title>web500za - Professional Web Design for Local Businesses</title>
+    <meta name="description" content="Bringing Fortune 500 quality web design and security to local businesses. Professional websites built with enterprise-grade security and performance." />
+    <meta name="keywords" content="web design, South Africa, local business websites, responsive design, e-commerce, security, performance optimization" />
     <meta name="author" content="web500za" />
 
-    <meta property="og:title" content="web500za - Websites and Web-Apps from R500" />
-    <meta property="og:description" content="Professional websites and web applications from R500. Pay only if you're happy with the result." />
+    <meta property="og:title" content="web500za - Professional Web Design for Local Businesses" />
+    <meta property="og:description" content="Bringing Fortune 500 quality web design and security to local businesses. Professional websites built with enterprise-grade security and performance." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://web500za.com" />
     <meta property="og:image" content="https://web500za.com/og-image.svg" />
@@ -20,8 +21,8 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@web500za" />
-    <meta name="twitter:title" content="web500za - Websites and Web-Apps from R500" />
-    <meta name="twitter:description" content="Professional websites and web applications from R500. Pay only if you're happy with the result." />
+    <meta name="twitter:title" content="web500za - Professional Web Design for Local Businesses" />
+    <meta name="twitter:description" content="Bringing Fortune 500 quality web design and security to local businesses. Professional websites built with enterprise-grade security and performance." />
     <meta name="twitter:image" content="https://web500za.com/og-image.svg" />
     
     <!-- Additional meta tags for better compatibility -->
@@ -30,21 +31,47 @@
     <meta name="format-detection" content="telephone=no" />
     <link rel="canonical" href="https://web500za.com" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preload Critical Fonts -->
+    <link rel="preload" href="/fonts/BricolageGrotesque-Variable.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/BricolageGrotesque-Regular.ttf" as="font" type="font/ttf" crossorigin />
     
     <!-- Preload critical assets -->
     <link rel="preload" href="/lovable-uploads/about-childhood-pc.jpg" as="image" type="image/jpeg">
-    <link rel="preconnect" href="https://api.cloudinary.com">
-    <link rel="dns-prefetch" href="https://api.cloudinary.com">
     
-    <!-- Preload fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
+    <!-- DNS Prefetch for External Resources -->
+    <link rel="dns-prefetch" href="//api.emailjs.com" />
+    <link rel="dns-prefetch" href="//api.cloudinary.com" />
+    
+    <!-- Theme Color for Zen Design -->
+    <meta name="theme-color" content="#D1CFC0" />
+    <meta name="msapplication-TileColor" content="#D1CFC0" />
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "web500za",
+      "url": "https://web500za.com",
+      "logo": "https://web500za.com/favicon.ico",
+      "description": "Professional web design and development services for local businesses in South Africa",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+27-83-254-0891",
+        "contactType": "Customer Service",
+        "availableLanguage": "English"
+      },
+      "sameAs": [
+        "mailto:web500za@gmail.com"
+      ],
+      "areaServed": "South Africa",
+      "serviceType": "Web Design and Development"
+    }
+    </script>
   </body>
 </html>

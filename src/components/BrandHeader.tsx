@@ -34,7 +34,7 @@ export function BrandHeader({ onLaunchSpecialClick }: BrandHeaderProps) {
             className="absolute left-0 top-1/2 -translate-y-1/2 drop-shadow-xl"
           >
             <rect x="16" y="16" width="224" height="224" rx="32" fill="#2d5a3d"/>
-            <text x="128" y="150" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontSize="48" fontWeight="700" fill="#f8f6f1">&lt;/w5z/&gt;</text>
+            <text x="128" y="150" textAnchor="middle" fontFamily="Bricolage Grotesque, -apple-system, sans-serif" fontSize="48" fontWeight="700" fill="#f8f6f1">&lt;/w5z/&gt;</text>
           </svg>
 
           {/* WhatsApp Button - Right side within container */}
@@ -53,7 +53,7 @@ export function BrandHeader({ onLaunchSpecialClick }: BrandHeaderProps) {
               xmlns="http://www.w3.org/2000/svg"
             >
               <rect x="16" y="16" width="224" height="224" rx="32" fill="#2d5a3d"/>
-              <text x="128" y="150" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontSize="48" fontWeight="700" fill="#f8f6f1">&lt;/wa/&gt;</text>
+              <text x="128" y="150" textAnchor="middle" fontFamily="Bricolage Grotesque, -apple-system, sans-serif" fontSize="48" fontWeight="700" fill="#f8f6f1">&lt;/wa/&gt;</text>
             </svg>
           </a>
         </div>
@@ -73,7 +73,7 @@ export function BrandHeader({ onLaunchSpecialClick }: BrandHeaderProps) {
             className="drop-shadow-lg flex-shrink-0 -ml-1"
           >
             <rect x="16" y="16" width="224" height="224" rx="32" fill="#2d5a3d"/>
-            <text x="128" y="150" textAnchor="middle" fontFamily="Inter, Arial, sans-serif" fontSize="48" fontWeight="700" fill="#f8f6f1">&lt;/w5z/&gt;</text>
+            <text x="128" y="150" textAnchor="middle" fontFamily="Bricolage Grotesque, -apple-system, sans-serif" fontSize="48" fontWeight="700" fill="#f8f6f1">&lt;/w5z/&gt;</text>
           </svg>
 
           {/* Brand Name - Mobile */}

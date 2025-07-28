@@ -62,18 +62,14 @@ const Index = () => {
 
   const handleLaunchSpecialClick = () => {
     setCurrentSection("quote");
-    setIsPricingOpen(true);
-    setShowPricingBadge(false);
-    
-    // On mobile, scroll to pricing section after a short delay
-    if (window.innerWidth < 768) { // md breakpoint
+    // Trigger the glow effect after a short delay to ensure the component is rendered
+    setTimeout(() => {
+      setTriggerTextareaGlow(true);
+      // Reset the trigger after the glow animation
       setTimeout(() => {
-        const pricingSection = document.querySelector('.mobile-pricing-section') as HTMLElement;
-        if (pricingSection) {
-          smoothScrollTo(pricingSection);
-        }
-      }, 100);
-    }
+        setTriggerTextareaGlow(false);
+      }, 2500);
+    }, 100);
   };
 
   const handleSectionChange = (section: string) => {
@@ -103,7 +99,7 @@ const Index = () => {
       case "about":
         return <AboutSection onNavigateToQuote={handleNavigateToQuote} />;
       case "contact":
-        return <ContactSection />;
+        return <ContactSection onNavigateToQuote={handleNavigateToQuote} />;
       default:
         return <HeroSection 
           isPricingOpen={isPricingOpen} 

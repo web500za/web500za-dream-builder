@@ -1,0 +1,732 @@
+/* Web500za Design System - Zen Browser Inspired */
+
+:root {
+  /* Light Mode Colors (Zen Browser Authentic) */
+  
+  /* Backgrounds */
+  --bg-primary: #D1CFC0;          /* Zen's actual light gray background */
+  --bg-secondary: transparent;    /* Transparent for cleaner look */
+  --bg-tertiary: transparent;     /* Transparent for cleaner look */
+  --bg-elevated: transparent;     /* Transparent for cleaner look */
+  
+  /* Text */
+  --text-primary: #1F1F1F;        /* Zen's black text color */
+  --text-secondary: #2E2E2E;      /* Zen's dark slate gray */
+  --text-tertiary: #6B6B6B;       /* Lighter gray for captions */
+  --text-hero-lead: #2E2E2E;      /* Dark slate gray for "welcome to" */
+  
+  /* Brand Colors */
+  --brand-primary: #2D5A3D;       /* Your brand green - PRIMARY ACCENT */
+  --brand-primary-hover: #1E3D28; /* Darker green for hover */
+  --brand-secondary: #4A7C59;     /* Lighter green for secondary elements */
+  --brand-tertiary: #6B8E7A;      /* Even lighter green for subtle accents */
+  
+  /* UI Elements */
+  --border-default: rgba(209, 207, 192, 0.3);    /* Subtle version of bg-primary */
+  --border-hover: rgba(209, 207, 192, 0.5);      /* More visible on hover */
+  --shadow-xs: none;   /* DISABLED: 0 1px 2px rgba(31, 31, 31, 0.02) */
+  --shadow-sm: none;   /* DISABLED: 0 2px 4px rgba(31, 31, 31, 0.03) */
+  --shadow-md: none;   /* DISABLED: 0 4px 12px rgba(31, 31, 31, 0.05) */
+  --shadow-lg: none;   /* DISABLED: 0 8px 24px rgba(31, 31, 31, 0.08) */
+  
+  /* Spacing - Mobile-First Optimized */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --space-5xl: 8rem;
+  
+  /* Mobile-specific spacing - Standardized to 48px */
+  --space-mobile-touch: 48px;     /* Standard touch target (Apple HIG recommended) */
+  --space-mobile-comfort: 48px;   /* Comfortable touch target */
+  --space-mobile-lg: 56px;        /* Large touch target for primary actions */
+  --space-mobile-section: 3rem;   /* Mobile section spacing */
+  --space-mobile-content: 1.25rem; /* Mobile content spacing */
+  
+  /* Safe areas for iOS */
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-left: env(safe-area-inset-left);
+  --safe-area-inset-right: env(safe-area-inset-right);
+  
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+  
+  /* Animation */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  
+  /* Durations */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+  
+  /* Transitions */
+  --transition-all: all var(--duration-normal) var(--ease-in-out);
+  --transition-colors: background-color var(--duration-fast) var(--ease-in-out), 
+                       border-color var(--duration-fast) var(--ease-in-out), 
+                       color var(--duration-fast) var(--ease-in-out);
+  --transition-transform: transform var(--duration-normal) var(--ease-out);
+  
+  /* Typography */
+  --font-sans: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  /* Z-Index */
+  --z-base: 0;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}
+
+/* Mobile-Specific Design System Extensions */
+.minimal-card {
+  background-color: var(--minimal-bg);
+  border: 1px solid var(--minimal-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  transition: var(--transition-all);
+}
+
+.minimal-container {
+  background-color: var(--minimal-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid var(--minimal-border);
+}
+
+.minimal-form {
+  background-color: var(--minimal-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--minimal-border);
+  transition: var(--transition-all);
+}
+
+/* Mobile-optimized variables */
+:root {
+  --minimal-bg: rgba(248, 246, 241, 0.4);
+  --minimal-border: rgba(45, 90, 61, 0.12);
+}
+
+[data-theme="dark"] {
+  --minimal-bg: rgba(44, 42, 38, 0.4);
+  --minimal-border: rgba(74, 124, 89, 0.2);
+}
+
+/* Touch-friendly focus states */
+@media (hover: none) {
+  .btn:hover {
+    transform: none; /* Disable hover transforms on touch devices */
+  }
+  
+  .btn:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Enhanced touch targets for mobile */
+@media (max-width: 768px) {
+  .minimal-card {
+    padding: var(--space-mobile-content);
+    margin-bottom: var(--space-lg);
+  }
+  
+  input, textarea, select, button {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  /* Ensure comfortable spacing between interactive elements */
+  a, button, [role="button"], input[type="submit"], input[type="button"] {
+    min-height: var(--space-mobile-touch);
+    min-width: var(--space-mobile-touch);
+    touch-action: manipulation; /* Prevents double-tap zoom */
+  }
+  
+  /* Special case for text links that should have more padding */
+  a:not([role="button"]) {
+    min-width: auto; /* Text links don't need width constraint */
+  }
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  /* Use transform instead of changing layout properties */
+  .btn, .minimal-card, .portfolio-card {
+    will-change: transform;
+    transform: translateZ(0); /* Force hardware acceleration */
+  }
+  
+  /* Optimize scroll performance */
+  body {
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    overflow-scrolling: touch;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  /* Optimize text rendering on mobile */
+  body, input, textarea, button {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Prevent horizontal scrolling */
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Optimize viewport for mobile browsers */
+  html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Optimize images and borders for retina displays */
+  .minimal-card, .btn {
+    border-width: 0.5px;
+  }
+}
+
+/* Landscape orientation optimizations */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero {
+    min-height: auto !important;
+    padding-top: var(--space-lg) !important;
+    padding-bottom: var(--space-lg) !important;
+  }
+  
+  .text-hero {
+    font-size: 2rem !important;
+  }
+  
+  .text-section-title {
+    font-size: 1.75rem !important;
+  }
+}
+
+/* iOS-specific optimizations */
+@supports (-webkit-touch-callout: none) {
+  /* iOS-specific styles */
+  input, textarea, select {
+    border-radius: 8px; /* Consistent with iOS design language */
+  }
+  
+  .btn {
+    border-radius: 8px;
+  }
+  
+  /* Prevent zoom on input focus */
+  input[type="text"], 
+  input[type="email"], 
+  input[type="tel"], 
+  textarea, 
+  select {
+    font-size: 16px !important;
+  }
+  
+  /* Optimize for iOS status bar */
+  .hero {
+    padding-top: calc(var(--safe-area-inset-top) + var(--space-xl)) !important;
+  }
+}
+
+/* Android-specific optimizations */
+@media (max-width: 768px) {
+  /* Optimize for Android keyboards */
+  .hero {
+    min-height: calc(100vh - env(keyboard-inset-height, 0px));
+  }
+}
+
+/* Dark Mode (Zen Browser Authentic) */
+[data-theme="dark"] {
+  /* Backgrounds */
+  --bg-primary: #1F1F1F;          /* Using Zen's black for dark background */
+  --bg-secondary: transparent;    /* Transparent for cleaner look */
+  --bg-tertiary: transparent;     /* Transparent for cleaner look */
+  --bg-elevated: transparent;     /* Transparent for cleaner look */
+  
+  /* Text */
+  --text-primary: #D1CFC0;        /* Using Zen's light gray for text in dark mode */
+  --text-secondary: #B8B6A7;      /* Muted version of light gray */
+  --text-tertiary: #9A988A;       /* Even more muted */
+  --text-hero-lead: #D1CFC0;      /* Light gray for "welcome to" in dark mode */
+  
+  /* Brand Colors */
+  --brand-primary: #4A7C59;       /* Lighter green for dark mode */
+  --brand-secondary: #6B8E7A;     /* Medium green for dark mode */
+  --brand-tertiary: #8BA397;      /* Lightest green for dark mode subtle accents */
+  
+  /* UI Elements */
+  --border-default: rgba(46, 46, 46, 0.5);      /* Using Zen's dark slate */
+  --border-hover: rgba(46, 46, 46, 0.8);        /* More visible on hover */
+  --shadow-xs: none;   /* DISABLED: 0 1px 2px rgba(0, 0, 0, 0.4) */
+  --shadow-sm: none;   /* DISABLED: 0 2px 4px rgba(0, 0, 0, 0.5) */
+  --shadow-md: none;   /* DISABLED: 0 4px 12px rgba(0, 0, 0, 0.6) */
+  --shadow-lg: none;   /* DISABLED: 0 8px 24px rgba(0, 0, 0, 0.7) */
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  transition: var(--transition-colors);
+}
+
+/* Typography Classes - Zen Browser Accurate with Bricolage Grotesque */
+.text-hero-lead {
+  font-family: var(--font-sans);
+  font-size: 1.75rem;              /* "welcome to" style */
+  font-weight: 300;                /* Light weight */
+  line-height: 1.2;
+  color: var(--text-hero-lead);
+  letter-spacing: -0.01em;
+  font-optical-sizing: auto;
+}
+
+.text-hero {
+  font-family: var(--font-sans);
+  font-size: 4rem;                 /* Main hero text */
+  font-weight: 400;                /* Regular weight like Zen */
+  line-height: 1.05;               /* Tighter for display text */
+  letter-spacing: -0.025em;        /* Tighter letter spacing */
+  margin-top: var(--space-sm);     /* Small gap after lead text */
+  font-optical-sizing: auto;
+}
+
+.text-hero-accent {
+  color: var(--brand-primary);
+  font-weight: 400;                /* Same weight as rest of hero */
+  font-family: inherit;
+}
+
+.text-hero-tagline {
+  font-family: var(--font-sans);
+  font-size: 1rem;                 /* Small tagline under hero */
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-top: var(--space-lg);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: -0.005em;
+}
+
+.text-section-title {
+  font-family: var(--font-sans);
+  font-size: 2.5rem;               /* "Productivity at its best" style */
+  font-weight: 600;                /* Semibold */
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  font-optical-sizing: auto;
+}
+
+.text-card-title {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 600;                /* Semibold */
+  line-height: 1.3;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.text-body-lg {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
+}
+
+.text-body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
+}
+
+.text-caption {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-tertiary);
+  letter-spacing: 0.01em;          /* Slightly wider for small text */
+}
+
+/* Utility Classes */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-tertiary { color: var(--text-tertiary); }
+.text-brand { color: var(--brand-primary); }
+.text-accent { color: var(--brand-secondary); }
+
+.bg-primary { background-color: var(--bg-primary); }
+.bg-secondary { background-color: var(--bg-secondary); }
+.bg-tertiary { background-color: var(--bg-tertiary); }
+
+/* Container - Mobile-First */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  padding-left: max(var(--space-lg), var(--safe-area-inset-left));
+  padding-right: max(var(--space-lg), var(--safe-area-inset-right));
+}
+
+/* Section */
+.section {
+  padding: var(--space-5xl) 0;
+}
+
+/* Hero - Zen Browser Style */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-5xl) var(--space-lg);
+  background-color: var(--bg-primary);
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--space-2xl);
+  flex-wrap: wrap;
+}
+
+/* Buttons - Mobile-First Touch Targets */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md) var(--space-xl);
+  min-height: var(--space-mobile-touch); /* Ensure 44px minimum */
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-all);
+  text-decoration: none;
+  touch-action: manipulation; /* Prevent double-tap zoom */
+  user-select: none;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Buttons - Zen Browser Style */
+.btn-primary {
+  background-color: var(--text-primary);   /* Dark button like Zen's "Download" */
+  color: var(--bg-primary);                /* Light beige text */
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: var(--text-secondary);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-hover);
+  font-weight: 400;
+}
+
+.btn-secondary:hover {
+  border-color: var(--text-tertiary);
+  background-color: var(--bg-elevated);
+}
+
+.btn-accent {
+  background-color: var(--brand-primary);   /* GREEN for primary CTAs */
+  color: var(--bg-primary);                 /* Light beige text */
+  font-weight: 500;
+}
+
+.btn-accent:hover {
+  background-color: var(--brand-primary-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* Green secondary button */
+.btn-green-secondary {
+  background-color: var(--brand-secondary);    /* Lighter green for secondary CTAs */
+  color: var(--bg-primary);
+  font-weight: 500;
+}
+
+.btn-green-secondary:hover {
+  background-color: var(--brand-primary);
+  box-shadow: var(--shadow-md);
+}
+
+/* Subtle button for contact actions */
+.btn-subtle {
+  background-color: #E6E4D7;      /* Subtle beige background */
+  color: var(--text-primary);
+  border: 1px solid var(--border-hover);
+  font-weight: 500;
+}
+
+.btn-subtle:hover {
+  background-color: #DDD9CE;      /* Slightly darker beige on hover */
+  border-color: var(--text-tertiary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Dark mode adjustments for subtle button */
+[data-theme="dark"] .btn-subtle {
+  background-color: #3A3A3A;      /* Darker background for dark mode */
+  color: var(--text-primary);
+  border: 1px solid var(--border-hover);
+}
+
+[data-theme="dark"] .btn-subtle:hover {
+  background-color: #454545;      /* Lighter on hover in dark mode */
+  border-color: var(--text-tertiary);
+}
+
+/* Cards - Zen Browser Style */
+.card {
+  background-color: transparent;
+  border: none;                           /* No borders like Zen */
+  border-radius: var(--radius-lg);        /* Slightly more rounded */
+  padding: var(--space-2xl);              /* More generous padding */
+  box-shadow: none;                       /* No shadow for cleaner look */
+  transition: var(--transition-all);
+}
+
+.card:hover {
+  box-shadow: none;
+  transform: translateY(-1px);             /* Gentler lift */
+  background-color: transparent;
+}
+
+/* Feature Grid */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-3xl);
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.badge-accent {
+  background-color: var(--brand-primary);
+  color: var(--bg-primary);  /* Light beige text instead of white */
+}
+
+/* Section Spacing - Zen Browser Generous */
+.section {
+  padding: var(--space-5xl) 0;            /* Very generous like Zen */
+}
+
+.section-generous {
+  padding: 8rem 0;                        /* Even more space for key sections */
+}
+
+/* Hero Trust Indicators */
+.hero-trust {
+  margin-top: var(--space-3xl);
+  padding-top: var(--space-2xl);
+  border-top: 1px solid var(--border-default);
+}
+
+.trust-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.trust-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.trust-number {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--brand-primary);
+  font-family: var(--font-sans);
+}
+
+.trust-label {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  font-family: var(--font-sans);
+}
+
+.trust-divider {
+  color: var(--text-tertiary);
+  font-size: 1.2rem;
+}
+
+/* Badge Updates */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: var(--font-sans);
+}
+
+.badge-accent {
+  background-color: var(--brand-primary);
+  color: var(--bg-primary);  /* Light beige text instead of white */
+}
+
+/* Mobile-First Responsive Design */
+@media (max-width: 480px) {
+  /* Small mobile devices */
+  .text-hero-lead {
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+  
+  .text-hero {
+    font-size: 2rem;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+  
+  .text-section-title {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+  
+  .text-hero-tagline {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  .hero {
+    min-height: 100vh;
+    padding: calc(var(--safe-area-inset-top) + var(--space-lg)) var(--space-md) calc(var(--safe-area-inset-bottom) + var(--space-lg));
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tablet and mobile */
+  .text-hero-lead {
+    font-size: 1.5rem;
+    line-height: 1.25;
+  }
+  
+  .text-hero {
+    font-size: 2.5rem;
+    line-height: 1.1;
+  }
+  
+  .text-section-title {
+    font-size: 2rem;
+    line-height: 1.15;
+  }
+  
+  .text-body-lg {
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  
+  .hero {
+    min-height: 100vh;
+    padding: calc(var(--safe-area-inset-top) + var(--space-xl)) var(--space-lg) calc(var(--safe-area-inset-bottom) + var(--space-xl));
+  }
+  
+  .section {
+    padding: var(--space-mobile-section) 0;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: var(--space-md);
+  }
+  
+  .hero-buttons .btn {
+    width: 100%;
+    max-width: 320px;
+    min-height: var(--space-mobile-touch);
+  }
+  
+  .container {
+    padding: 0 var(--space-md);
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Tablet landscape */
+  .hero {
+    padding-top: calc(var(--safe-area-inset-top) + var(--space-xl));
+    padding-bottom: calc(var(--safe-area-inset-bottom) + var(--space-xl));
+  }
+}

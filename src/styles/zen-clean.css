@@ -1,0 +1,64 @@
+/* Clean CSS for Zen Browser Design - No Patterns */
+
+@tailwind base;
+@tailwind components;  
+@tailwind utilities;
+
+@layer base {
+  /* Reset body styles for clean Zen look */
+  body {
+    background: none !important;
+    background-color: var(--bg-primary) !important;
+    background-image: none !important;
+    font-family: var(--font-sans) !important;
+    color: var(--text-primary) !important;
+    min-height: 100vh;
+    line-height: 1.6;
+    transition: var(--transition-colors);
+  }
+
+  /* Remove all background patterns */
+  body::before,
+  body::after {
+    display: none !important;
+  }
+
+  /* Clean root element */
+  html {
+    background-color: var(--bg-primary) !important;
+    transition: var(--transition-colors);
+  }
+
+  /* Remove any mobile texture patterns */
+  .mobile-texture {
+    display: none !important;
+  }
+
+  /* Ensure no gradients leak through */
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* Essential utilities only */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Simple fade animation */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

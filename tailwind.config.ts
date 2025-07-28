@@ -68,8 +68,8 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			fontFamily: {
-				serif: ["Playfair Display", "Georgia", "serif"],
-				sans: ['Inter', 'system-ui', 'sans-serif'],
+				serif: ["Junicode", "Georgia", "serif"],
+				sans: ['Bricolage Grotesque', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'system-ui', 'sans-serif'],
 				mono: ["JetBrains Mono", "monospace"],
 			},
 			keyframes: {

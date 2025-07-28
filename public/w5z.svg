@@ -1,0 +1,6 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Green rounded square background -->
+  <rect x="16" y="16" width="224" height="224" rx="38" fill="#41976b"/>
+  <!-- Centered white text, optically centered -->
+  <text x="128" y="144" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="56" font-weight="700" fill="#fff">&lt;/w5z/&gt;</text>
+</svg>

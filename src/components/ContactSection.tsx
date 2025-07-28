@@ -1,6 +1,11 @@
-import { MessageCircle, Mail, ArrowRight } from "lucide-react";
+import { MessageCircle, Mail, ArrowRight, Sparkles, Zap } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-export function ContactSection() {
+interface ContactSectionProps {
+  onNavigateToQuote?: () => void;
+}
+
+export function ContactSection({ onNavigateToQuote }: ContactSectionProps = {}) {
   const socialLinks = [
     { href: "https://wa.me/27832540891", label: "WhatsApp", icon: (props: React.SVGProps<SVGSVGElement>) => (
       <svg {...props} viewBox="0 0 24 24" fill="currentColor">
@@ -22,6 +27,32 @@ export function ContactSection() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 md:px-6 pt-8 md:pt-6">
+      {/* Get Free Mockups CTA */}
+      <div className="text-center mb-12">
+        <div className="bg-gradient-to-br from-brand-green/10 to-brand-green/5 rounded-3xl p-8 md:p-10 border border-brand-green/20 shadow-lg">
+          <div className="flex justify-center mb-4">
+            <div className="p-3 bg-brand-green/10 rounded-2xl">
+              <Sparkles className="w-8 h-8 text-brand-green" />
+            </div>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold text-brand-text-dark mb-4">
+            Get 3 Free Mockups
+          </h2>
+          <p className="text-lg text-brand-text-muted mb-6 max-w-2xl mx-auto">
+            Share your idea and receive 3 professional website mockups at no cost. 
+            Only pay when you love the design and want to move forward.
+          </p>
+          <div className="flex justify-center">
+            <Button 
+              onClick={onNavigateToQuote}
+              className="bg-brand-green hover:bg-brand-green-light text-white px-8 py-4 text-lg font-semibold rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex items-center gap-2"
+            >
+              <Zap className="w-5 h-5" />
+              Start Your Project Brief
+            </Button>
+          </div>
+        </div>
+      </div>
 
       {/* Main Contact Cards */}
       <div className="grid md:grid-cols-2 gap-4 mb-12">
@@ -58,6 +89,14 @@ export function ContactSection() {
             <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-[#4a5d4a] group-hover:translate-x-1 transition-all" />
           </div>
         </a>
+      </div>
+
+      {/* Additional Context */}
+      <div className="text-center mb-8">
+        <p className="text-base text-brand-text-muted max-w-2xl mx-auto leading-relaxed">
+          Prefer to chat directly? Reach out via WhatsApp or email. 
+          <span className="text-brand-green font-semibold"> I typically respond within a few hours</span> during business days.
+        </p>
       </div>
 
       {/* Social Links */}
