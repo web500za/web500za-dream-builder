@@ -94,29 +94,60 @@ export function PreLoader({ onLoadComplete }: PreLoaderProps) {
 
   return (
     <div 
-      className="fixed inset-0 bg-brand-eggshell flex items-center justify-center z-50 transition-opacity duration-300"
-      style={{ opacity: isVisible ? 1 : 0 }}
+      className="fixed inset-0 flex items-center justify-center z-50 transition-opacity duration-300"
+      style={{ 
+        opacity: isVisible ? 1 : 0,
+        backgroundColor: 'var(--bg-primary)'
+      }}
     >
       <div className="text-center">
         {/* Logo/Brand */}
         <div className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-brand-green mb-2">
-            web500za
+          <h1 
+            className="text-4xl md:text-5xl font-bold mb-2"
+            style={{ 
+              color: 'var(--brand-primary)',
+              fontFamily: 'var(--font-hero)',
+              textTransform: 'uppercase',
+              letterSpacing: '-0.02em'
+            }}
+          >
+            SMU
           </h1>
-          <p className="text-brand-text-muted text-lg">
-            Loading your experience...
+          <p 
+            className="text-lg"
+            style={{ 
+              color: '#F5F3E8',
+              fontFamily: 'var(--font-sans)',
+              opacity: 0.8
+            }}
+          >
+            Loading your social media experience...
           </p>
         </div>
 
         {/* Progress Bar */}
         <div className="w-64 mx-auto">
-          <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
+          <div 
+            className="h-1 rounded-full overflow-hidden"
+            style={{ backgroundColor: 'rgba(209, 207, 192, 0.3)' }}
+          >
             <div 
-              className="h-full bg-brand-green transition-all duration-300 ease-out rounded-full"
-              style={{ width: `${loadProgress}%` }}
+              className="h-full transition-all duration-300 ease-out rounded-full"
+              style={{ 
+                width: `${loadProgress}%`,
+                backgroundColor: 'var(--brand-primary)'
+              }}
             />
           </div>
-          <p className="text-sm text-brand-text-muted mt-2">
+          <p 
+            className="text-sm mt-2"
+            style={{ 
+              color: '#F5F3E8',
+              opacity: 0.6,
+              fontFamily: 'var(--font-sans)'
+            }}
+          >
             {Math.round(loadProgress)}%
           </p>
         </div>
@@ -127,8 +158,9 @@ export function PreLoader({ onLoadComplete }: PreLoaderProps) {
             {[0, 1, 2].map((i) => (
               <div
                 key={i}
-                className="w-2 h-2 bg-brand-green rounded-full animate-pulse"
+                className="w-2 h-2 rounded-full animate-pulse"
                 style={{
+                  backgroundColor: 'var(--brand-primary)',
                   animationDelay: `${i * 0.2}s`,
                   animationDuration: '1s'
                 }}

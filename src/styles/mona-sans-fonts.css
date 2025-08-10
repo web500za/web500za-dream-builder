@@ -1,0 +1,120 @@
+/* Mona Sans Font Family Definitions */
+
+/* Mona Sans ExtraLight - For subtle lead text */
+@font-face {
+  font-family: 'Mona Sans';
+  src: url('/fonts/MonaSans/webfonts/MonaSans-ExtraLight.woff2') format('woff2'),
+       url('/fonts/MonaSans/ttf/MonaSans-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Mona Sans Light - For taglines and secondary text */
+@font-face {
+  font-family: 'Mona Sans';
+  src: url('/fonts/MonaSans/webfonts/MonaSans-Light.woff2') format('woff2'),
+       url('/fonts/MonaSans/ttf/MonaSans-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Mona Sans Regular - For body text and forms */
+@font-face {
+  font-family: 'Mona Sans';
+  src: url('/fonts/MonaSans/webfonts/MonaSans-Regular.woff2') format('woff2'),
+       url('/fonts/MonaSans/ttf/MonaSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Mona Sans Medium - For emphasis */
+@font-face {
+  font-family: 'Mona Sans';
+  src: url('/fonts/MonaSans/webfonts/MonaSans-Medium.woff2') format('woff2'),
+       url('/fonts/MonaSans/ttf/MonaSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Mona Sans SemiBold - For buttons and strong emphasis */
+@font-face {
+  font-family: 'Mona Sans';
+  src: url('/fonts/MonaSans/webfonts/MonaSans-SemiBold.woff2') format('woff2'),
+       url('/fonts/MonaSans/ttf/MonaSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Mona Sans Bold - For strong headings */
+@font-face {
+  font-family: 'Mona Sans';
+  src: url('/fonts/MonaSans/webfonts/MonaSans-Bold.woff2') format('woff2'),
+       url('/fonts/MonaSans/ttf/MonaSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Mona Sans ExtraBold - For major headings */
+@font-face {
+  font-family: 'Mona Sans';
+  src: url('/fonts/MonaSans/webfonts/MonaSans-ExtraBold.woff2') format('woff2'),
+       url('/fonts/MonaSans/ttf/MonaSans-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Mona Sans Black - For maximum impact hero text */
+@font-face {
+  font-family: 'Mona Sans';
+  src: url('/fonts/MonaSans/webfonts/MonaSans-Black.woff2') format('woff2'),
+       url('/fonts/MonaSans/ttf/MonaSans-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Mona Sans Light Italic - For brand name emphasis */
+@font-face {
+  font-family: 'Mona Sans';
+  src: url('/fonts/MonaSans/webfonts/MonaSans-LightItalic.woff2') format('woff2'),
+       url('/fonts/MonaSans/ttf/MonaSans-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Mona Sans Medium Italic - For stylistic emphasis */
+@font-face {
+  font-family: 'Mona Sans';
+  src: url('/fonts/MonaSans/webfonts/MonaSans-MediumItalic.woff2') format('woff2'),
+       url('/fonts/MonaSans/ttf/MonaSans-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Mona Sans Expanded versions for special emphasis */
+@font-face {
+  font-family: 'Mona Sans Expanded';
+  src: url('/fonts/MonaSans/webfonts/MonaSansExpanded-ExtraBold.woff2') format('woff2'),
+       url('/fonts/MonaSans/ttf/MonaSansExpanded-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mona Sans Expanded';
+  src: url('/fonts/MonaSans/webfonts/MonaSansExpanded-Black.woff2') format('woff2'),
+       url('/fonts/MonaSans/ttf/MonaSansExpanded-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}

@@ -4,9 +4,10 @@ import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ZenHeroProps {
   onGetStarted?: () => void;
+  onFormExpandChange?: (isExpanded: boolean) => void;
 }
 
-export function ZenHero({ onGetStarted }: ZenHeroProps) {
+export function ZenHero({ onGetStarted, onFormExpandChange }: ZenHeroProps) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const isMobile = useIsMobile();
 
@@ -64,7 +65,7 @@ export function ZenHero({ onGetStarted }: ZenHeroProps) {
               margin: isMobile ? '0 auto var(--space-lg)' : '0 auto var(--space-xl)',
               lineHeight: isMobile ? '1.5' : '1.6'
             }}>
-              I've received your project details and will send you 3 free mockups within 24 hours.
+              I've received your social media goals and will send you 3 free content mockups within 24 hours.
             </p>
             <button 
               className="btn btn-subtle"
@@ -78,7 +79,7 @@ export function ZenHero({ onGetStarted }: ZenHeroProps) {
                 padding: isMobile ? 'var(--space-md) var(--space-lg)' : 'var(--space-sm) var(--space-lg)'
               }}
             >
-              Start Another Project
+              Start Another Campaign
             </button>
           </div>
         ) : (
@@ -90,32 +91,54 @@ export function ZenHero({ onGetStarted }: ZenHeroProps) {
             }}>
               {/* H1 Greeting */}
               <h1 style={{
-                fontFamily: 'var(--font-primary)',
-                fontSize: isMobile ? (window.innerWidth <= 480 ? '2rem' : '2.5rem') : '3.5rem',
-                lineHeight: '1.1',
-                marginBottom: isMobile ? 'var(--space-md)' : 'var(--space-lg)',
-                fontWeight: '400',
-                color: 'var(--text-primary)',
-                letterSpacing: '-0.02em',
-                textAlign: 'center'
+                textAlign: 'center',
+                marginBottom: isMobile ? 'var(--space-lg)' : 'var(--space-xl)'
               }}>
-                welcome to my<br />
-                <span style={{ color: 'var(--brand-primary)', fontFamily: 'Junicode Italic, serif' }}>effortless</span> website service
+                {/* "welcome to" - Static text */}
+                <div style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: isMobile ? (window.innerWidth <= 480 ? '1.25rem' : '1.75rem') : '2.25rem',
+                  fontWeight: '200', // ExtraLight
+                  color: '#F5F3E8', // Warm ivory
+                  letterSpacing: '0.05em',
+                  marginBottom: isMobile ? 'var(--space-sm)' : 'var(--space-md)',
+                  textTransform: 'lowercase'
+                }}>
+                  welcome to
+                </div>
+                
+                {/* "The Social Media Unicorn" - Static text */}
+                <div style={{
+                  fontFamily: 'var(--font-hero)',
+                  fontSize: isMobile ? (window.innerWidth <= 480 ? '2.2rem' : '2.8rem') : '4.2rem',
+                  fontWeight: '900', // Black
+                  lineHeight: '1.2',
+                  letterSpacing: '-0.02em',
+                  textTransform: 'uppercase',
+                  whiteSpace: 'nowrap',
+                  textAlign: 'center',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
+                  <span style={{ color: '#F5F3E8' }}>The Social Media Unicorn</span>
+                </div>
               </h1>
               
-              {/* H2 Tagline */}
+              {/* H2 Tagline - Static text */}
               <h2 style={{
-                fontFamily: 'var(--font-primary)',
-                fontSize: isMobile ? (window.innerWidth <= 480 ? '1rem' : '1.1rem') : '1.2rem',
-                fontWeight: '400',
-                color: 'var(--text-secondary)',
-                maxWidth: isMobile ? '100%' : '600px',
+                fontFamily: 'var(--font-sans)',
+                fontSize: isMobile ? (window.innerWidth <= 480 ? '1.1rem' : '1.25rem') : '1.35rem',
+                fontWeight: '300', // Light - elegant and readable
+                color: '#F5F3E8', // Warm ivory
+                maxWidth: isMobile ? '100%' : '650px',
                 margin: '0 auto',
-                lineHeight: isMobile ? '1.5' : '1.6',
-                letterSpacing: '-0.01em',
-                textAlign: 'center'
+                lineHeight: '1.5',
+                letterSpacing: '0.01em', // Slightly expanded for readability
+                textAlign: 'center',
+                fontStyle: 'normal'
               }}>
-                Send me your idea and I'll send you 3 free mock-ups.
+                Tell me about your social media goals and I'll send you 3 free content mockups.
               </h2>
             </div>
 
@@ -124,7 +147,10 @@ export function ZenHero({ onGetStarted }: ZenHeroProps) {
               marginBottom: isMobile ? 'var(--space-lg)' : 'var(--space-xl)',
               marginTop: isMobile ? 'var(--space-xl)' : 'var(--space-2xl)'
             }}>
-              <ZenExpandingForm onSuccess={handleFormSuccess} />
+              <ZenExpandingForm 
+                onSuccess={handleFormSuccess} 
+                onExpandChange={onFormExpandChange}
+              />
             </div>
 
             {/* Minimal Stats */}
@@ -132,25 +158,27 @@ export function ZenHero({ onGetStarted }: ZenHeroProps) {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              gap: isMobile ? 'var(--space-lg)' : 'var(--space-2xl)',
+              gap: isMobile ? 'var(--space-md)' : 'var(--space-xl)',
               margin: '0 auto',
-              opacity: '0.7',
-              fontSize: isMobile ? '0.8rem' : '0.875rem',
-              fontFamily: 'var(--font-primary)',
+              fontSize: isMobile ? '0.85rem' : '0.95rem',
+              fontFamily: 'var(--font-sans)',
               color: 'var(--text-tertiary)',
-              fontWeight: '400'
+              fontWeight: '500', // Medium for better readability
+              letterSpacing: '0.02em'
             }}>
-              <span className="tabular-nums">50+ projects</span>
+              <span className="tabular-nums" style={{ fontWeight: '600' }}>50+ campaigns</span>
               <span style={{ 
-                color: 'var(--text-quaternary)',
-                fontSize: isMobile ? '0.75rem' : '0.875rem'
+                color: 'var(--text-tertiary)',
+                fontSize: isMobile ? '0.75rem' : '0.875rem',
+                fontWeight: '300'
               }}>•</span>
-              <span className="tabular-nums">100% satisfied</span>
+              <span className="tabular-nums" style={{ fontWeight: '600' }}>100% satisfied</span>
               <span style={{ 
-                color: 'var(--text-quaternary)',
-                fontSize: isMobile ? '0.75rem' : '0.875rem'
+                color: 'var(--text-tertiary)',
+                fontSize: isMobile ? '0.75rem' : '0.875rem',
+                fontWeight: '300'
               }}>•</span>
-              <span className="tabular-nums">24hr response</span>
+              <span className="tabular-nums" style={{ fontWeight: '600' }}>24hr response</span>
             </div>
           </>
         )}

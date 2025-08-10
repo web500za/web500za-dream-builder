@@ -1,34 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { ZenNav } from '@/components/ZenNav';
+import React, { useState } from 'react';
 import { ZenHero } from '@/components/ZenHero';
-import { ZenRecentWorks } from '@/components/ZenRecentWorks';
-import { ZenFeatures } from '@/components/ZenFeatures';
-import { ZenProcessStep1, ZenProcessStep3 } from '@/components/ZenProcess';
-import { ZenPortfolio } from '@/components/ZenPortfolio';
 import { ZenFooter } from '@/components/ZenFooter';
-import { ZenContactForm } from '@/components/ZenContactForm';
+import { TextMessagesAnimation } from '@/components/TextMessagesAnimation';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function ZenIndex() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const isMobile = useIsMobile();
-
-  // Initialize theme from localStorage or system preference
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark';
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    const initialTheme = savedTheme || systemTheme;
-    
-    setTheme(initialTheme);
-    document.documentElement.setAttribute('data-theme', initialTheme);
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
+  const [isFormExpanded, setIsFormExpanded] = useState(false);
 
   const handleGetStarted = () => {
     // Scroll to contact or open contact form
@@ -49,37 +27,34 @@ export default function ZenIndex() {
       transition: 'var(--transition-colors)'
     }}>
 
-      {/* Navigation */}
-      <ZenNav 
-        onThemeToggle={toggleTheme}
-        currentTheme={theme}
-      />
-
       {/* Main Content */}
-      <main style={{ paddingTop: '80px' }}> {/* Account for fixed nav */}
+      <main>
         
         {/* Hero Section */}
-        <ZenHero onGetStarted={handleGetStarted} />
+        <ZenHero 
+          onGetStarted={handleGetStarted} 
+          onFormExpandChange={setIsFormExpanded} 
+        />
 
-        {/* Recent Works Section */}
-        <ZenRecentWorks />
-
-
-        {/* Process Step 1 */}
-        <ZenProcessStep1 />
-
-        {/* Process Step 2 - Portfolio (3 Mock-ups) */}
-        <ZenPortfolio />
-
-        {/* Process Step 3 */}
-        <ZenProcessStep3 />
-
+        {/* Text Messages Animation Section - Absolutely positioned */}
+        <div style={{ 
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: isMobile ? 'calc(100vh - 300px)' : 'calc(100vh - 400px)',
+          zIndex: 5,
+          pointerEvents: 'none'
+        }}>
+          <TextMessagesAnimation />
+        </div>
 
         {/* Simple CTA Section */}
         <section className="section" id="contact" style={{ 
           textAlign: 'center',
           paddingTop: isMobile ? 'var(--space-4xl)' : 'var(--space-5xl)',
-          paddingBottom: isMobile ? 'var(--space-4xl)' : 'var(--space-5xl)'
+          paddingBottom: isMobile ? 'var(--space-4xl)' : 'var(--space-5xl)',
+          marginTop: isFormExpanded ? (isMobile ? '300px' : '400px') : '0px',
+          transition: 'margin-top 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
         }}>
           <div className="container">
             <h2 className="text-section-title" style={{ marginBottom: 'var(--space-lg)' }}>
@@ -93,7 +68,7 @@ export default function ZenIndex() {
               marginBottom: 'var(--space-3xl)',
               color: 'var(--text-secondary)'
             }}>
-              Tell me about your project and I'll send you 3 free mockups. Only pay when you want to work together.
+              Tell me about your social media goals and I'll send you 3 free content mockups. Only pay when you want to work together.
             </p>
             
             <div style={{
@@ -167,7 +142,7 @@ export default function ZenIndex() {
       </main>
 
       {/* Footer */}
-      <ZenFooter currentTheme={theme} />
+      <ZenFooter />
     </div>
   );
 }
