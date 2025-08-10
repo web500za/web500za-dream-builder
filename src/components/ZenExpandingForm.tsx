@@ -3,26 +3,24 @@ import { LoadingSpinner } from './LoadingSpinner';
 import { sendEmail, validateEmail } from '@/lib/emailService';
 import { useIsMobile } from '@/hooks/use-mobile';
 
-// Helper function to get theme-aware colors
+// Fixed theme colors for light mode only
 const getThemeColors = () => {
-  const isDark = document.documentElement.classList.contains('dark');
   return {
-    containerBg: isDark ? 'rgba(44, 42, 38, 0.6)' : 'rgba(248, 246, 241, 0.6)',
+    containerBg: 'rgba(209, 207, 192, 0.2)',
     inputBg: 'var(--minimal-bg)',
     inputBgOptional: 'var(--minimal-bg)',
-    border: isDark ? 'rgba(248, 246, 241, 0.15)' : 'rgba(45, 90, 61, 0.15)',
-    borderRequired: isDark ? 'rgba(74, 124, 89, 0.3)' : 'rgba(45, 90, 61, 0.2)',
-    gradientLine: isDark 
-      ? 'linear-gradient(90deg, transparent, rgba(74, 124, 89, 0.3), transparent)'
-      : 'linear-gradient(90deg, transparent, rgba(45, 90, 61, 0.2), transparent)'
+    border: 'rgba(209, 207, 192, 0.3)',
+    borderRequired: 'rgba(209, 207, 192, 0.4)',
+    gradientLine: 'linear-gradient(90deg, transparent, rgba(209, 207, 192, 0.3), transparent)'
   };
 };
 
 interface ZenExpandingFormProps {
   onSuccess?: () => void;
+  onExpandChange?: (isExpanded: boolean) => void;
 }
 
-export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
+export function ZenExpandingForm({ onSuccess, onExpandChange }: ZenExpandingFormProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -35,32 +33,20 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
-  const [animatedPlaceholder, setAnimatedPlaceholder] = useState('Share your vision - I\'ll bring it to life...');
-  const [themeColors, setThemeColors] = useState(getThemeColors());
+  const [animatedPlaceholder, setAnimatedPlaceholder] = useState('Tell me about your social media goals...');
+  const themeColors = getThemeColors();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
-
-  // Update theme colors when theme changes
-  useEffect(() => {
-    const updateTheme = () => setThemeColors(getThemeColors());
-    // Listen for theme changes
-    const observer = new MutationObserver(updateTheme);
-    observer.observe(document.documentElement, { 
-      attributes: true, 
-      attributeFilter: ['class'] 
-    });
-    return () => observer.disconnect();
-  }, []);
 
   // Animated placeholder effect
   useEffect(() => {
     if (!isExpanded) {
       const placeholders = [
-        'Share your vision - I\'ll bring it to life...',
-        'Tell me about your dream website...',
-        'Describe your business goals and I\'ll create something amazing...',
-        'What\'s your story? Let\'s build something beautiful together...'
+        'Tell me about your social media goals...',
+        'What\'s your brand story? Let\'s create content that converts...',
+        'Describe your target audience and desired social presence...',
+        'Which platforms need the most attention? Instagram, TikTok, LinkedIn?'
       ];
       let index = 0;
       
@@ -78,6 +64,7 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
     const handleClickOutside = (event: MouseEvent) => {
       if (formRef.current && !formRef.current.contains(event.target as Node) && isExpanded) {
         setIsExpanded(false);
+        onExpandChange?.(false);
       }
     };
 
@@ -88,10 +75,11 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isExpanded]);
+  }, [isExpanded, onExpandChange]);
 
   const handleTextareaFocus = () => {
     setIsExpanded(true);
+    onExpandChange?.(true);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -174,7 +162,7 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
           lineHeight: 1.6,
           fontFamily: 'var(--font-sans)'
         }}>
-          Thank you for reaching out. I'll get back to you within 24 hours with some initial ideas and next steps.
+          Thank you for reaching out. I'll get back to you within 24 hours with your custom social media content mockups and strategy ideas.
         </p>
       </div>
     );
@@ -212,9 +200,9 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                 handleTextareaFocus();
                 e.currentTarget.style.borderColor = 'var(--brand-primary)';
                 e.currentTarget.style.boxShadow = `
-                  0 0 0 4px rgba(45, 90, 61, 0.2),
-                  0 12px 32px rgba(45, 90, 61, 0.15),
-                  inset 0 1px 3px rgba(45, 90, 61, 0.1)
+                  0 0 0 4px rgba(184, 61, 139, 0.2),
+                  0 12px 32px rgba(184, 61, 139, 0.15),
+                  inset 0 1px 3px rgba(184, 61, 139, 0.1)
                 `;
                 e.currentTarget.style.transform = 'translateY(-1px) scale(1.01)';
               }}
@@ -222,9 +210,9 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                 if (!isExpanded) {
                   e.currentTarget.style.borderColor = 'var(--brand-primary)';
                   e.currentTarget.style.boxShadow = `
-                    0 0 0 3px rgba(45, 90, 61, 0.1),
-                    0 4px 12px rgba(45, 90, 61, 0.08),
-                    inset 0 1px 3px rgba(45, 90, 61, 0.05)
+                    0 0 0 3px rgba(184, 61, 139, 0.1),
+                    0 4px 12px rgba(184, 61, 139, 0.08),
+                    inset 0 1px 3px rgba(184, 61, 139, 0.05)
                   `;
                   e.currentTarget.style.transform = 'translateY(0) scale(1)';
                 }
@@ -247,9 +235,9 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                 outline: 'none',
                 transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 boxShadow: `
-                  0 0 0 3px rgba(45, 90, 61, 0.1),
-                  0 4px 12px rgba(45, 90, 61, 0.08),
-                  inset 0 1px 3px rgba(45, 90, 61, 0.05)
+                  0 0 0 3px rgba(184, 61, 139, 0.1),
+                  0 4px 12px rgba(184, 61, 139, 0.08),
+                  inset 0 1px 3px rgba(184, 61, 139, 0.05)
                 `,
                 background: 'var(--minimal-bg)',
                 animation: !isExpanded && !formData.project ? 'textareaBreathing 4s ease-in-out infinite' : 'none',
@@ -259,9 +247,9 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                 if (!isExpanded) {
                   e.currentTarget.style.transform = 'translateY(-2px) scale(1.01)';
                   e.currentTarget.style.boxShadow = `
-                    0 0 0 3px rgba(45, 90, 61, 0.15),
-                    0 8px 24px rgba(45, 90, 61, 0.12),
-                    inset 0 1px 3px rgba(45, 90, 61, 0.08)
+                    0 0 0 3px rgba(184, 61, 139, 0.15),
+                    0 8px 24px rgba(184, 61, 139, 0.12),
+                    inset 0 1px 3px rgba(184, 61, 139, 0.08)
                   `;
                 }
               }}
@@ -269,9 +257,9 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                 if (!isExpanded) {
                   e.currentTarget.style.transform = 'translateY(0) scale(1)';
                   e.currentTarget.style.boxShadow = `
-                    0 0 0 3px rgba(45, 90, 61, 0.1),
-                    0 4px 12px rgba(45, 90, 61, 0.08),
-                    inset 0 1px 3px rgba(45, 90, 61, 0.05)
+                    0 0 0 3px rgba(184, 61, 139, 0.1),
+                    0 4px 12px rgba(184, 61, 139, 0.08),
+                    inset 0 1px 3px rgba(184, 61, 139, 0.05)
                   `;
                 }
               }}
@@ -300,7 +288,7 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
         <div style={{
           maxHeight: isExpanded ? '800px' : '0',
           overflow: 'hidden',
-          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          transition: 'max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease',
           opacity: isExpanded ? 1 : 0
         }}>
           {/* Error Message */}
@@ -363,7 +351,7 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = 'var(--brand-primary)';
-                    e.target.style.boxShadow = '0 0 0 3px rgba(45, 90, 61, 0.1)';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(184, 61, 139, 0.1)';
                   }}
                   onBlur={(e) => {
                     e.target.style.borderColor = 'var(--border-default)';
@@ -405,7 +393,7 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = 'var(--brand-primary)';
-                    e.target.style.boxShadow = '0 0 0 3px rgba(45, 90, 61, 0.1)';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(184, 61, 139, 0.1)';
                   }}
                   onBlur={(e) => {
                     e.target.style.borderColor = 'var(--border-default)';
@@ -449,7 +437,7 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                 }}
                 onFocus={(e) => {
                   e.target.style.borderColor = 'var(--brand-primary)';
-                  e.target.style.boxShadow = '0 0 0 3px rgba(45, 90, 61, 0.1)';
+                  e.target.style.boxShadow = '0 0 0 3px rgba(184, 61, 139, 0.1)';
                 }}
                 onBlur={(e) => {
                   e.target.style.borderColor = 'var(--border-default)';
@@ -496,7 +484,7 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = 'var(--brand-primary)';
-                    e.target.style.boxShadow = '0 0 0 3px rgba(45, 90, 61, 0.1)';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(184, 61, 139, 0.1)';
                   }}
                   onBlur={(e) => {
                     e.target.style.borderColor = 'var(--border-default)';
@@ -504,9 +492,9 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                   }}
                 >
                   <option value="">Select budget range</option>
-                  <option value="R1000-R2500">R1000 - R2500</option>
-                  <option value="R2500-R5000">R2500 - R5000</option>
-                  <option value="R5000+">R5000+</option>
+                  <option value="R500-R1500">R500 - R1500</option>
+                  <option value="R1500-R3000">R1500 - R3000</option>
+                  <option value="R3000+">R3000+</option>
                   <option value="Let's discuss">Let's discuss</option>
                 </select>
               </div>
@@ -542,7 +530,7 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = 'var(--brand-primary)';
-                    e.target.style.boxShadow = '0 0 0 3px rgba(45, 90, 61, 0.1)';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(184, 61, 139, 0.1)';
                   }}
                   onBlur={(e) => {
                     e.target.style.borderColor = 'var(--border-default)';
@@ -552,7 +540,7 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                   <option value="">Select timeline</option>
                   <option value="ASAP">ASAP</option>
                   <option value="1-2 weeks">1-2 weeks</option>
-                  <option value="1 month">1 month</option>
+                  <option value="1-2 weeks">1-2 weeks</option>
                   <option value="Flexible">Flexible</option>
                 </select>
               </div>
@@ -588,26 +576,26 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                 gap: 'var(--space-sm)',
                 opacity: isSubmitting ? 0.8 : 1,
                 transform: isSubmitting ? 'scale(0.98)' : 'scale(1)',
-                boxShadow: isSubmitting ? 'none' : '0 4px 12px rgba(45, 90, 61, 0.3)',
+                boxShadow: isSubmitting ? 'none' : '0 4px 12px rgba(184, 61, 139, 0.3)',
                 touchAction: 'manipulation'
               }}
               onMouseEnter={(e) => {
                 if (!isSubmitting) {
                   e.currentTarget.style.transform = 'scale(1.02)';
                   e.currentTarget.style.backgroundColor = 'var(--brand-primary-hover)';
-                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(45, 90, 61, 0.4)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(184, 61, 139, 0.4)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isSubmitting) {
                   e.currentTarget.style.transform = 'scale(1)';
                   e.currentTarget.style.backgroundColor = 'var(--brand-primary)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(45, 90, 61, 0.3)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(184, 61, 139, 0.3)';
                 }
               }}
             >
               {isSubmitting && <LoadingSpinner size="sm" color="var(--bg-primary)" />}
-              {isSubmitting ? 'Sending Your Project...' : 'Get My Free Mockups'}
+              {isSubmitting ? 'Sending Your Campaign Details...' : 'Get My Free Content Mockups'}
             </button>
 
             {/* Trust Elements */}
@@ -638,15 +626,6 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
                 <span style={{ color: 'var(--brand-primary)' }}>✓</span>
                 <span>24-hour response time</span>
               </div>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 'var(--space-sm)'
-              }}>
-                <span style={{ color: 'var(--brand-primary)' }}>✓</span>
-                <span>3 professional mockups included</span>
-              </div>
             </div>
           </div>
         </div>
@@ -658,16 +637,16 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
         @keyframes textareaBreathing {
           0%, 100% { 
             box-shadow: 
-              0 0 0 3px rgba(45, 90, 61, 0.1),
-              0 4px 12px rgba(45, 90, 61, 0.08),
-              inset 0 1px 3px rgba(45, 90, 61, 0.05);
+              0 0 0 3px rgba(184, 61, 139, 0.1),
+              0 4px 12px rgba(184, 61, 139, 0.08),
+              inset 0 1px 3px rgba(184, 61, 139, 0.05);
             transform: scale(1);
           }
           50% { 
             box-shadow: 
-              0 0 0 3px rgba(45, 90, 61, 0.15),
-              0 6px 16px rgba(45, 90, 61, 0.12),
-              inset 0 1px 3px rgba(45, 90, 61, 0.08);
+              0 0 0 3px rgba(184, 61, 139, 0.15),
+              0 6px 16px rgba(184, 61, 139, 0.12),
+              inset 0 1px 3px rgba(184, 61, 139, 0.08);
             transform: scale(1.005);
           }
         }
@@ -687,17 +666,22 @@ export function ZenExpandingForm({ onSuccess }: ZenExpandingFormProps) {
           0%, 100% { 
             transform: scale(1); 
             box-shadow: 
-              0 0 0 3px rgba(45, 90, 61, 0.1),
+              0 0 0 3px rgba(184, 61, 139, 0.1),
               0 2px 8px rgba(0, 0, 0, 0.06),
               inset 0 1px 0 rgba(255, 255, 255, 0.1);
           }
           50% { 
             transform: scale(1.005); 
             box-shadow: 
-              0 0 0 3px rgba(45, 90, 61, 0.12),
+              0 0 0 3px rgba(184, 61, 139, 0.12),
               0 4px 12px rgba(0, 0, 0, 0.08),
               inset 0 1px 0 rgba(255, 255, 255, 0.12);
           }
+        }
+        
+        textarea::placeholder {
+          color: #F5F3E8 !important;
+          opacity: 0.8;
         }
       `}</style>
     </div>

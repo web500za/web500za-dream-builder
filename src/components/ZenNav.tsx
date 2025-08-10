@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
-interface ZenNavProps {
-  onThemeToggle?: () => void;
-  currentTheme?: 'light' | 'dark';
-}
-
-export function ZenNav({ onThemeToggle, currentTheme = 'light' }: ZenNavProps) {
+export function ZenNav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
 
@@ -46,9 +41,9 @@ export function ZenNav({ onThemeToggle, currentTheme = 'light' }: ZenNavProps) {
         }}>
           <svg width="32" height="32" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="16" y="16" width="224" height="224" rx="38" fill="var(--brand-primary)"/>
-            <text x="128" y="144" textAnchor="middle" fontFamily="Bricolage Grotesque, -apple-system, sans-serif" fontSize="56" fontWeight="700" fill="var(--bg-primary)">&lt;/w5z/&gt;</text>
+            <text x="128" y="144" textAnchor="middle" fontFamily="Bricolage Grotesque, -apple-system, sans-serif" fontSize="48" fontWeight="700" fill="var(--bg-primary)">🦄</text>
           </svg>
-          web500za
+          SMU
         </div>
 
         {/* Center Navigation - Desktop Only */}
@@ -167,40 +162,6 @@ export function ZenNav({ onThemeToggle, currentTheme = 'light' }: ZenNavProps) {
             </button>
           )}
           
-          {/* Theme Toggle - Always Visible */}
-          {onThemeToggle && (
-            <button
-              onClick={onThemeToggle}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'var(--text-primary)',
-                cursor: 'pointer',
-                padding: 'var(--space-sm)',
-                minHeight: 'var(--space-mobile-touch)',
-                minWidth: 'var(--space-mobile-touch)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 'var(--radius-sm)',
-                transition: 'var(--transition-colors)'
-              }}
-              aria-label="Toggle theme"
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--minimal-bg)'}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-            >
-              <svg width={isMobile ? "20" : "16"} height={isMobile ? "20" : "16"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                {currentTheme === 'light' ? (
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                ) : (
-                  <>
-                    <circle cx="12" cy="12" r="5" />
-                    <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-                  </>
-                )}
-              </svg>
-            </button>
-          )}
           
         </div>
       </div>
@@ -317,7 +278,7 @@ export function ZenNav({ onThemeToggle, currentTheme = 'light' }: ZenNavProps) {
                     width: 0;
                     height: 0;
                     border-radius: 50%;
-                    background: radial-gradient(circle, rgba(45, 90, 61, 0.3) 0%, rgba(45, 90, 61, 0.1) 50%, transparent 100%);
+                    background: radial-gradient(circle, rgba(184, 61, 139, 0.3) 0%, rgba(184, 61, 139, 0.1) 50%, transparent 100%);
                     pointer-events: none;
                     z-index: 9999;
                     transform: translate(-50%, -50%);
@@ -351,46 +312,6 @@ export function ZenNav({ onThemeToggle, currentTheme = 'light' }: ZenNavProps) {
               >
                 Get Started
               </button>
-              
-              {/* Mobile Theme Toggle */}
-              {onThemeToggle && (
-                <button
-                  onClick={() => {
-                    onThemeToggle();
-                    toggleMobileMenu();
-                  }}
-                  style={{
-                    backgroundColor: 'var(--minimal-bg)',
-                    border: '1px solid var(--minimal-border)',
-                    color: 'var(--text-primary)',
-                    padding: 'var(--space-md)',
-                    borderRadius: 'var(--radius-sm)',
-                    cursor: 'pointer',
-                    transition: 'var(--transition-colors)',
-                    fontSize: '1rem',
-                    fontWeight: '500',
-                    minHeight: 'var(--space-mobile-comfort)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 'var(--space-sm)',
-                    touchAction: 'manipulation'
-                  }}
-                  aria-label="Toggle theme"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    {currentTheme === 'light' ? (
-                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                    ) : (
-                      <>
-                        <circle cx="12" cy="12" r="5" />
-                        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-                      </>
-                    )}
-                  </svg>
-                  {currentTheme === 'light' ? 'Dark Mode' : 'Light Mode'}
-                </button>
-              )}
             </div>
           </div>
         </div>

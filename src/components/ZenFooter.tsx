@@ -1,21 +1,11 @@
 import React from 'react';
 
-interface ZenFooterProps {
-  currentTheme?: 'light' | 'dark';
-}
-
-export function ZenFooter({ currentTheme = 'light' }: ZenFooterProps) {
-  // Use opposite theme colors
-  const footerStyles = currentTheme === 'light' ? {
-    // Light mode -> use dark colors
-    backgroundColor: '#1F1F1F',  // Zen's black
-    color: '#D1CFC0',            // Zen's light gray
-    borderColor: '#2E2E2E'       // Zen's dark slate
-  } : {
-    // Dark mode -> use light colors  
-    backgroundColor: '#D1CFC0',  // Zen's light gray
-    color: '#1F1F1F',            // Zen's black
-    borderColor: 'rgba(31, 31, 31, 0.2)' // Subtle dark border
+export function ZenFooter() {
+  // Footer styles - opposite of main theme
+  const footerStyles = {
+    backgroundColor: '#1F1F1F',  // Dark footer on pink background
+    color: '#D1CFC0',            // Light text
+    borderColor: '#2E2E2E'       // Dark border
   };
 
   return (
@@ -44,24 +34,24 @@ export function ZenFooter({ currentTheme = 'light' }: ZenFooterProps) {
               marginBottom: 'var(--space-md)',
               fontFamily: 'var(--font-sans)'
             }}>
-              web500za
+              The Social Media Unicorn
             </h4>
             <p style={{
               fontSize: '1rem',
               lineHeight: 1.6,
-              color: currentTheme === 'light' ? '#B8B6A7' : '#2E2E2E',
+              color: '#B8B6A7',
               marginBottom: 'var(--space-lg)',
               maxWidth: '300px',
               fontFamily: 'var(--font-sans)'
             }}>
-              Bringing Fortune 500 quality web design and security to local businesses. 
-              Professional websites that work as hard as you do.
+              Creating magical social media content that converts followers into customers. 
+              Professional social campaigns that grow your business.
             </p>
             
             {/* Contact Info */}
             <div style={{ marginBottom: 'var(--space-md)' }}>
               <a 
-                href="mailto:web500za@gmail.com"
+                href="mailto:hello@socialmediaunicorn.com"
                 style={{
                   color: 'var(--brand-primary)',
                   textDecoration: 'none',
@@ -71,7 +61,7 @@ export function ZenFooter({ currentTheme = 'light' }: ZenFooterProps) {
                   fontWeight: '500'
                 }}
               >
-                web500za@gmail.com
+                hello@socialmediaunicorn.com
               </a>
               <a 
                 href="https://wa.me/27832540891"
@@ -101,17 +91,17 @@ export function ZenFooter({ currentTheme = 'light' }: ZenFooterProps) {
             </h5>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-sm)' }}>
               {[
-                'Website Design',
-                'E-commerce Development', 
-                'Security Auditing',
-                'Performance Optimization',
-                'Maintenance & Support'
+                'Content Creation',
+                'Social Media Management', 
+                'Instagram & TikTok Strategy',
+                'LinkedIn Growth',
+                'Brand Storytelling'
               ].map((service, index) => (
                 <a
                   key={index}
                   href="#"
                   style={{
-                    color: currentTheme === 'light' ? '#B8B6A7' : '#2E2E2E',
+                    color: '#B8B6A7',
                     textDecoration: 'none',
                     fontSize: '0.9rem',
                     transition: 'var(--transition-colors)',
@@ -148,7 +138,7 @@ export function ZenFooter({ currentTheme = 'light' }: ZenFooterProps) {
                   key={index}
                   href="#"
                   style={{
-                    color: currentTheme === 'light' ? '#B8B6A7' : '#2E2E2E',
+                    color: '#B8B6A7',
                     textDecoration: 'none',
                     fontSize: '0.9rem',
                     transition: 'var(--transition-colors)',
@@ -173,7 +163,7 @@ export function ZenFooter({ currentTheme = 'light' }: ZenFooterProps) {
           gap: 'var(--space-md)'
         }}>
           <p className="text-caption">
-            © 2025 web500za. Building stronger communities, one website at a time.
+            © 2025 The Social Media Unicorn. Growing businesses with magical social content.
           </p>
           
           {/* Social Links */}
@@ -190,7 +180,7 @@ export function ZenFooter({ currentTheme = 'light' }: ZenFooterProps) {
               WhatsApp
             </a>
             <a
-              href="mailto:web500za@gmail.com"
+              href="mailto:hello@socialmediaunicorn.com"
               style={{
                 color: 'var(--text-tertiary)',
                 textDecoration: 'none',
